@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fontsource-variable/oswald": "^5.3.0",
     "astro": "^5.18.2"
   },
   "private": true,

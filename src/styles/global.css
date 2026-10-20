@@ -1,22 +1,31 @@
-/* FIT X design tokens. Navy is a placeholder until Lauren confirms the brand hex. */
+/* FIT X design tokens. Navy + white approved; ice blue comes from the studio's neon sign. */
+@import '@fontsource-variable/oswald';
+
 :root {
   --navy: #0d1b36;
   --navy-2: #16284d;
+  --navy-3: #22396a;
+  --ice: #a9dcff;
   --ink: #0d1b36;
-  --ink-soft: #4a5568;
+  --ink-soft: #5b6475;
   --paper: #ffffff;
-  --mist: #f3f5f9;
+  --mist: #f5f5f7;
+  --tile: #f5f5f7;
   --line: rgba(13, 27, 54, 0.12);
   --on-navy: #ffffff;
   --on-navy-soft: rgba(255, 255, 255, 0.74);
   --todo-bg: #fff3b0;
   --todo-ink: #5b4500;
 
-  --radius: 1.25rem;
-  --radius-sm: 0.75rem;
+  --radius: 1.75rem;      /* Apple-size tile corners (28px) */
+  --radius-sm: 1rem;
   --gutter: 1rem;
-  --max: 72rem;
-  --nav-h: 3.5rem;
+  --max: 70rem;
+  --nav-h: 3.25rem;
+  --banner-h: 2.25rem;
+
+  --font: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-promo: "Oswald Variable", "Oswald", "Arial Narrow", sans-serif;
 
   /* Fast response for direct feedback (press, hover) */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -26,10 +35,11 @@
   --spring-fast: linear(0, 0.065, 0.199, 0.35, 0.49, 0.609, 0.706, 0.782, 0.84, 0.884, 0.916, 0.94, 0.957, 0.97, 0.979, 0.985, 0.99, 0.993, 0.995, 0.996, 0.998, 0.998, 0.999, 0.999, 1);
 
   color-scheme: light;
-  font: 100%/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font: 100%/1.5 var(--font);
   color: var(--ink);
   background: var(--paper);
   -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
 @media (min-width: 48rem) {
@@ -40,67 +50,68 @@
 body { margin: 0; background: var(--paper); }
 img, video, iframe { max-width: 100%; display: block; }
 a { color: inherit; }
-:focus-visible { outline: 3px solid #5b8cff; outline-offset: 3px; border-radius: 4px; }
+:focus-visible { outline: 3px solid #5b8cff; outline-offset: 3px; border-radius: 6px; }
 
 .wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
 .narrow { width: min(100% - 2 * var(--gutter), 44rem); margin-inline: auto; }
+.center { text-align: center; }
 
-/* Typography: tracking and leading scale with size */
+/* Typography: semibold, tracking tightens as size grows, leading tightens too */
 .display {
-  font-size: clamp(2.25rem, 1.4rem + 4.2vw, 4.5rem);
-  line-height: 1.04;
-  letter-spacing: -0.035em;
-  font-weight: 800;
-  margin: 0;
-  text-wrap: balance;
+  font-size: clamp(2.25rem, 1.5rem + 3.6vw, 4rem);
+  line-height: 1.05; letter-spacing: -0.03em; font-weight: 700;
+  margin: 0; text-wrap: balance;
 }
 h2, .h2 {
-  font-size: clamp(1.75rem, 1.2rem + 2.4vw, 3rem);
-  line-height: 1.08;
-  letter-spacing: -0.028em;
-  font-weight: 800;
-  margin: 0 0 1rem;
-  text-wrap: balance;
+  font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3rem);
+  line-height: 1.08; letter-spacing: -0.025em; font-weight: 700;
+  margin: 0 0 0.75rem; text-wrap: balance;
 }
-h3, .h3 {
-  font-size: 1.25rem;
-  line-height: 1.25;
-  letter-spacing: -0.012em;
-  font-weight: 700;
-  margin: 0 0 0.4rem;
-}
+h3, .h3 { font-size: 1.2rem; line-height: 1.25; letter-spacing: -0.012em; font-weight: 650; margin: 0 0 0.35rem; }
 p { margin: 0 0 1rem; }
-.lede { font-size: clamp(1.075rem, 1rem + 0.4vw, 1.3rem); line-height: 1.5; color: var(--ink-soft); text-wrap: pretty; }
-.eyebrow {
-  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-  margin: 0 0 1rem; color: var(--ink-soft);
-}
+.lede { font-size: clamp(1.06rem, 1rem + 0.35vw, 1.25rem); line-height: 1.5; color: var(--ink-soft); text-wrap: pretty; letter-spacing: -0.005em; }
+.eyebrow { font-size: 0.95rem; font-weight: 600; letter-spacing: -0.005em; margin: 0 0 0.4rem; color: var(--ink-soft); }
 .small { font-size: 0.875rem; color: var(--ink-soft); }
 
+/* Promo type: the condensed italic of the FIT X logotype, for offer moments only */
+.promo {
+  font-family: var(--font-promo); font-style: italic; font-weight: 700; text-transform: uppercase;
+  line-height: 0.9; letter-spacing: -0.005em; margin: 0;
+}
+
 /* Sections */
-.section { padding-block: clamp(3.5rem, 2rem + 6vw, 7rem); }
+.section { padding-block: clamp(3.5rem, 2rem + 5vw, 6.5rem); }
 .section--mist { background: var(--mist); }
 .section--navy { background: var(--navy); color: var(--on-navy); }
 .section--navy .lede, .section--navy .eyebrow, .section--navy .small { color: var(--on-navy-soft); }
+.section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 0.5rem 2rem; margin-bottom: 1.75rem; }
+.section-head h2 { margin: 0; }
+.link-more { font-size: 1.05rem; color: #2a62d6; text-decoration: none; white-space: nowrap; }
+.link-more::after { content: ' ›'; }
+.link-more:hover { text-decoration: underline; }
+.section--navy .link-more { color: var(--ice); }
 
-/* Buttons: feedback on press, instantly */
+/* Buttons: feedback on press, instantly; settle back on a spring */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-  min-height: 3.25rem; padding: 0 1.5rem; border-radius: 999px;
-  font: inherit; font-weight: 700; letter-spacing: -0.005em; text-decoration: none;
-  background: var(--navy); color: var(--on-navy); border: 2px solid var(--navy);
-  cursor: pointer; touch-action: manipulation;
-  transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out);
+  min-height: 3.1rem; padding: 0 1.5rem; border-radius: 999px;
+  font: inherit; font-size: 1.02rem; font-weight: 600; letter-spacing: -0.01em; text-decoration: none;
+  background: var(--navy); color: var(--on-navy); border: 1.5px solid var(--navy);
+  cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  transition: transform 450ms var(--spring-fast), background-color 160ms var(--ease-out), box-shadow 300ms var(--ease-out);
 }
 .btn:hover { background: var(--navy-2); }
-.btn:active { transform: scale(0.97); transition-duration: 60ms; }
-.btn:not(:active) { transition: transform 450ms var(--spring-fast), background-color 160ms var(--ease-out); }
+.btn:active { transform: scale(0.96); transition-duration: 60ms; }
 .btn--light { background: var(--paper); color: var(--navy); border-color: var(--paper); }
-.btn--light:hover { background: #e8ecf4; }
+.btn--light:hover { background: #eef1f6; }
+.btn--ice { background: var(--ice); color: var(--navy); border-color: var(--ice); }
+.btn--ice:hover { background: #c6e8ff; }
 .btn--ghost { background: transparent; color: inherit; border-color: currentColor; }
 .btn--ghost:hover { background: rgba(127, 127, 127, 0.12); }
 .btn--block { width: 100%; }
-.cta-note { margin-top: 0.75rem; font-size: 0.875rem; }
+.btn--big { min-height: 3.6rem; padding: 0 2rem; font-size: 1.1rem; }
+.btn .arrow { transition: transform 450ms var(--spring-fast); }
+.btn:hover .arrow { transform: translateX(3px); }
 
 /* Placeholder marker: visible in preview so nothing unconfirmed slips through */
 .todo {
@@ -109,11 +120,8 @@ p { margin: 0 0 1rem; }
   box-decoration-break: clone; -webkit-box-decoration-break: clone;
 }
 
-/* Cards */
-.card {
-  background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 1.5rem;
-}
+/* Cards and tiles */
+.card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; }
 .grid { display: grid; gap: 1rem; }
 @media (min-width: 48rem) {
   .grid--2 { grid-template-columns: repeat(2, 1fr); }
@@ -124,32 +132,37 @@ p { margin: 0 0 1rem; }
 /* Scroll reveal: content settles into place on a critically damped spring.
    Only hidden when JS is running, so the page is always readable without it. */
 .js [data-reveal] {
-  opacity: 0; transform: translateY(24px) scale(0.985);
+  opacity: 0; transform: translateY(28px) scale(0.98);
   transition: opacity 600ms var(--spring), transform 800ms var(--spring);
   transition-delay: calc(var(--i, 0) * 70ms);
 }
 .js [data-reveal].is-in { opacity: 1; transform: none; }
 
-/* Glass material: for surfaces floating over photos */
+/* Glass material: for surfaces floating over photos or content */
 .glass {
-  background: rgba(13, 27, 54, 0.42);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  backdrop-filter: blur(24px) saturate(160%);
+  background: rgba(13, 27, 54, 0.45);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
   border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 30px 60px -30px rgba(0, 0, 0, 0.5);
 }
+.glass--light {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 20px 50px -25px rgba(13, 27, 54, 0.35);
+}
 @media (prefers-reduced-transparency: reduce) {
   .glass { background: var(--navy); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass--light { background: #fff; }
 }
 @media (prefers-contrast: more) {
   .glass { background: var(--navy); border-color: #fff; }
+  .glass--light { background: #fff; border-color: var(--navy); }
+  :root { --line: rgba(13, 27, 54, 0.6); --ink-soft: #1f2937; --on-navy-soft: #ffffff; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .js [data-reveal] { transform: none; transition: opacity 200ms ease; }
-  *, *::before, *::after { transition-duration: 1ms !important; animation: none !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { transition-duration: 1ms !important; animation-duration: 1ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
   .btn:active { transform: none; }
-}
-@media (prefers-contrast: more) {
-  :root { --line: rgba(13, 27, 54, 0.6); --ink-soft: #1f2937; --on-navy-soft: #ffffff; }
 }

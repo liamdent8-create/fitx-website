@@ -1,10 +1,14 @@
 ---
+// Studio sales page. Section order follows the EBT challenge funnel
+// (hook → trust → proof → urgency → value → offer → objections → catch-all).
+// See FUNNEL.md for the reasoning behind each section.
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Video from '../components/Video.astro';
 import Photo from '../components/Photo.astro';
 import Carousel from '../components/Carousel.astro';
 import Countdown from '../components/Countdown.astro';
+import TileSheet from '../components/TileSheet.astro';
 import T from '../components/T.astro';
 import site from '../../content/site.json';
 import prices from '../../content/prices.json';
@@ -27,16 +31,20 @@ import pilatesShelf from '../assets/studio/pilates-shelf.jpg';
 const photos: Record<string, ImageMetadata> = {
   'squat-rack': rack,
   'pilates-room-mat': pilatesRoom,
+  'gym-floor-wide': floorWide,
+  'dumbbell-rack': dumbbells,
+  'pilates-weights': pilatesWeights,
 };
+const included = c.included.items.map((t) => ({ ...t, photo: photos[t.photo] }));
 
 const gallery = [
   { src: floorLand, alt: 'The FIT X Studio gym floor with dumbbell racks, benches and the neon FIT X sign on a mirrored wall' },
-  { src: rack, alt: 'Squat rack with a loaded barbell in the strength area' },
   { src: pilatesRoom, alt: 'The bright mat Pilates room with mirrors and a blue FIT X Studio mat' },
-  { src: dumbbells, alt: 'Rows of hex dumbbells on a rack' },
+  { src: rack, alt: 'Squat rack with a loaded barbell in the strength area' },
   { src: pilatesWeights, alt: 'Pink 1kg hand weights lined up on a timber shelf' },
-  { src: floorWide, alt: 'Dumbbells and benches beneath warm LED lighting' },
+  { src: dumbbells, alt: 'Rows of hex dumbbells on a rack' },
   { src: pilatesShelf, alt: 'Pink ankle weights and black hand weights on Pilates room shelving' },
+  { src: floorWide, alt: 'Dumbbells and benches beneath warm LED lighting' },
   { src: dumbbellsHigh, alt: 'Looking down a full dumbbell rack' },
 ];
 
@@ -45,7 +53,8 @@ const offer = studio.startOffer;
 const premium = studio.memberships.find((m) => m.id === 'premium')!;
 const others = studio.memberships.filter((m) => m.id !== 'premium');
 const inc = studio.inclusions as Record<string, string>;
-const proof = testimonials.items.filter((t: any) => t.arm === 'studio' && t.consent?.given === true);
+const results = testimonials.items.filter((t: any) => t.arm === 'studio' && t.consent?.given === true && t.result);
+const reviews = testimonials.items.filter((t: any) => t.arm === 'studio' && t.consent?.given === true);
 const join = site.links.studioJoin;
 
 const jsonLd = {
@@ -68,215 +77,286 @@ const jsonLd = {
 ---
 <Base title={c.seo.title} description={c.seo.description} path="/studio">
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <!-- 1. Banner: the hook before the page starts -->
+  <a class="banner" href={join} data-cta="banner">
+    <span class="banner__tag">{c.banner.tag}</span>
+    <span class="banner__text">{c.banner.text}</span>
+    <span class="banner__link">{c.banner.link} ›</span>
+  </a>
   <Nav ctaHref={join} ctaLabel={`$${offer.price} trial`} />
 
   <main id="main">
-    <!-- HOOK: full-bleed photo, outcome headline, one offer -->
+    <!-- 2. HOOK: the offer as the prize, outcome headline, one CTA -->
     <section class="hero">
       <div class="hero__media" aria-hidden="true">
         <Photo src={neon} alt="" ratio="auto" sizes="100vw" eager class="hero__img" />
       </div>
       <div class="wrap hero__content">
-        <p class="eyebrow hero__eyebrow" data-reveal>{c.hero.eyebrow}</p>
-        <h1 class="display" data-reveal style="--i:1"><T text={c.hero.headline} /></h1>
-        <p class="lede" data-reveal style="--i:2"><T text={c.hero.sub} /></p>
-        <div class="hero__ctas" data-reveal style="--i:3">
-          <a class="btn btn--light" href={join} data-cta="hero">{c.hero.cta}</a>
-          <a class="btn btn--ghost" href="#offer">{c.hero.secondaryCta}</a>
+        <p class="promo hero__promo" data-reveal>
+          <span>{c.hero.promoTop}</span>
+          <span class="hero__promo-outline">{c.hero.promoBottom}</span>
+        </p>
+        <p class="hero__badge" data-reveal style="--i:1"><span>${offer.price}</span> {c.hero.badge.replace(`$${offer.price} · `, '')}</p>
+        <h1 class="display" data-reveal style="--i:2"><T text={c.hero.headline} /></h1>
+        <p class="lede" data-reveal style="--i:3"><T text={c.hero.sub} /></p>
+        <div data-reveal style="--i:4">
+          <a class="btn btn--light btn--big" href={join} data-cta="hero">{c.hero.cta} <span class="arrow" aria-hidden="true">→</span></a>
         </div>
-        <p class="cta-note small hero__note" data-reveal style="--i:4">{c.hero.note}</p>
-        <div data-reveal style="--i:5"><Countdown label={c.countdown.label} until={c.countdown.opensAt} /></div>
+        <ul class="hero__trust" data-reveal style="--i:5">
+          {c.hero.trust.map((t) => <li>{t}</li>)}
+        </ul>
       </div>
     </section>
 
-    <!-- What's included, at a glance -->
+    <!-- 3. Ticker: what's included, for skimmers -->
     <div class="ticker" aria-label="What's included">
-      <ul class="ticker__row">
-        {c.ticker.map((t) => <li>{t}</li>)}
-      </ul>
-      <ul class="ticker__row" aria-hidden="true">
-        {c.ticker.map((t) => <li>{t}</li>)}
-      </ul>
+      <ul class="ticker__row">{c.ticker.map((t) => <li>{t}</li>)}</ul>
+      <ul class="ticker__row" aria-hidden="true">{c.ticker.map((t) => <li>{t}</li>)}</ul>
     </div>
 
-    <!-- VSL with the CTA right under it -->
-    <section class="section section--navy vsl-section">
-      <div class="narrow center">
-        <p class="eyebrow" data-reveal>{c.vsl.eyebrow}</p>
-        <h2 data-reveal style="--i:1">{c.vsl.headline}</h2>
-      </div>
-      <div class="wrap vsl-wrap" data-reveal style="--i:2">
-        <Video video={videos.studio as any} />
-        <div class="center"><a class="btn btn--light" href={join} data-cta="video">{c.vsl.cta}</a></div>
-      </div>
-    </section>
-
-    <!-- Where you end up -->
-    <section class="section">
+    <!-- 4. TRUST: the VSL, CTA right under it -->
+    <section class="section vsl-section">
       <div class="wrap">
-        <p class="eyebrow" data-reveal>{c.outcomes.eyebrow}</p>
-        <h2 data-reveal style="--i:1">{c.outcomes.headline}</h2>
-        <div class="grid grid--2 moments">
-          {c.outcomes.items.map((m, i) => (
-            <article class="moment" data-reveal style={`--i:${i % 2}`}>
-              <h3><T text={m.title} /></h3>
-              <p><T text={m.body} /></p>
-            </article>
-          ))}
+        <div class="center">
+          <p class="eyebrow" data-reveal>{c.vsl.eyebrow}</p>
+          <h2 data-reveal style="--i:1">{c.vsl.headline}</h2>
+        </div>
+        <div class="vsl-wrap" data-reveal style="--i:2">
+          <Video video={videos.studio as any} />
+          <div class="center"><a class="btn btn--big" href={join} data-cta="video">{c.vsl.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
         </div>
       </div>
     </section>
 
-    <!-- The space -->
-    <section class="section section--mist gallery">
+    <!-- 5. PROOF: member results straight after the video -->
+    <section class="section section--mist results">
       <div class="wrap">
-        <p class="eyebrow" data-reveal>{c.gallery.eyebrow}</p>
-        <h2 data-reveal style="--i:1">{c.gallery.headline}</h2>
-        <div data-reveal style="--i:2">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">{c.results.eyebrow}</p>
+            <h2>{c.results.headline}</h2>
+          </div>
+        </div>
+        {results.length > 0 ? (
+          <Carousel label="Member results">
+            {results.map((r: any) => (
+              <figure class="result">
+                {r.photoSrc && <img src={r.photoSrc} alt={`${r.name} training at FIT X Studio`} loading="lazy" />}
+                <figcaption>
+                  <p class="result__big">{r.result}</p>
+                  <p class="result__time">{r.timeframe}</p>
+                  <blockquote>“{r.quote}”</blockquote>
+                  <cite>{r.name}</cite>
+                </figcaption>
+              </figure>
+            ))}
+          </Carousel>
+        ) : (
+          <Carousel label="Member results (coming soon)">
+            {[1, 2, 3, 4].map((n) => (
+              <figure class="result result--empty">
+                <figcaption>
+                  <p class="result__big">Result {n}</p>
+                  <p class="result__time">e.g. first chin-up · 8 weeks</p>
+                  <blockquote>Member quote goes here.</blockquote>
+                  <cite>First name</cite>
+                </figcaption>
+              </figure>
+            ))}
+          </Carousel>
+        )}
+        {results.length === 0 && <p class="small" data-reveal><T text={c.results.empty} /></p>}
+        <div class="center results__cta" data-reveal><a class="btn btn--big" href={join} data-cta="results">{c.results.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+
+    <!-- 6. URGENCY: real deadline only -->
+    <section class="section urgency">
+      <div class="narrow center">
+        <p class="pill" data-reveal><span>{c.urgency.pill}</span> <i aria-hidden="true"></i> {c.urgency.pillNote}</p>
+        <p class="eyebrow urgency__label" data-reveal style="--i:1">{c.urgency.label}</p>
+        <p class="promo urgency__date" data-reveal style="--i:1">{c.urgency.date}</p>
+        <div data-reveal style="--i:2"><Countdown label={`${c.urgency.label} ${c.urgency.date}`} until="2026-10-26T00:00:00+10:00" /></div>
+        <div data-reveal style="--i:3"><a class="btn btn--big" href={join} data-cta="urgency">{c.urgency.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
+        <p class="small" data-reveal style="--i:4">{c.urgency.small}</p>
+      </div>
+    </section>
+
+    <!-- 7. CLARITY: what you're buying -->
+    <section class="section section--navy about">
+      <div class="narrow center">
+        <p class="eyebrow" data-reveal>{c.about.eyebrow}</p>
+        <h2 data-reveal style="--i:1">{c.about.headline}</h2>
+        <p class="lede" data-reveal style="--i:2"><T text={c.about.body} /></p>
+      </div>
+    </section>
+
+    <!-- 8. VALUE: what's included, Apple tiles with detail sheets -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">{c.included.eyebrow}</p>
+            <h2>{c.included.headline}</h2>
+          </div>
+          <a class="link-more" href={site.links.timetable}>See the timetable</a>
+        </div>
+        <div data-reveal style="--i:1"><TileSheet id="included" label="What's included" items={included as any} /></div>
+      </div>
+    </section>
+
+    <!-- 9. OFFER AGAIN: the prize panel -->
+    <section class="bonus-section">
+      <div class="bonus-section__media" aria-hidden="true">
+        <Photo src={floorLand} alt="" ratio="auto" sizes="100vw" class="bonus-section__img" />
+      </div>
+      <div class="wrap bonus">
+        <div>
+          <p class="eyebrow" data-reveal>{c.bonus.eyebrow}</p>
+          <h2 data-reveal style="--i:1">{c.bonus.headline}</h2>
+          <ul class="ticks" data-reveal style="--i:2">{c.bonus.items.map((i) => <li>{i}</li>)}</ul>
+          <p class="small" data-reveal style="--i:3"><T text={c.bonus.extra} /></p>
+        </div>
+        <div class="bonus__card glass" data-reveal style="--i:2">
+          <p class="promo bonus__price">{c.bonus.price}</p>
+          <p class="bonus__note">{c.bonus.priceNote}</p>
+          <p class="small">Then Premium ${offer.thenWeekly}/week if you'd like to stay. Your trial weeks count towards your minimum term.</p>
+          <a class="btn btn--ice btn--block btn--big" href={join} data-cta="bonus">{c.bonus.cta} <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. EFFORT: the app -->
+    <section class="section section--mist app">
+      <div class="wrap app__grid">
+        <div>
+          <p class="eyebrow" data-reveal>{c.app.eyebrow}</p>
+          <h2 data-reveal style="--i:1">{c.app.headline}</h2>
+          <p class="lede" data-reveal style="--i:2">{c.app.body}</p>
+          <p class="small" data-reveal style="--i:3"><T text={c.app.note} /></p>
+        </div>
+        <div class="phone" data-reveal style="--i:2" aria-hidden="true">
+          <div class="phone__screen">
+            <div class="phone__island"></div>
+            <p class="phone__h">This week</p>
+            <div class="phone__card"><b>Workout A</b><span>Lower body · 45 min</span></div>
+            <div class="phone__card"><b>Workout B</b><span>Upper body · 40 min</span></div>
+            <div class="phone__card phone__card--muted"><b>Strength class</b><span>Booked · Thu 6am</span></div>
+            <p class="phone__soon">App screenshot coming</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. RECAP: checklist -->
+    <section class="section">
+      <div class="narrow center">
+        <p class="eyebrow" data-reveal>{c.checklist.eyebrow}</p>
+        <h2 data-reveal style="--i:1">{c.checklist.headline}</h2>
+      </div>
+      <ul class="wrap checklist">
+        {c.checklist.items.map((i, n) => <li data-reveal style={`--i:${n % 4}`}>{i}</li>)}
+      </ul>
+    </section>
+
+    <!-- 12. OBJECTION: "will I feel at home here?" — the space -->
+    <section class="section section--mist">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">{c.gallery.eyebrow}</p>
+            <h2>{c.gallery.headline}</h2>
+          </div>
+          <a class="link-more" href={site.instagram.studio}>More on Instagram</a>
+        </div>
+        <div data-reveal style="--i:1">
           <Carousel label="Photos of the studio">
             {gallery.map((g) => (
-              <figure class="gallery__item"><Photo src={g.src} alt={g.alt} ratio="4 / 5" sizes="(min-width: 64rem) 33vw, 82vw" /></figure>
+              <figure class="gallery__item"><Photo src={g.src} alt={g.alt} ratio="3 / 4" sizes="(min-width: 64rem) 33vw, 82vw" /></figure>
             ))}
           </Carousel>
         </div>
       </div>
     </section>
 
-    <!-- STORY -->
-    <section class="section story-section">
-      <div class="wrap story">
-        <div class="story__photo" data-reveal>
-          <Photo alt="Coach Loz coaching a member at the squat rack" shot="Lauren coaching a member at the squat rack" />
-        </div>
-        <div>
-          <p class="eyebrow" data-reveal>{c.story.eyebrow}</p>
-          <h2 data-reveal style="--i:1">{c.story.headline}</h2>
-          <p class="lede" data-reveal style="--i:2"><T text={c.story.body} /></p>
-          <p class="small" data-reveal style="--i:3">— {c.story.signoff}</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section class="section section--mist">
-      <div class="wrap">
-        <p class="eyebrow" data-reveal>{c.steps.eyebrow}</p>
-        <h2 data-reveal style="--i:1">{c.steps.headline}</h2>
-        <ol class="steps grid grid--3">
-          {c.steps.items.map((s, i) => (
-            <li class="card" data-reveal style={`--i:${i}`}>
-              <span class="steps__n">{i + 1}</span>
-              <h3><T text={s.title} /></h3>
-              <p><T text={s.body} /></p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-
-    <!-- OFFER / VALUE STACK on a photo, with a glass price card -->
-    <section class="offer-section" id="offer">
-      <div class="offer-section__media" aria-hidden="true">
-        <Photo src={floorLand} alt="" ratio="auto" sizes="100vw" class="offer-section__img" />
-      </div>
-      <div class="wrap offer">
-        <div>
-          <p class="eyebrow" data-reveal>{c.offer.eyebrow}</p>
-          <h2 data-reveal style="--i:1">{c.offer.headline}</h2>
-          <p class="lede" data-reveal style="--i:2">{c.offer.sub}</p>
-          <ul class="stack">
-            {premium.includes.map((k, i) => <li data-reveal style={`--i:${Math.min(i, 6)}`}>{inc[k]}</li>)}
-          </ul>
-        </div>
-        <div class="price glass" data-reveal style="--i:2">
-          <p class="eyebrow">{c.offer.cardEyebrow}</p>
-          <p class="price__big"><span>${offer.price}</span> {offer.name}</p>
-          <hr />
-          <p class="price__then">{c.offer.cardThen}: <strong>${offer.thenWeekly}/week</strong></p>
-          <ul class="price__terms small">
-            {c.offer.terms.map((t) => <li>{t}</li>)}
-          </ul>
-          <a class="btn btn--light btn--block" href={join} data-cta="offer">{c.offer.cta}</a>
-          <p class="small price__why">{c.offer.footnote}</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CLASSES -->
+    <!-- 13. PROOF AGAIN: reviews -->
     <section class="section">
       <div class="wrap">
-        <p class="eyebrow" data-reveal>{c.classes.eyebrow}</p>
-        <h2 data-reveal style="--i:1">{c.classes.headline}</h2>
-        <div class="grid grid--2 classes">
-          {c.classes.items.map((k, i) => (
-            <article class="card class-card" data-reveal style={`--i:${i % 2}`}>
-              <Photo src={photos[k.photo]} alt={`${k.title} at FIT X Studio`} shot={`${k.title} class with members`} ratio="3 / 2" sizes="(min-width: 48rem) 50vw, 100vw" />
-              <div class="class-card__body">
-                <h3><T text={k.title} /></h3>
-                <p><T text={k.body} /></p>
-              </div>
-            </article>
-          ))}
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">{c.reviews.eyebrow}</p>
+            <h2>{c.reviews.headline}</h2>
+          </div>
         </div>
-        <p class="small classes__more" data-reveal>
-          {c.classes.more} <a href={site.links.timetable}>See the timetable on Mindbody</a>.
-        </p>
-      </div>
-    </section>
-
-    <!-- PROOF WALL: only consented testimonials render -->
-    <section class="section section--mist">
-      <div class="wrap">
-        <p class="eyebrow" data-reveal>{c.proof.eyebrow}</p>
-        <h2 data-reveal style="--i:1">{c.proof.headline}</h2>
-        {proof.length > 0 ? (
+        {reviews.length > 0 ? (
           <div class="grid grid--3">
-            {proof.map((t: any, i: number) => (
-              <blockquote class="card quote" data-reveal style={`--i:${i % 3}`}>
+            {reviews.map((t: any, i: number) => (
+              <blockquote class="card review" data-reveal style={`--i:${i % 3}`}>
+                <p class="review__stars" aria-label="5 stars">★★★★★</p>
                 <p>“{t.quote}”</p>
-                {t.result && <p class="small">{t.result}{t.timeframe ? ` · ${t.timeframe}` : ''}</p>}
                 <cite>{t.name}</cite>
               </blockquote>
             ))}
           </div>
         ) : (
-          <p data-reveal><mark class="todo">[[NEEDS LAUREN: studio testimonials with written consent: Google reviews, member quotes or video. Open day feedback would work well here.]]</mark></p>
+          <p data-reveal><T text={c.reviews.empty} /></p>
         )}
       </div>
     </section>
 
-    <!-- OTHER OPTIONS -->
-    <section class="section">
+    <!-- 14. PRICING + partner card -->
+    <section class="section section--mist" id="pricing">
       <div class="wrap">
-        <p class="eyebrow" data-reveal>{c.others.eyebrow}</p>
-        <h2 data-reveal style="--i:1">{c.others.headline}</h2>
-        <p class="lede" data-reveal style="--i:2">{c.others.sub}</p>
-        <div class="grid grid--3 tiers">
+        <div class="center pricing-head">
+          <p class="eyebrow" data-reveal>{c.pricing.eyebrow}</p>
+          <h2 data-reveal style="--i:1">{c.pricing.headline}</h2>
+          <p class="lede" data-reveal style="--i:2">{c.pricing.sub}</p>
+        </div>
+        <div class="plans">
+          <article class="plan plan--premium" data-reveal>
+            <p class="plan__tag">{c.pricing.premiumTag}</p>
+            <h3 class="plan__name">{premium.name}</h3>
+            <p class="plan__blurb">{c.pricing.premiumBlurb}</p>
+            <p class="plan__price"><b>${premium.weekly}</b>/week</p>
+            <ul class="plan__list">{premium.includes.map((k) => <li>{inc[k]}</li>)}</ul>
+            <a class="btn btn--ice btn--block btn--big" href={join} data-cta="pricing-premium">{c.pricing.cta}</a>
+            <p class="plan__min">{c.pricing.minimum}</p>
+          </article>
           {others.map((m, i) => (
-            <article class="card tier" data-reveal style={`--i:${i}`}>
-              <h3>{m.name}</h3>
-              <p class="tier__price"><strong>${m.weekly}</strong>/week</p>
-              <ul class="small">{m.includes.map((k) => <li>{inc[k]}</li>)}</ul>
+            <article class="plan" data-reveal style={`--i:${i + 1}`}>
+              <h3 class="plan__name">{m.name}</h3>
+              <p class="plan__price"><b>${m.weekly}</b>/week</p>
+              <ul class="plan__list">{m.includes.map((k) => <li>{inc[k]}</li>)}</ul>
+              <a class="btn btn--ghost btn--block" href={site.links.memberships} data-cta={`pricing-${m.id}`}>{c.pricing.otherCta}</a>
+              <p class="plan__min">{c.pricing.minimum}</p>
             </article>
           ))}
         </div>
+        <div class="partner card" data-reveal>
+          <span class="partner__ribbon">{c.partner.ribbon}</span>
+          <h3>{c.partner.headline}</h3>
+          <p>{c.partner.body}</p>
+          <a class="btn" href={site.links.timetable} data-cta="partner">{c.partner.cta}</a>
+        </div>
         <div class="packs" data-reveal>
-          <h3>{c.others.packsTitle}</h3>
+          <h3>{c.pricing.packsTitle}</h3>
           <ul class="small">
             {studio.casual.map((x) => <li>{x.name}: ${x.price}</li>)}
             {studio.classPacks.map((p) => <li>{p.name}: ${p.price} ({p.note.toLowerCase()})</li>)}
           </ul>
-          <p class="small">{c.others.packsNote}</p>
-          <a class="btn btn--ghost" href={site.links.memberships} data-cta="other-options">{c.others.cta}</a>
+          <p class="small">{c.pricing.packsNote}</p>
         </div>
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="section section--mist">
+    <!-- 15. OBJECTIONS: FAQ -->
+    <section class="section">
       <div class="narrow">
-        <p class="eyebrow" data-reveal>{c.faq.eyebrow}</p>
-        <h2 data-reveal style="--i:1">{c.faq.headline}</h2>
+        <div class="center">
+          <p class="eyebrow" data-reveal>{c.faq.eyebrow}</p>
+          <h2 data-reveal style="--i:1">{c.faq.headline}</h2>
+        </div>
         <div class="faq" data-reveal style="--i:2">
           {faq.items.map((f: any) => (
             <details>
@@ -288,36 +368,41 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- LOCATION -->
-    <section class="section">
-      <div class="wrap grid grid--2 location">
+    <!-- 16. CATCH-ALL: get in touch, over a photo -->
+    <section class="contact">
+      <div class="contact__media" aria-hidden="true">
+        <Photo src={pilatesMat} alt="" ratio="auto" sizes="100vw" class="contact__img" />
+      </div>
+      <div class="wrap contact__grid">
         <div>
-          <p class="eyebrow" data-reveal>{c.location.eyebrow}</p>
-          <h2 data-reveal style="--i:1">{c.location.headline}</h2>
-          <address data-reveal style="--i:2">
-            FIT X Studio<br />
-            {site.address.street}<br />
-            {site.address.suburb} {site.address.state} {site.address.postcode}
-          </address>
-          <p class="small" data-reveal style="--i:3"><T text={site.parking} /></p>
-          <p data-reveal style="--i:3"><a href={site.mapsUrl}>Open in Google Maps</a></p>
+          <h2 class="contact__h" data-reveal>{c.contact.headline}</h2>
+          <p class="lede" data-reveal style="--i:1">{c.contact.sub}</p>
         </div>
-        <div data-reveal style="--i:1">
-          <Photo src={pilatesRoom} alt="The mat Pilates room at FIT X Studio, Manunda" ratio="4 / 3" sizes="(min-width: 48rem) 50vw, 100vw" />
+        <div class="contact__card glass" data-reveal style="--i:1">
+          <a class="btn btn--light btn--block btn--big" href={site.instagram.studio} data-cta="contact-dm">{c.contact.dm}</a>
+          <div class="contact__rows">
+            <a href={`tel:${site.phone.replace(/\s/g, '')}`}><span>Call</span>{site.phone}</a>
+            <a href={`mailto:${site.email}`}><span>Email</span>{site.email}</a>
+            <a href={site.mapsUrl}><span>Visit</span>{site.address.street}, {site.address.suburb}</a>
+            <p><span>Parking</span><T text={site.parking} /></p>
+          </div>
+          <p class="small contact__todo"><T text={c.contact.form} /></p>
         </div>
       </div>
     </section>
 
+    <!-- Brand marquee -->
+    <div class="marquee" aria-hidden="true">
+      <p class="promo marquee__row"><span>{c.marquee}</span><span>{c.marquee}</span><span>{c.marquee}</span><span>{c.marquee}</span></p>
+    </div>
+
     <!-- FINAL CTA -->
-    <section class="final">
-      <div class="final__media" aria-hidden="true">
-        <Photo src={pilatesMat} alt="" ratio="auto" sizes="100vw" class="final__img" />
-      </div>
-      <div class="narrow final__content">
+    <section class="section final">
+      <div class="narrow center">
         <h2 data-reveal>{c.final.headline}</h2>
         <p class="lede" data-reveal style="--i:1">{c.final.sub}</p>
-        <div data-reveal style="--i:2"><a class="btn btn--light" href={join} data-cta="final">{c.final.cta}</a></div>
-        <div class="cross glass" data-reveal style="--i:3">
+        <div data-reveal style="--i:2"><a class="btn btn--light btn--big" href={join} data-cta="final">{c.final.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
+        <div class="cross" data-reveal style="--i:3">
           <p class="small">{c.final.crossOnline} <a href={site.links.online}>{c.final.crossOnlineLink}</a></p>
           <p class="small">{c.final.crossApparel} <a href={site.links.apparel}>{c.final.crossApparelLink}</a></p>
         </div>
@@ -326,27 +411,28 @@ const jsonLd = {
   </main>
 
   <footer class="footer">
-    <div class="wrap footer__inner small">
-      <p>{site.legalName} · ABN {site.abn}</p>
-      <p>{site.address.street}, {site.address.suburb} {site.address.state} {site.address.postcode} · <a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a> · <a href={`mailto:${site.email}`}>{site.email}</a></p>
-      <p><a href={site.instagram.studio}>Instagram</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+    <div class="wrap small">
+      <p class="footer__brand">FIT X <span>Studio.</span></p>
+      <p>{site.address.street}, {site.address.suburb} {site.address.state} {site.address.postcode} · {site.parking}</p>
+      <p><a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a> · <a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.instagram.studio}>Instagram</a></p>
+      <p>{site.legalName} · ABN {site.abn} · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
     </div>
   </footer>
 
-  <!-- Mobile dock: a floating glass bar that appears once the hero CTA scrolls away -->
+  <!-- Mobile dock: floating glass bar once the hero CTA scrolls away -->
   <div class="dock glass" aria-hidden="true" data-dock>
     <div class="dock__text"><strong>${offer.price}</strong> <span>2 weeks unlimited</span></div>
-    <a class="btn btn--light" href={join} data-cta="dock" tabindex="-1">Start</a>
+    <a class="btn btn--light" href={join} data-cta="dock" tabindex="-1">Claim</a>
   </div>
 
   <script>
     const dock = document.querySelector<HTMLElement>('[data-dock]');
-    const hero = document.querySelector('.hero__ctas');
+    const hero = document.querySelector('.hero .btn');
     const end = document.querySelector('.final');
     if (dock && hero && end && 'IntersectionObserver' in window) {
       let heroGone = false, endShown = false;
       const sync = () => {
-        const show = heroGone && !endShown;
+        const show = heroGone && !endShown && !document.documentElement.classList.contains('sheet-open');
         dock.classList.toggle('is-on', show);
         dock.setAttribute('aria-hidden', String(!show));
         dock.querySelector('a')!.tabIndex = show ? 0 : -1;
@@ -358,130 +444,172 @@ const jsonLd = {
 </Base>
 
 <style>
-  .center { text-align: center; }
+  /* 1. Banner */
+  .banner {
+    display: flex; align-items: center; justify-content: center; gap: 0.6rem; flex-wrap: nowrap;
+    min-height: var(--banner-h); padding: 0.35rem var(--gutter); text-decoration: none;
+    background: var(--ice); color: var(--navy); font-size: 0.82rem; font-weight: 600; letter-spacing: -0.005em;
+  }
+  .banner__tag { border: 1.5px solid currentColor; border-radius: 0.35rem; padding: 0.05rem 0.4rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 800; }
+  .banner__text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .banner__link { text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
 
-  /* Hero: photo under a navy scrim, content on top */
+  /* 2. Hero */
   .hero {
-    position: relative; isolation: isolate; color: var(--on-navy); background: var(--navy);
-    min-height: min(100svh - var(--nav-h), 56rem); display: grid; align-items: end;
-    padding-block: clamp(6rem, 10vh, 9rem) clamp(2.5rem, 6vh, 5rem);
-    overflow: hidden;
+    position: relative; isolation: isolate; color: var(--on-navy); background: var(--navy); overflow: hidden;
+    min-height: calc(100svh - var(--nav-h) - var(--banner-h)); display: grid; align-items: end;
+    padding-block: 3rem clamp(2.5rem, 6vh, 4.5rem);
   }
-  .hero__media, .offer-section__media, .final__media { position: absolute; inset: 0; z-index: -1; }
-  .hero__media :global(.hero__img), .offer-section__media :global(.offer-section__img), .final__media :global(.final__img) {
-    width: 100%; height: 100%; object-fit: cover; border-radius: 0;
-  }
-  .hero__media :global(.hero__img) { object-position: 62% 30%; }
+  .hero__media { position: absolute; inset: 0; z-index: -1; }
+  .hero__media :global(.hero__img) { width: 100%; height: 100%; object-fit: cover; object-position: 60% 25%; border-radius: 0; }
   .hero__media::after {
     content: ''; position: absolute; inset: 0;
-    background:
-      linear-gradient(180deg, rgba(13, 27, 54, 0.35) 0%, rgba(13, 27, 54, 0.55) 45%, rgba(13, 27, 54, 0.96) 100%),
-      linear-gradient(90deg, rgba(13, 27, 54, 0.75) 0%, rgba(13, 27, 54, 0) 70%);
+    background: linear-gradient(180deg, rgba(13, 27, 54, 0.15) 0%, rgba(13, 27, 54, 0.55) 40%, rgba(13, 27, 54, 0.97) 82%);
   }
-  /* Desktop: the portrait photo sits as a panel on the right and fades into the navy */
+  /* Scroll-driven: the photo eases back as you scroll, where supported */
+  @supports (animation-timeline: scroll()) {
+    .hero__media :global(.hero__img) { animation: hero-recede linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
+    @keyframes hero-recede { to { transform: scale(1.12) translateY(4%); opacity: 0.55; } }
+  }
   @media (min-width: 64rem) {
-    .hero__media { left: auto; width: 48%; }
-    .hero__media :global(.hero__img) { object-position: 50% 35%; }
-    .hero__media::after {
-      background:
-        linear-gradient(90deg, var(--navy) 0%, rgba(13, 27, 54, 0.35) 40%, rgba(13, 27, 54, 0.1) 100%),
-        linear-gradient(0deg, rgba(13, 27, 54, 0.85) 0%, transparent 35%);
-    }
     .hero { align-items: center; }
+    .hero__media { left: auto; width: 50%; }
+    .hero__media::after { background: linear-gradient(90deg, var(--navy) 0%, rgba(13, 27, 54, 0.35) 40%, rgba(13, 27, 54, 0.05) 100%), linear-gradient(0deg, rgba(13, 27, 54, 0.8), transparent 35%); }
   }
   .hero__content { max-width: var(--max); }
-  .hero .display { max-width: 13ch; margin-bottom: 1.25rem; }
-  .hero .lede { max-width: 38rem; color: rgba(255, 255, 255, 0.86); }
-  .hero__eyebrow { color: rgba(255, 255, 255, 0.8); }
-  .hero__ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
-  .hero__note { color: rgba(255, 255, 255, 0.75); margin-bottom: 1.5rem; }
+  .hero__promo { display: grid; font-size: clamp(3.6rem, 2rem + 9vw, 7.5rem); color: #fff; margin-bottom: 1rem; text-shadow: 0 6px 30px rgba(0, 0, 0, 0.35); }
+  .hero__promo-outline { color: transparent; -webkit-text-stroke: 2px var(--ice); text-shadow: 0 0 24px rgba(169, 220, 255, 0.55); }
+  .hero__badge {
+    display: inline-flex; align-items: baseline; gap: 0.5rem; margin: 0 0 1.5rem; padding: 0.45rem 0.9rem;
+    background: var(--ice); color: var(--navy); border-radius: 0.5rem; transform: rotate(-2deg);
+    font-family: var(--font-promo); font-style: italic; font-weight: 700; text-transform: uppercase; font-size: 1.05rem; letter-spacing: 0.01em;
+  }
+  .hero__badge span { font-size: 1.6rem; line-height: 1; }
+  .hero .display { max-width: 15ch; margin-bottom: 0.85rem; }
+  .hero .lede { max-width: 34rem; color: rgba(255, 255, 255, 0.86); margin-bottom: 1.5rem; }
+  .hero__trust { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; list-style: none; padding: 0; margin: 1.25rem 0 0; font-size: 0.88rem; color: rgba(255, 255, 255, 0.82); }
+  .hero__trust li::before { content: '✓ '; color: var(--ice); font-weight: 800; }
 
-  /* Ticker: slow, continuous, pauses on hover and for reduced motion */
-  .ticker {
-    display: flex; overflow: hidden; background: var(--navy-2); color: var(--on-navy);
-    border-block: 1px solid rgba(255, 255, 255, 0.08);
-    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  }
+  /* 3. Ticker */
+  .ticker { display: flex; overflow: hidden; background: var(--navy-2); color: var(--on-navy); }
   .ticker__row {
-    display: flex; flex: none; gap: 2.5rem; padding: 0.95rem 1.25rem; margin: 0; list-style: none;
-    animation: ticker 40s linear infinite;
-    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap;
+    display: flex; flex: none; gap: 2.25rem; padding: 0.9rem 1.1rem; margin: 0; list-style: none;
+    animation: ticker 38s linear infinite; white-space: nowrap;
+    font-family: var(--font-promo); font-style: italic; font-weight: 600; text-transform: uppercase; font-size: 1rem; letter-spacing: 0.02em;
   }
-  .ticker__row li::before { content: '✦'; margin-right: 2.5rem; color: #9db8ff; }
+  .ticker__row li::before { content: '✦'; margin-right: 2.25rem; color: var(--ice); font-style: normal; }
   .ticker:hover .ticker__row { animation-play-state: paused; }
   @keyframes ticker { to { transform: translateX(-100%); } }
-  @media (prefers-reduced-motion: reduce) {
-    .ticker { overflow-x: auto; }
-    .ticker__row { animation: none; }
-    .ticker__row[aria-hidden] { display: none; }
+  @media (prefers-reduced-motion: reduce) { .ticker { overflow-x: auto; } .ticker__row { animation: none; } .ticker__row[aria-hidden] { display: none; } }
+
+  /* 4. VSL */
+  .vsl-wrap { max-width: 58rem; margin: 2rem auto 0; display: grid; gap: 1.5rem; }
+
+  /* 5. Results */
+  .result {
+    margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--paper);
+    min-height: 22rem; display: flex; flex-direction: column; justify-content: end;
+    box-shadow: 0 20px 40px -30px rgba(13, 27, 54, 0.35);
   }
+  .result img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .result figcaption { padding: 1.5rem; }
+  .result__big { font-family: var(--font-promo); font-style: italic; font-weight: 700; text-transform: uppercase; font-size: 2rem; line-height: 1; margin: 0 0 0.25rem; }
+  .result__time { margin: 0 0 1rem; color: var(--ink-soft); font-size: 0.9rem; }
+  .result blockquote { margin: 0 0 0.5rem; font-size: 1.05rem; }
+  .result cite { font-style: normal; font-weight: 700; }
+  .result--empty { background: repeating-linear-gradient(135deg, #eceef3 0 12px, #f3f4f7 12px 24px); border: 1px dashed rgba(13, 27, 54, 0.25); box-shadow: none; color: var(--ink-soft); }
+  .results__cta { margin-top: 1.5rem; }
 
-  .vsl-section h2 { margin-bottom: 2rem; }
-  .vsl-wrap { max-width: 60rem; display: grid; gap: 1.5rem; }
+  /* 6. Urgency */
+  .pill { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0.85rem 0.3rem 0.3rem; border-radius: 99px; border: 1px solid var(--line); font-size: 0.9rem; margin: 0 0 1.5rem; background: var(--paper); }
+  .pill span { background: var(--mist); border-radius: 99px; padding: 0.2rem 0.7rem; font-weight: 600; }
+  .pill i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #34c759; box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.6); animation: pulse 2s var(--ease-out) infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(52, 199, 89, 0); } 100% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0); } }
+  .urgency__label { text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.8rem; margin: 0; }
+  .urgency__date { font-size: clamp(2.6rem, 1.6rem + 5vw, 4.5rem); color: var(--navy); margin: 0.25rem 0 1.5rem; }
+  .urgency :global(.countdown) { margin-bottom: 1.75rem; background: transparent; border: 0; box-shadow: none; padding: 0; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .urgency :global(.countdown__label) { display: none; }
+  .urgency :global(.countdown__units) { gap: 0.6rem; }
+  .urgency :global(.countdown__units span) { background: var(--paper); border-radius: 1rem; padding: 0.9rem 0.5rem 0.6rem; min-width: 4.4rem; box-shadow: 0 10px 30px -18px rgba(13, 27, 54, 0.45), 0 0 0 1px var(--line); }
+  .urgency :global(.countdown__units b) { color: var(--navy); font-size: 2rem; }
+  .urgency :global(.countdown__units small) { color: var(--ink-soft); }
+  .urgency .small { margin-top: 1rem; }
 
-  .moments { margin-top: 2.5rem; gap: 2rem 3rem; }
-  .moment { border-top: 2px solid var(--navy); padding-top: 1.25rem; }
-  .moment p { color: var(--ink-soft); margin: 0; }
+  /* 9. Bonus panel */
+  .bonus-section { position: relative; isolation: isolate; overflow: hidden; color: var(--on-navy); background: var(--navy); padding-block: clamp(4rem, 2rem + 6vw, 7rem); }
+  .bonus-section__media { position: absolute; inset: 0; z-index: -1; }
+  .bonus-section__media :global(.bonus-section__img) { width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+  .bonus-section__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(13, 27, 54, 0.96) 35%, rgba(13, 27, 54, 0.7)); }
+  .bonus-section .eyebrow, .bonus-section .small { color: var(--on-navy-soft); }
+  .bonus { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 64rem) { .bonus { grid-template-columns: 1.1fr 0.9fr; gap: 4rem; } }
+  .ticks { list-style: none; padding: 0; margin: 1.5rem 0; display: grid; gap: 0.75rem; font-size: 1.1rem; font-weight: 600; }
+  .ticks li { display: flex; gap: 0.75rem; }
+  .ticks li::before { content: '✓'; color: var(--ice); font-weight: 900; }
+  .bonus__card { padding: 2rem; border-radius: calc(var(--radius) + 0.25rem); text-align: center; }
+  .bonus__price { font-size: clamp(5rem, 3rem + 8vw, 8rem); color: #fff; }
+  .bonus__note { font-family: var(--font-promo); font-style: italic; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; font-size: 1.25rem; margin: 0.25rem 0 0.75rem; color: var(--ice); }
+  .bonus__card .small { margin-bottom: 1.5rem; }
 
-  .gallery h2 { margin-bottom: 2rem; }
+  /* 10. App */
+  .app__grid { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 48rem) { .app__grid { grid-template-columns: 1fr 0.8fr; } }
+  .phone {
+    justify-self: center; width: min(18rem, 78vw); aspect-ratio: 9 / 19; border-radius: 3rem; padding: 0.7rem;
+    background: linear-gradient(145deg, #2b2f38, #0b0d12); box-shadow: 0 50px 80px -40px rgba(13, 27, 54, 0.6), inset 0 0 0 2px #3a3f4a;
+  }
+  .phone__screen { height: 100%; border-radius: 2.4rem; background: linear-gradient(180deg, #f8f9fb, #eef1f6); padding: 3.2rem 1rem 1rem; position: relative; overflow: hidden; }
+  .phone__island { position: absolute; top: 0.8rem; left: 50%; translate: -50% 0; width: 5.5rem; height: 1.6rem; border-radius: 99px; background: #0b0d12; }
+  .phone__h { font-weight: 700; font-size: 1.35rem; letter-spacing: -0.02em; margin: 0 0 0.75rem; }
+  .phone__card { display: grid; gap: 0.1rem; background: #fff; border-radius: 1rem; padding: 0.85rem 1rem; margin-bottom: 0.6rem; box-shadow: 0 6px 18px -12px rgba(13, 27, 54, 0.4); }
+  .phone__card b { font-size: 0.95rem; }
+  .phone__card span { font-size: 0.8rem; color: var(--ink-soft); }
+  .phone__card--muted { background: var(--navy); color: #fff; }
+  .phone__card--muted span { color: var(--on-navy-soft); }
+  .phone__soon { position: absolute; bottom: 1rem; left: 0; right: 0; text-align: center; font-size: 0.72rem; color: var(--ink-soft); }
+
+  /* 11. Checklist */
+  .checklist { list-style: none; padding: 0; margin-top: 2rem; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+  .checklist li {
+    display: flex; align-items: center; gap: 0.85rem; padding: 1.1rem 1.25rem; border-radius: 1.1rem; background: var(--mist);
+    font-weight: 600; letter-spacing: -0.01em;
+  }
+  .checklist li::before { content: '✓'; display: grid; place-items: center; flex: none; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--navy); color: #fff; font-size: 0.85rem; font-weight: 900; }
+
   .gallery__item { margin: 0; }
-  .gallery__item :global(.photo) { border-radius: var(--radius); }
 
-  .story { display: grid; gap: 2rem; align-items: center; }
-  @media (min-width: 48rem) { .story { grid-template-columns: 0.8fr 1fr; gap: 4rem; } }
+  .review { margin: 0; }
+  .review__stars { color: #f5a524; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+  .review cite { font-style: normal; font-weight: 700; }
 
-  .steps { list-style: none; padding: 0; margin: 2rem 0 0; }
-  .steps__n {
-    display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%;
-    background: var(--navy); color: var(--on-navy); font-weight: 800; margin-bottom: 1rem;
-  }
-  .steps p { color: var(--ink-soft); margin: 0; }
+  /* 14. Pricing */
+  .pricing-head { margin-bottom: 2.5rem; }
+  .plans { display: grid; gap: 1rem; }
+  @media (min-width: 64rem) { .plans { grid-template-columns: 1.3fr 1fr 1fr 1fr; align-items: stretch; } }
+  .plan { display: flex; flex-direction: column; background: var(--paper); border-radius: var(--radius); padding: 1.75rem; box-shadow: 0 20px 40px -32px rgba(13, 27, 54, 0.4); }
+  .plan--premium { background: var(--navy); color: #fff; box-shadow: 0 40px 80px -40px rgba(13, 27, 54, 0.8); }
+  .plan__tag { align-self: start; margin: 0 0 0.9rem; padding: 0.2rem 0.65rem; border-radius: 99px; background: var(--ice); color: var(--navy); font-size: 0.78rem; font-weight: 700; }
+  .plan__name { font-family: var(--font-promo); font-style: italic; text-transform: uppercase; font-size: 1.6rem; font-weight: 700; letter-spacing: 0.01em; margin: 0 0 0.35rem; }
+  .plan__blurb { color: var(--on-navy-soft); margin: 0 0 0.5rem; }
+  .plan__price { margin: 0.25rem 0 1rem; }
+  .plan__price b { font-size: 2.6rem; letter-spacing: -0.04em; }
+  .plan__list { list-style: none; padding: 0; margin: 0 0 1.5rem; display: grid; align-content: start; gap: 0.55rem; flex: 1; font-size: 0.95rem; }
+  .plan__list li { display: flex; gap: 0.6rem; }
+  .plan__list li::before { content: '+'; font-weight: 800; color: var(--ink-soft); }
+  .plan--premium .plan__list li::before { color: var(--ice); }
+  .plan__min { margin: 0.75rem 0 0; text-align: center; font-size: 0.82rem; font-style: italic; color: var(--ink-soft); }
+  .plan--premium .plan__min { color: var(--on-navy-soft); }
+  .partner { position: relative; overflow: hidden; margin-top: 1.5rem; text-align: center; padding: 2rem 1.5rem; border: 0; box-shadow: 0 20px 40px -32px rgba(13, 27, 54, 0.4); }
+  .partner__ribbon { position: absolute; top: 1.1rem; right: -2.6rem; rotate: 45deg; background: var(--navy); color: #fff; padding: 0.25rem 3rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+  .partner h3 { font-family: var(--font-promo); font-style: italic; text-transform: uppercase; font-size: 1.7rem; }
+  .partner p { color: var(--ink-soft); max-width: 32rem; margin-inline: auto; }
+  .packs { margin-top: 2rem; display: grid; gap: 0.5rem; justify-items: center; text-align: center; }
+  .packs ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.2rem; }
 
-  /* Offer on a photo */
-  .offer-section {
-    position: relative; isolation: isolate; overflow: hidden; color: var(--on-navy); background: var(--navy);
-    padding-block: clamp(4rem, 2rem + 7vw, 8rem);
-  }
-  .offer-section__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(13, 27, 54, 0.95) 30%, rgba(13, 27, 54, 0.7)); }
-  .offer-section .lede { color: var(--on-navy-soft); }
-  .offer-section .eyebrow { color: var(--on-navy-soft); }
-  .offer { display: grid; gap: 2.5rem; align-items: center; }
-  @media (min-width: 64rem) { .offer { grid-template-columns: 1.1fr 0.9fr; gap: 4rem; } }
-  .stack { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 0.6rem; }
-  .stack li { display: flex; gap: 0.75rem; align-items: baseline; font-weight: 600; }
-  .stack li::before { content: '✓'; flex: none; font-weight: 900; color: #9db8ff; }
-  .price { padding: 2rem; border-radius: calc(var(--radius) + 0.5rem); color: var(--on-navy); }
-  .price .eyebrow { color: var(--on-navy-soft); }
-  .price__big { margin: 0; font-weight: 700; font-size: 1.05rem; }
-  .price__big span { display: block; font-size: clamp(3.5rem, 2.5rem + 4vw, 5rem); letter-spacing: -0.045em; font-weight: 900; line-height: 1; margin-bottom: 0.35rem; }
-  .price hr { border: 0; border-top: 1px solid rgba(255, 255, 255, 0.18); margin: 1.25rem 0; }
-  .price__then { font-size: 1.1rem; margin: 0 0 0.75rem; }
-  .price__terms { padding-left: 1.1rem; margin: 0 0 1.5rem; display: grid; gap: 0.3rem; color: var(--on-navy-soft); }
-  .price__why { margin: 1rem 0 0; color: var(--on-navy-soft); }
-
-  .classes { margin-top: 2rem; }
-  .class-card { padding: 0.75rem; overflow: hidden; transition: transform 500ms var(--spring-fast), box-shadow 300ms var(--ease-out); }
-  @media (hover: hover) { .class-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -28px rgba(13, 27, 54, 0.45); } }
-  .class-card :global(.photo) { border-radius: var(--radius-sm); }
-  .class-card__body { padding: 1rem 0.5rem 0.5rem; }
-  .class-card p { color: var(--ink-soft); margin: 0; }
-  .classes__more { margin-top: 1.5rem; }
-
-  .quote { margin: 0; }
-  .quote cite { font-style: normal; font-weight: 700; }
-
-  .tiers { margin-top: 1.5rem; }
-  .tier__price { font-size: 1.1rem; }
-  .tier__price strong { font-size: 2rem; letter-spacing: -0.03em; }
-  .tier ul, .packs ul { padding-left: 1.1rem; margin: 0; display: grid; gap: 0.25rem; }
-  .packs { margin-top: 2.5rem; display: grid; gap: 0.75rem; justify-items: start; }
-
-  .faq { margin-top: 1.5rem; border-top: 1px solid var(--line); }
+  /* 15. FAQ */
+  .faq { margin-top: 1.75rem; border-top: 1px solid var(--line); }
   .faq details { border-bottom: 1px solid var(--line); }
-  .faq summary {
-    list-style: none; cursor: pointer; padding: 1.15rem 2.5rem 1.15rem 0; position: relative;
-    font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em;
-  }
+  .faq summary { list-style: none; cursor: pointer; padding: 1.15rem 2.5rem 1.15rem 0; position: relative; font-weight: 600; font-size: 1.08rem; letter-spacing: -0.01em; }
   .faq summary::-webkit-details-marker { display: none; }
   .faq summary::after {
     content: ''; position: absolute; right: 0.4rem; top: 50%; width: 0.6rem; height: 0.6rem;
@@ -490,41 +618,55 @@ const jsonLd = {
   }
   .faq details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
   .faq__a { padding-bottom: 1rem; color: var(--ink-soft); }
-  /* Answers open on a spring where the browser supports animating to auto height */
   @supports (interpolate-size: allow-keywords) {
     .faq { interpolate-size: allow-keywords; }
     .faq details::details-content { height: 0; overflow: clip; transition: height 550ms var(--spring-fast), content-visibility 550ms allow-discrete; }
     .faq details[open]::details-content { height: auto; }
   }
 
-  address { font-style: normal; font-size: 1.1rem; margin-bottom: 1rem; line-height: 1.6; }
-  .location { align-items: center; gap: 2rem; }
+  /* 16. Contact */
+  .contact { position: relative; isolation: isolate; overflow: hidden; color: #fff; background: var(--navy); padding-block: clamp(4rem, 2rem + 6vw, 7rem); }
+  .contact__media { position: absolute; inset: 0; z-index: -1; }
+  .contact__media :global(.contact__img) { width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+  .contact__media::after { content: ''; position: absolute; inset: 0; background: rgba(13, 27, 54, 0.6); }
+  .contact__grid { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 64rem) { .contact__grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+  .contact__h { font-size: clamp(2.6rem, 1.6rem + 4vw, 4.2rem); }
+  .contact .lede { color: rgba(255, 255, 255, 0.85); }
+  .contact__card { padding: 1.5rem; border-radius: calc(var(--radius) + 0.25rem); background: rgba(255, 255, 255, 0.14); }
+  .contact__rows { display: grid; margin-top: 1rem; }
+  .contact__rows > * { display: grid; gap: 0.1rem; padding: 0.85rem 0.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.16); text-decoration: none; margin: 0; }
+  .contact__rows span { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--on-navy-soft); }
+  .contact__todo { margin: 1rem 0 0; color: var(--on-navy-soft); }
 
-  .final {
-    position: relative; isolation: isolate; overflow: hidden; text-align: center; color: var(--on-navy); background: var(--navy);
-    padding-block: clamp(5rem, 3rem + 8vw, 9rem);
-  }
-  .final__media::after { content: ''; position: absolute; inset: 0; background: rgba(13, 27, 54, 0.82); }
-  .final .lede { margin-bottom: 1.75rem; color: var(--on-navy-soft); }
-  .cross { margin: 3rem auto 0; display: inline-grid; gap: 0.35rem; padding: 1rem 1.25rem; border-radius: var(--radius); }
+  /* Marquee */
+  .marquee { overflow: hidden; background: var(--navy); color: #fff; padding-block: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+  .marquee__row { display: flex; width: max-content; gap: 3rem; font-size: clamp(2.5rem, 1.5rem + 5vw, 5rem); animation: ticker 45s linear infinite; }
+  .marquee__row span:nth-child(even) { color: transparent; -webkit-text-stroke: 1.5px var(--ice); }
+  @media (prefers-reduced-motion: reduce) { .marquee__row { animation: none; } }
+
+  .final { background: var(--navy); color: #fff; padding-top: clamp(2.5rem, 1rem + 4vw, 4rem); }
+  .final .lede { color: var(--on-navy-soft); margin-bottom: 1.75rem; }
+  .cross { margin-top: 2.5rem; display: grid; gap: 0.3rem; }
   .cross p { margin: 0; color: var(--on-navy-soft); }
-  .cross a { color: #fff; font-weight: 700; }
+  .cross a { color: #fff; font-weight: 600; }
 
-  .footer { background: #08132a; color: var(--on-navy-soft); padding-block: 2.5rem calc(2.5rem + env(safe-area-inset-bottom)); }
+  .footer { background: #070f22; color: var(--on-navy-soft); padding-block: 2.5rem calc(2.5rem + env(safe-area-inset-bottom)); }
   .footer p { margin: 0 0 0.4rem; color: var(--on-navy-soft); }
+  .footer__brand { font-family: var(--font-promo); font-style: italic; font-weight: 700; text-transform: uppercase; font-size: 1.8rem; color: #fff !important; line-height: 1; margin-bottom: 1rem !important; }
+  .footer__brand span { color: var(--ice); }
 
-  /* Floating glass dock, rises on a spring and returns the same way */
+  /* Floating glass dock: rises on a spring, returns the same way */
   .dock {
     position: fixed; left: var(--gutter); right: var(--gutter); bottom: calc(0.75rem + env(safe-area-inset-bottom)); z-index: 40;
     display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-    padding: 0.5rem 0.5rem 0.5rem 1.1rem; border-radius: 999px; color: var(--on-navy);
-    background: rgba(13, 27, 54, 0.72);
+    padding: 0.5rem 0.5rem 0.5rem 1.1rem; border-radius: 999px; color: var(--on-navy); background: rgba(13, 27, 54, 0.72);
     transform: translateY(calc(100% + 1.5rem)); opacity: 0;
     transition: transform 700ms var(--spring), opacity 300ms var(--ease-out);
   }
   .dock.is-on { transform: none; opacity: 1; }
   .dock__text { font-size: 0.95rem; line-height: 1.2; }
-  .dock__text strong { font-size: 1.15rem; letter-spacing: -0.02em; margin-right: 0.3rem; }
+  .dock__text strong { font-family: var(--font-promo); font-style: italic; font-size: 1.5rem; margin-right: 0.3rem; }
   .dock__text span { color: var(--on-navy-soft); }
   .dock .btn { min-height: 2.75rem; padding: 0 1.4rem; }
   @media (min-width: 48rem) { .dock { display: none; } }
