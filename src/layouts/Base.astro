@@ -25,11 +25,24 @@ const canonical = new URL(path, Astro.site).toString();
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_AU" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>document.documentElement.classList.add('js')</script>
     <slot name="head" />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <slot />
+    <script>
+      // Reveal on scroll. Once in, stays in (no re-hiding on scroll back).
+      const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('is-in'));
+      }
+    </script>
     <style>
       .skip {
         position: absolute; left: 1rem; top: -4rem; z-index: 100;

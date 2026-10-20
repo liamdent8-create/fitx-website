@@ -1,0 +1,192 @@
+# Pages CMS (https://pagescms.org): a free editor for this repo.
+# Sign in with GitHub, pick this repo, and edit the fields below in a form.
+# Saving commits to GitHub, and Netlify rebuilds the site automatically.
+content:
+  - name: studio
+    label: Studio page text
+    type: file
+    path: content/studio.json
+    format: json
+    fields:
+      - name: seo
+        label: Google search result
+        type: object
+        fields:
+          - { name: title, label: Page title, type: string }
+          - { name: description, label: Description, type: text }
+      - name: hero
+        label: Top of page
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line above headline, type: string }
+          - { name: headline, label: Headline, type: string }
+          - { name: sub, label: Paragraph under headline, type: text }
+          - { name: cta, label: Main button, type: string }
+          - { name: secondaryCta, label: Second button, type: string }
+          - { name: note, label: Small print under buttons, type: string }
+      - name: countdown
+        label: Countdown
+        type: object
+        fields:
+          - { name: label, label: Label, type: string }
+          - { name: opensAt, label: Opening date and time (leave as is), type: string }
+      - name: ticker
+        label: Scrolling strip
+        type: string
+        list: true
+      - name: vsl
+        label: Video section
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line, type: string }
+          - { name: headline, label: Headline, type: string }
+          - { name: cta, label: Button under video, type: string }
+      - name: outcomes
+        label: Where you end up
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line, type: string }
+          - { name: headline, label: Headline, type: string }
+          - name: items
+            label: Moments
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, type: string }
+              - { name: body, label: Text, type: text }
+      - name: gallery
+        label: Photo carousel
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line, type: string }
+          - { name: headline, label: Headline, type: string }
+      - name: story
+        label: Your story
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line, type: string }
+          - { name: headline, label: Headline, type: string }
+          - { name: body, label: Story, type: text }
+          - { name: signoff, label: Sign-off, type: string }
+      - name: steps
+        label: How it works
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line, type: string }
+          - { name: headline, label: Headline, type: string }
+          - name: items
+            label: Steps
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, type: string }
+              - { name: body, label: Text, type: text }
+      - name: offer
+        label: Premium offer
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line, type: string }
+          - { name: headline, label: Headline, type: string }
+          - { name: sub, label: Paragraph, type: text }
+          - { name: cardEyebrow, label: Price card small line, type: string }
+          - { name: cardThen, label: Price card "then" line, type: string }
+          - { name: terms, label: Price card dot points, type: string, list: true }
+          - { name: cta, label: Button, type: string }
+          - { name: footnote, label: Small print, type: string }
+      - name: classes
+        label: Classes
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line, type: string }
+          - { name: headline, label: Headline, type: string }
+          - name: items
+            label: Classes
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, type: string }
+              - { name: body, label: Text, type: text }
+              - { name: photo, label: Photo name (leave as is), type: string }
+          - { name: more, label: Line under classes, type: string }
+      - name: proof
+        label: Testimonials heading
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line, type: string }
+          - { name: headline, label: Headline, type: string }
+      - name: others
+        label: Other memberships
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line, type: string }
+          - { name: headline, label: Headline, type: string }
+          - { name: sub, label: Paragraph, type: text }
+          - { name: packsTitle, label: Packs heading, type: string }
+          - { name: packsNote, label: Packs small print, type: string }
+          - { name: cta, label: Button, type: string }
+      - name: faq
+        label: FAQ heading
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line, type: string }
+          - { name: headline, label: Headline, type: string }
+      - name: location
+        label: Find us heading
+        type: object
+        fields:
+          - { name: eyebrow, label: Small line, type: string }
+          - { name: headline, label: Headline, type: string }
+      - name: final
+        label: Bottom of page
+        type: object
+        fields:
+          - { name: headline, label: Headline, type: string }
+          - { name: sub, label: Paragraph, type: text }
+          - { name: cta, label: Button, type: string }
+          - { name: crossOnline, label: Online line, type: string }
+          - { name: crossOnlineLink, label: Online link text, type: string }
+          - { name: crossApparel, label: Apparel line, type: string }
+          - { name: crossApparelLink, label: Apparel link text, type: string }
+  - name: faq
+    label: Studio FAQs
+    type: file
+    path: content/studio-faq.json
+    format: json
+    fields:
+      - name: items
+        label: Questions
+        type: object
+        list: true
+        fields:
+          - { name: q, label: Question, type: string }
+          - { name: a, label: Answer, type: text }
+  - name: videos
+    label: Videos
+    type: file
+    path: content/videos.json
+    format: json
+    fields:
+      - name: studio
+        label: Studio VSL
+        type: object
+        fields:
+          - { name: provider, label: Host (youtube, bunny or mp4), type: string }
+          - { name: id, label: YouTube video ID (the part after v=), type: string }
+          - { name: title, label: Title, type: string }
+          - { name: poster, label: Poster image (optional), type: string }
+      - name: home
+        label: Home VSL
+        type: object
+        fields:
+          - { name: provider, label: Host (youtube, bunny or mp4), type: string }
+          - { name: id, label: YouTube video ID (the part after v=), type: string }
+          - { name: title, label: Title, type: string }
+          - { name: poster, label: Poster image (optional), type: string }
+      - name: online
+        label: Online coaching VSL
+        type: object
+        fields:
+          - { name: provider, label: Host (youtube, bunny or mp4), type: string }
+          - { name: id, label: YouTube video ID (the part after v=), type: string }
+          - { name: title, label: Title, type: string }
+          - { name: poster, label: Poster image (optional), type: string }

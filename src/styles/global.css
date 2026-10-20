@@ -18,8 +18,12 @@
   --max: 72rem;
   --nav-h: 3.5rem;
 
-  /* Critically damped feel for CSS-driven UI: fast out, no overshoot */
+  /* Fast response for direct feedback (press, hover) */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Critically damped springs (damping 1.0) sampled into linear().
+     --spring: response 0.5s, run over 0.8s. --spring-fast: response 0.35s, run over 0.55s. */
+  --spring: linear(0, 0.067, 0.205, 0.358, 0.499, 0.619, 0.715, 0.79, 0.848, 0.89, 0.921, 0.944, 0.96, 0.972, 0.981, 0.986, 0.991, 0.993, 0.995, 0.997, 0.998, 0.999, 0.999, 0.999, 1);
+  --spring-fast: linear(0, 0.065, 0.199, 0.35, 0.49, 0.609, 0.706, 0.782, 0.84, 0.884, 0.916, 0.94, 0.957, 0.97, 0.979, 0.985, 0.99, 0.993, 0.995, 0.996, 0.998, 0.998, 0.999, 0.999, 1);
 
   color-scheme: light;
   font: 100%/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -90,6 +94,7 @@ p { margin: 0 0 1rem; }
 }
 .btn:hover { background: var(--navy-2); }
 .btn:active { transform: scale(0.97); transition-duration: 60ms; }
+.btn:not(:active) { transition: transform 450ms var(--spring-fast), background-color 160ms var(--ease-out); }
 .btn--light { background: var(--paper); color: var(--navy); border-color: var(--paper); }
 .btn--light:hover { background: #e8ecf4; }
 .btn--ghost { background: transparent; color: inherit; border-color: currentColor; }
@@ -116,7 +121,32 @@ p { margin: 0 0 1rem; }
   .grid--4 { grid-template-columns: repeat(4, 1fr); }
 }
 
+/* Scroll reveal: content settles into place on a critically damped spring.
+   Only hidden when JS is running, so the page is always readable without it. */
+.js [data-reveal] {
+  opacity: 0; transform: translateY(24px) scale(0.985);
+  transition: opacity 600ms var(--spring), transform 800ms var(--spring);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* Glass material: for surfaces floating over photos */
+.glass {
+  background: rgba(13, 27, 54, 0.42);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 30px 60px -30px rgba(0, 0, 0, 0.5);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass { background: var(--navy); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+@media (prefers-contrast: more) {
+  .glass { background: var(--navy); border-color: #fff; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { transform: none; transition: opacity 200ms ease; }
   *, *::before, *::after { transition-duration: 1ms !important; animation: none !important; scroll-behavior: auto !important; }
   .btn:active { transform: none; }
 }

@@ -1,0 +1,157 @@
+{
+  "_note": "All text on the studio page (/studio). Edit the words here. Prices come from prices.json, links from site.json.",
+  "seo": {
+    "title": "Women's Strength Studio in Cairns | FIT X Studio, Manunda",
+    "description": "Coached strength classes for women in Manunda, Cairns, capped at 14. Mat Pilates, mums and bubs, Saturday HIIT and open gym. Try 2 weeks unlimited for $89."
+  },
+  "hero": {
+    "eyebrow": "Women's strength studio · Manunda, Cairns",
+    "headline": "Walk in knowing exactly what to do.",
+    "sub": "Coached strength for women, in classes of no more than 14. Your coach watches your form, every session is part of a five-week training block, and the room is full of women backing each other.",
+    "cta": "Try 2 weeks for $89",
+    "secondaryCta": "See what's included",
+    "note": "2 weeks unlimited · then Premium $75/week · no joining fee"
+  },
+  "countdown": {
+    "label": "Doors open Monday 26 October",
+    "opensAt": "2026-10-26T00:00:00+10:00"
+  },
+  "ticker": [
+    "Female-only training",
+    "Classes capped at 14",
+    "Five-week training blocks",
+    "Mat Pilates",
+    "Mums and bubs",
+    "Saturday HIIT",
+    "Open gym",
+    "Beginner workshops",
+    "Mini bar"
+  ],
+  "vsl": {
+    "eyebrow": "Take a look inside",
+    "headline": "Meet Coach Loz and the studio",
+    "cta": "Start your first two weeks"
+  },
+  "outcomes": {
+    "eyebrow": "Where you end up",
+    "headline": "Strong, confident, and never guessing.",
+    "items": [
+      {
+        "title": "You walk up to the squat rack like it's yours.",
+        "body": "A coach has shown you how to set it up, how deep to go and what to load. So you just get on with it."
+      },
+      {
+        "title": "You stop wondering if you're doing it right.",
+        "body": "With 14 women and a coach in the room, someone sees your form every set and tells you what to change."
+      },
+      {
+        "title": "You can see yourself getting stronger.",
+        "body": "Each five-week block repeats the main lifts, so you practise your technique, add weight and track your progress."
+      },
+      {
+        "title": "Having a baby doesn't put training on hold.",
+        "body": "Bring bub to mums and bubs. There's a play pen within view, so you can train and keep an eye on them."
+      }
+    ]
+  },
+  "gallery": {
+    "eyebrow": "The space",
+    "headline": "Built for women who lift."
+  },
+  "story": {
+    "eyebrow": "Why FIT X exists",
+    "headline": "From Coach Loz",
+    "body": "[[NEEDS LAUREN: your story, in your words: the moment you realised women needed a place like this. 4–6 sentences.]]",
+    "signoff": "Lauren Dent, Coach Loz"
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "headline": "Your first two weeks",
+    "items": [
+      {
+        "title": "Grab your 2-week trial",
+        "body": "$89 on Mindbody for two weeks of unlimited classes. Fill in your pre-exercise screening before your first session."
+      },
+      {
+        "title": "Learn the lifts",
+        "body": "Book a beginner workshop and your first classes. Your coach shows you the main lifts and helps you pick your starting weights."
+      },
+      {
+        "title": "Stay on as Premium",
+        "body": "Love it? Keep going on Premium at $75 a week. Your two trial weeks count towards your minimum term."
+      }
+    ]
+  },
+  "offer": {
+    "eyebrow": "The Premium membership",
+    "headline": "Everything in the studio, one membership.",
+    "sub": "Premium is the membership we built the studio around. It's the only one with the workshops, the app and online coaching.",
+    "cardEyebrow": "Start here",
+    "cardThen": "Stay on with Premium",
+    "terms": [
+      "No joining fee",
+      "Your 2 trial weeks count towards your minimum term",
+      "Choose a 12-week or 6-month minimum term",
+      "Your fee won't go up during your minimum term",
+      "3 business days to cool off after signing"
+    ],
+    "cta": "Try 2 weeks for $89",
+    "footnote": "Strength and Pilates classes are capped at 14. Bookings open two weeks ahead."
+  },
+  "classes": {
+    "eyebrow": "What's on",
+    "headline": "The classes",
+    "items": [
+      {
+        "title": "Coached strength",
+        "body": "Our main class. Structured weight training in a small group, programmed in five-week blocks. Max 14.",
+        "photo": "squat-rack"
+      },
+      {
+        "title": "Mat Pilates",
+        "body": "Core, sculpt and control on the mat (no reformers), to go with your lifting. Max 14. Grip socks required.",
+        "photo": "pilates-room-mat"
+      },
+      {
+        "title": "Mums and bubs",
+        "body": "The same structure as our strength classes, with your little one in the play pen within view.",
+        "photo": ""
+      },
+      {
+        "title": "Saturday HIIT",
+        "body": "Bring a training partner of any gender and work in doubles, Hyrox-style.",
+        "photo": ""
+      }
+    ],
+    "more": "Also on Premium: staffed open gym sessions (max 10) and our beginner workshops."
+  },
+  "proof": {
+    "eyebrow": "From our members",
+    "headline": "What it's like inside"
+  },
+  "others": {
+    "eyebrow": "Other ways to train with us",
+    "headline": "Want just one thing?",
+    "sub": "Premium is the one we recommend. If you only want one type of class, these memberships are standard rate with the same terms.",
+    "packsTitle": "Casual visits and class packs",
+    "packsNote": "Prices include GST and may change. The fee schedule you're given when you join applies.",
+    "cta": "See all options on Mindbody"
+  },
+  "faq": {
+    "eyebrow": "Questions",
+    "headline": "Before you start"
+  },
+  "location": {
+    "eyebrow": "Find us",
+    "headline": "Manunda, Cairns"
+  },
+  "final": {
+    "headline": "Your first two weeks start here.",
+    "sub": "Two weeks of unlimited classes for $89. Then Premium at $75 a week if you'd like to stay.",
+    "cta": "Try 2 weeks for $89",
+    "crossOnline": "Not in Cairns, or can't make class times?",
+    "crossOnlineLink": "Train with Coach Loz online",
+    "crossApparel": "Need something to train in?",
+    "crossApparelLink": "Shop FIT X Apparel"
+  }
+}

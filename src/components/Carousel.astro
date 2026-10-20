@@ -1,0 +1,64 @@
+---
+// Horizontal carousel built on native scroll-snap, so swiping gets the
+// platform's own momentum, projection and rubber-banding (no JS physics to
+// fight). Buttons scroll by one card; they're hidden on touch-only devices.
+interface Props { label: string }
+const { label } = Astro.props;
+---
+<div class="carousel" data-carousel>
+  <div class="carousel__track" role="region" aria-label={label} tabindex="0">
+    <slot />
+  </div>
+  <div class="carousel__controls">
+    <button type="button" class="carousel__btn" data-dir="-1" aria-label="Previous">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button type="button" class="carousel__btn" data-dir="1" aria-label="Next">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('.carousel__track')!;
+    const [prev, next] = root.querySelectorAll<HTMLButtonElement>('.carousel__btn');
+    const step = () => (track.firstElementChild as HTMLElement | null)?.getBoundingClientRect().width ?? track.clientWidth;
+    const sync = () => {
+      prev.disabled = track.scrollLeft < 4;
+      next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
+    };
+    root.querySelectorAll<HTMLButtonElement>('.carousel__btn').forEach((b) =>
+      b.addEventListener('click', () => {
+        const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        track.scrollBy({ left: Number(b.dataset.dir) * (step() + 16), behavior: reduce ? 'auto' : 'smooth' });
+      })
+    );
+    track.addEventListener('scroll', sync, { passive: true });
+    sync();
+  });
+</script>
+
+<style>
+  .carousel { position: relative; }
+  .carousel__track {
+    display: grid; grid-auto-flow: column; grid-auto-columns: min(82%, 26rem); gap: 1rem;
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter); padding: 0.25rem var(--gutter) 1.25rem;
+    margin-inline: calc(-1 * var(--gutter));
+    scrollbar-width: none;
+  }
+  .carousel__track::-webkit-scrollbar { display: none; }
+  .carousel__track > :global(*) { scroll-snap-align: start; }
+  @media (min-width: 64rem) { .carousel__track { grid-auto-columns: calc((100% - 2 * var(--gutter) - 2rem) / 3); } }
+  .carousel__controls { display: none; gap: 0.5rem; justify-content: flex-end; margin-top: 0.5rem; }
+  @media (hover: hover) and (pointer: fine) { .carousel__controls { display: flex; } }
+  .carousel__btn {
+    width: 2.75rem; height: 2.75rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--mist); color: var(--ink); border: 1px solid var(--line); cursor: pointer;
+    transition: transform 450ms var(--spring-fast), opacity 200ms var(--ease-out), background-color 160ms var(--ease-out);
+  }
+  .carousel__btn:hover { background: #e6eaf2; }
+  .carousel__btn:active { transform: scale(0.92); transition-duration: 60ms; }
+  .carousel__btn:disabled { opacity: 0.35; cursor: default; }
+</style>

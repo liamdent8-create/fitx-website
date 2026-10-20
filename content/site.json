@@ -4,16 +4,15 @@
   "legalName": "Lauren May Dent, trading as Fit X Studio",
   "abn": "76 968 117 388",
   "address": {
-    "street": "6/261–273 McCormack Street",
+    "street": "Shed 6, 261–273 McCormack Street",
     "suburb": "Manunda",
     "state": "QLD",
     "postcode": "4870"
   },
-  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=6%2F261-273+McCormack+St+Manunda+QLD+4870",
-  "parking": "[[NEEDS LAUREN: parking details]]",
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Shed+6+261-273+McCormack+St+Manunda+QLD+4870",
+  "parking": "[[NEEDS LAUREN: parking details (not on the current website)]]",
   "phone": "0432 018 580",
-  "email": "fitx.coachloz@gmail.com",
-  "emailStatus": "NEEDS LAUREN: agreement uses fitx.coachloz@gmail.com, brief uses lauren@fitxstudio.com.au. Which goes on the site?",
+  "email": "lauren@fitxstudio.com.au",
   "openingDate": "2026-10-26",
   "instagram": {
     "brand": "https://www.instagram.com/fitx.au/",
@@ -21,10 +20,11 @@
     "lauren": "https://www.instagram.com/laurenndent/"
   },
   "links": {
-    "studioJoin": "https://www.mindbodyonline.com/explore/locations/fit-x-studio",
-    "studioJoinStatus": "NEEDS LAUREN: deep link to the $89 Premium start offer in Mindbody (currently the general studio page)",
-    "timetable": "https://www.mindbodyonline.com/explore/locations/fit-x-studio",
+    "studioJoin": "https://www.mindbodyonline.com/explore/deals/fit-x-studio/intro-offer-100046",
+    "timetable": "https://clients.mindbodyonline.com/classic/ws?studioid=5756603&stype=40",
     "apparel": "https://fitxapparelaustralia.myshopify.com",
-    "online": "/online"
+    "online": "/online",
+    "memberships": "https://clients.mindbodyonline.com/classic/ws?studioid=5756603&stype=40",
+    "timetableStatus": "NEEDS LAUREN: confirm the best Mindbody timetable link"
   }
 }

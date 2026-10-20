@@ -1,0 +1,7 @@
+---
+// Renders a content string, highlighting any [[NEEDS LAUREN: …]] placeholder
+// so unconfirmed copy is obvious in preview.
+interface Props { text: string }
+const parts = Astro.props.text.split(/(\[\[NEEDS LAUREN:[^\]]*\]\])/g).filter(Boolean);
+---
+{parts.map((p) => (p.startsWith('[[NEEDS') ? <mark class="todo">{p}</mark> : p))}

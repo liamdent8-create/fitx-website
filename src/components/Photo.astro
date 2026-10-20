@@ -1,24 +1,43 @@
 ---
-// Photo slot. Until the cleared Drive photos are added, shows a labelled
-// placeholder describing the shot that belongs here.
+// Photo slot. Pass an imported image to render responsive AVIF/WebP.
+// Without one, shows a labelled placeholder describing the shot needed
+// (these are listed in SHOT-LIST.md for the filming crew).
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
-  src?: string;
+  src?: ImageMetadata;
   alt: string;
-  shot: string;
+  shot?: string;
   ratio?: string;
+  sizes?: string;
+  eager?: boolean;
+  class?: string;
 }
-const { src, alt, shot, ratio = '4 / 5' } = Astro.props;
+const { src, alt, shot = alt, ratio = '4 / 5', sizes = '(min-width: 64rem) 50vw, 100vw', eager = false, class: cls = '' } = Astro.props;
 ---
 {src ? (
-  <img class="photo" src={src} alt={alt} loading="lazy" decoding="async" style={`aspect-ratio:${ratio}`} />
+  <Picture
+    src={src}
+    alt={alt}
+    formats={['avif', 'webp']}
+    widths={[480, 800, 1200, 1600]}
+    sizes={sizes}
+    loading={eager ? 'eager' : 'lazy'}
+    fetchpriority={eager ? 'high' : 'auto'}
+    decoding="async"
+    class={`photo ${cls}`}
+    style={`aspect-ratio:${ratio}`}
+  />
 ) : (
-  <div class="photo photo--empty" style={`aspect-ratio:${ratio}`} role="img" aria-label={alt}>
-    <span>Photo: {shot}</span>
+  <div class={`photo photo--empty ${cls}`} style={`aspect-ratio:${ratio}`} role="img" aria-label={alt}>
+    <span>Shot needed: {shot}</span>
   </div>
 )}
 
 <style>
-  .photo { width: 100%; object-fit: cover; border-radius: var(--radius); }
+  :global(.photo) { width: 100%; height: auto; object-fit: cover; border-radius: var(--radius); display: block; }
+  :global(picture:has(> .photo)) { display: contents; }
   .photo--empty {
     display: grid; place-items: center; padding: 1.5rem; text-align: center;
     background: repeating-linear-gradient(135deg, #e7ebf2 0 12px, #eef1f6 12px 24px);

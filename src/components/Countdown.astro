@@ -1,0 +1,43 @@
+---
+// Counts down to a real date (opening day). Hides itself once the date passes,
+// so it never shows fake urgency.
+interface Props { label: string; until: string }
+const { label, until } = Astro.props;
+---
+<div class="countdown glass" data-countdown={until} role="timer" aria-label={label}>
+  <p class="countdown__label">{label}</p>
+  <div class="countdown__units" aria-hidden="true">
+    <span><b data-u="d">–</b><small>days</small></span>
+    <span><b data-u="h">–</b><small>hrs</small></span>
+    <span><b data-u="m">–</b><small>min</small></span>
+    <span><b data-u="s">–</b><small>sec</small></span>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-countdown]').forEach((el) => {
+    const end = new Date(el.dataset.countdown!).getTime();
+    const units = Object.fromEntries([...el.querySelectorAll<HTMLElement>('[data-u]')].map((u) => [u.dataset.u, u]));
+    const tick = () => {
+      const ms = end - Date.now();
+      if (ms <= 0) { el.hidden = true; return; }
+      const s = Math.floor(ms / 1000);
+      units.d.textContent = String(Math.floor(s / 86400));
+      units.h.textContent = String(Math.floor((s % 86400) / 3600)).padStart(2, '0');
+      units.m.textContent = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+      units.s.textContent = String(s % 60).padStart(2, '0');
+      requestAnimationFrame(() => setTimeout(tick, 1000 - (Date.now() % 1000)));
+    };
+    tick();
+  });
+</script>
+
+<style>
+  .countdown { display: inline-grid; gap: 0.5rem; padding: 0.9rem 1.1rem; border-radius: var(--radius); color: var(--on-navy); }
+  .countdown[hidden] { display: none; }
+  .countdown__label { margin: 0; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--on-navy-soft); }
+  .countdown__units { display: flex; gap: 1.1rem; }
+  .countdown__units span { display: grid; justify-items: center; }
+  .countdown__units b { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .countdown__units small { font-size: 0.7rem; color: var(--on-navy-soft); }
+</style>

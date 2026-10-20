@@ -3,12 +3,42 @@ import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Video from '../components/Video.astro';
 import Photo from '../components/Photo.astro';
-import Todo from '../components/Todo.astro';
+import Carousel from '../components/Carousel.astro';
+import Countdown from '../components/Countdown.astro';
+import T from '../components/T.astro';
 import site from '../../content/site.json';
 import prices from '../../content/prices.json';
 import videos from '../../content/videos.json';
 import faq from '../../content/studio-faq.json';
 import testimonials from '../../content/testimonials.json';
+import c from '../../content/studio.json';
+
+import neon from '../assets/studio/neon-sign-dumbbells.jpg';
+import floorWide from '../assets/studio/gym-floor-wide.jpg';
+import floorLand from '../assets/studio/gym-floor-landscape.jpg';
+import rack from '../assets/studio/squat-rack.jpg';
+import dumbbells from '../assets/studio/dumbbell-rack.jpg';
+import dumbbellsHigh from '../assets/studio/dumbbell-rack-high.jpg';
+import pilatesRoom from '../assets/studio/pilates-room-mat.jpg';
+import pilatesMat from '../assets/studio/pilates-mat-closeup.jpg';
+import pilatesWeights from '../assets/studio/pilates-weights.jpg';
+import pilatesShelf from '../assets/studio/pilates-shelf.jpg';
+
+const photos: Record<string, ImageMetadata> = {
+  'squat-rack': rack,
+  'pilates-room-mat': pilatesRoom,
+};
+
+const gallery = [
+  { src: floorLand, alt: 'The FIT X Studio gym floor with dumbbell racks, benches and the neon FIT X sign on a mirrored wall' },
+  { src: rack, alt: 'Squat rack with a loaded barbell in the strength area' },
+  { src: pilatesRoom, alt: 'The bright mat Pilates room with mirrors and a blue FIT X Studio mat' },
+  { src: dumbbells, alt: 'Rows of hex dumbbells on a rack' },
+  { src: pilatesWeights, alt: 'Pink 1kg hand weights lined up on a timber shelf' },
+  { src: floorWide, alt: 'Dumbbells and benches beneath warm LED lighting' },
+  { src: pilatesShelf, alt: 'Pink ankle weights and black hand weights on Pilates room shelving' },
+  { src: dumbbellsHigh, alt: 'Looking down a full dumbbell rack' },
+];
 
 const { studio } = prices;
 const offer = studio.startOffer;
@@ -17,7 +47,6 @@ const others = studio.memberships.filter((m) => m.id !== 'premium');
 const inc = studio.inclusions as Record<string, string>;
 const proof = testimonials.items.filter((t: any) => t.arm === 'studio' && t.consent?.given === true);
 const join = site.links.studioJoin;
-const ctaLabel = `Start for $${offer.firstTwoWeeks}`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -25,6 +54,7 @@ const jsonLd = {
   name: 'FIT X Studio',
   url: 'https://fitxstudio.com.au/studio',
   telephone: site.phone,
+  email: site.email,
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.address.street,
@@ -36,155 +66,138 @@ const jsonLd = {
   sameAs: [site.instagram.brand, site.instagram.studio],
 };
 ---
-<Base
-  title="Women's Strength Studio in Cairns | FIT X Studio, Manunda"
-  description={`Coached strength classes for women in Manunda, Cairns, capped at 14. Mat Pilates, mums and bubs and Saturday HIIT. Start Premium: first two weeks $${offer.firstTwoWeeks}.`}
-  path="/studio"
->
+<Base title={c.seo.title} description={c.seo.description} path="/studio">
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  <Nav ctaHref={join} ctaLabel={ctaLabel} />
+  <Nav ctaHref={join} ctaLabel={`$${offer.price} trial`} />
 
   <main id="main">
-    <!-- HOOK -->
-    <section class="hero section--navy">
-      <div class="wrap hero__grid">
-        <div class="hero__copy">
-          <p class="eyebrow">Women's strength studio · Manunda, Cairns · Opening Mon 26 Oct</p>
-          <h1 class="display">Walk in knowing exactly what to do.</h1>
-          <p class="lede">
-            Coached strength for women, in classes of no more than 14. A coach has eyes on your form,
-            your plan is already written, and nobody's watching you except the person helping you lift.
-          </p>
-          <div class="hero__ctas">
-            <a class="btn btn--light" href={join} data-cta="hero">{ctaLabel}</a>
-            <a class="btn btn--ghost" href="#offer">See what's included</a>
-          </div>
-          <p class="cta-note small">Premium membership · first two weeks ${offer.firstTwoWeeks}, then ${offer.thenWeekly}/week · no joining fee</p>
+    <!-- HOOK: full-bleed photo, outcome headline, one offer -->
+    <section class="hero">
+      <div class="hero__media" aria-hidden="true">
+        <Photo src={neon} alt="" ratio="auto" sizes="100vw" eager class="hero__img" />
+      </div>
+      <div class="wrap hero__content">
+        <p class="eyebrow hero__eyebrow" data-reveal>{c.hero.eyebrow}</p>
+        <h1 class="display" data-reveal style="--i:1"><T text={c.hero.headline} /></h1>
+        <p class="lede" data-reveal style="--i:2"><T text={c.hero.sub} /></p>
+        <div class="hero__ctas" data-reveal style="--i:3">
+          <a class="btn btn--light" href={join} data-cta="hero">{c.hero.cta}</a>
+          <a class="btn btn--ghost" href="#offer">{c.hero.secondaryCta}</a>
         </div>
-        <div class="hero__video">
-          <Video video={videos.studio as any} />
-          <a class="btn btn--light btn--block hero__under" href={join} data-cta="video">Start your first two weeks</a>
-        </div>
+        <p class="cta-note small hero__note" data-reveal style="--i:4">{c.hero.note}</p>
+        <div data-reveal style="--i:5"><Countdown label={c.countdown.label} until={c.countdown.opensAt} /></div>
       </div>
     </section>
 
-    <!-- PROOF STRIP -->
-    <section class="strip">
-      <div class="wrap strip__inner">
-        {proof.length > 0 ? (
-          proof.slice(0, 3).map((t: any) => (
-            <blockquote class="strip__quote">
-              <p>“{t.quote}”</p>
-              <cite>{t.name}</cite>
-            </blockquote>
-          ))
-        ) : (
-          <>
-            <p class="strip__fact"><strong>14</strong><span>max per strength class</span></p>
-            <p class="strip__fact"><strong>5 yrs</strong><span>as a personal trainer</span></p>
-            <p class="strip__fact"><strong>53</strong><span>foundation members before we opened <Todo>confirm</Todo></span></p>
-          </>
-        )}
+    <!-- What's included, at a glance -->
+    <div class="ticker" aria-label="What's included">
+      <ul class="ticker__row">
+        {c.ticker.map((t) => <li>{t}</li>)}
+      </ul>
+      <ul class="ticker__row" aria-hidden="true">
+        {c.ticker.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+
+    <!-- VSL with the CTA right under it -->
+    <section class="section section--navy vsl-section">
+      <div class="narrow center">
+        <p class="eyebrow" data-reveal>{c.vsl.eyebrow}</p>
+        <h2 data-reveal style="--i:1">{c.vsl.headline}</h2>
+      </div>
+      <div class="wrap vsl-wrap" data-reveal style="--i:2">
+        <Video video={videos.studio as any} />
+        <div class="center"><a class="btn btn--light" href={join} data-cta="video">{c.vsl.cta}</a></div>
       </div>
     </section>
 
-    <!-- WHERE YOU END UP -->
+    <!-- Where you end up -->
     <section class="section">
       <div class="wrap">
-        <p class="eyebrow">Where you end up</p>
-        <h2>Strong, confident, and never guessing.</h2>
+        <p class="eyebrow" data-reveal>{c.outcomes.eyebrow}</p>
+        <h2 data-reveal style="--i:1">{c.outcomes.headline}</h2>
         <div class="grid grid--2 moments">
-          <article class="moment">
-            <h3>You walk up to the squat rack like it's yours.</h3>
-            <p>A coach has shown you how to set it up, how deep to go and what to load. So you just get on with it.</p>
-          </article>
-          <article class="moment">
-            <h3>You stop wondering if you're doing it right.</h3>
-            <p>With 14 women and a coach in the room, someone sees your form every set and tells you what to change.</p>
-          </article>
-          <article class="moment">
-            <h3>Training fits around your actual week.</h3>
-            <p>Strength, Pilates, open gym and Saturday HIIT on one membership. Pick the sessions that suit school runs, shifts and late finishes.</p>
-          </article>
-          <article class="moment">
-            <h3>Having a baby doesn't put training on hold.</h3>
-            <p>Bring bub to mums and bubs. There's a fenced play area on the floor, and the class is capped at 10.</p>
-          </article>
+          {c.outcomes.items.map((m, i) => (
+            <article class="moment" data-reveal style={`--i:${i % 2}`}>
+              <h3><T text={m.title} /></h3>
+              <p><T text={m.body} /></p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- The space -->
+    <section class="section section--mist gallery">
+      <div class="wrap">
+        <p class="eyebrow" data-reveal>{c.gallery.eyebrow}</p>
+        <h2 data-reveal style="--i:1">{c.gallery.headline}</h2>
+        <div data-reveal style="--i:2">
+          <Carousel label="Photos of the studio">
+            {gallery.map((g) => (
+              <figure class="gallery__item"><Photo src={g.src} alt={g.alt} ratio="4 / 5" sizes="(min-width: 64rem) 33vw, 82vw" /></figure>
+            ))}
+          </Carousel>
         </div>
       </div>
     </section>
 
     <!-- STORY -->
-    <section class="section section--mist">
+    <section class="section story-section">
       <div class="wrap story">
-        <div class="story__photo">
-          <Photo alt="Coach Loz coaching a member through a squat" shot="Lauren coaching a member at the squat rack" />
+        <div class="story__photo" data-reveal>
+          <Photo alt="Coach Loz coaching a member at the squat rack" shot="Lauren coaching a member at the squat rack" />
         </div>
         <div>
-          <p class="eyebrow">Why FIT X exists</p>
-          <h2>From Coach Loz</h2>
-          <p class="lede"><Todo>Lauren's story, in her words: the moment she realised women needed a place like this (epiphany bridge). 4–6 sentences.</Todo></p>
-          <p>
-            I've coached women for five years, in person and online, and I built FIT X Studio around what
-            actually keeps you training: small classes, a plan written for you, and a room full of women
-            backing each other.
-          </p>
-          <p class="small">— Lauren Dent, Coach Loz</p>
-          <p class="small"><Todo>draft wording above: approve or rewrite in your voice</Todo></p>
+          <p class="eyebrow" data-reveal>{c.story.eyebrow}</p>
+          <h2 data-reveal style="--i:1">{c.story.headline}</h2>
+          <p class="lede" data-reveal style="--i:2"><T text={c.story.body} /></p>
+          <p class="small" data-reveal style="--i:3">— {c.story.signoff}</p>
         </div>
       </div>
     </section>
 
     <!-- HOW IT WORKS -->
-    <section class="section">
+    <section class="section section--mist">
       <div class="wrap">
-        <p class="eyebrow">How it works</p>
-        <h2>Your first two weeks</h2>
+        <p class="eyebrow" data-reveal>{c.steps.eyebrow}</p>
+        <h2 data-reveal style="--i:1">{c.steps.headline}</h2>
         <ol class="steps grid grid--3">
-          <li class="card">
-            <span class="steps__n">1</span>
-            <h3>Join on Mindbody</h3>
-            <p>Start Premium for ${offer.firstTwoWeeks}, sign your agreement and fill in your pre-exercise screening.</p>
-            <p class="small"><Todo>confirm sign-up steps (Mindbody, then DocuSign?)</Todo></p>
-          </li>
-          <li class="card">
-            <span class="steps__n">2</span>
-            <h3>Learn the lifts</h3>
-            <p>Book a beginner workshop and your first classes. Your coach shows you the main lifts and sets your starting weights.</p>
-          </li>
-          <li class="card">
-            <span class="steps__n">3</span>
-            <h3>Train with a plan</h3>
-            <p>Come to as many classes as you like. Between sessions, the FIT X app gives you two programmed workouts a week.</p>
-          </li>
+          {c.steps.items.map((s, i) => (
+            <li class="card" data-reveal style={`--i:${i}`}>
+              <span class="steps__n">{i + 1}</span>
+              <h3><T text={s.title} /></h3>
+              <p><T text={s.body} /></p>
+            </li>
+          ))}
         </ol>
       </div>
     </section>
 
-    <!-- OFFER / VALUE STACK -->
-    <section class="section section--navy" id="offer">
+    <!-- OFFER / VALUE STACK on a photo, with a glass price card -->
+    <section class="offer-section" id="offer">
+      <div class="offer-section__media" aria-hidden="true">
+        <Photo src={floorLand} alt="" ratio="auto" sizes="100vw" class="offer-section__img" />
+      </div>
       <div class="wrap offer">
         <div>
-          <p class="eyebrow">The Premium membership</p>
-          <h2>Everything in the studio, one membership.</h2>
-          <p class="lede">Premium is the membership we built the studio around. It's the only one with the workshops, the app and online coaching.</p>
+          <p class="eyebrow" data-reveal>{c.offer.eyebrow}</p>
+          <h2 data-reveal style="--i:1">{c.offer.headline}</h2>
+          <p class="lede" data-reveal style="--i:2">{c.offer.sub}</p>
           <ul class="stack">
-            {premium.includes.map((k) => <li>{inc[k]}</li>)}
+            {premium.includes.map((k, i) => <li data-reveal style={`--i:${Math.min(i, 6)}`}>{inc[k]}</li>)}
           </ul>
         </div>
-        <div class="price card">
-          <p class="eyebrow">Start Premium</p>
-          <p class="price__big"><span>${offer.firstTwoWeeks}</span> first two weeks</p>
-          <p class="price__then">then <strong>${offer.thenWeekly}/week</strong>, paid Mondays</p>
+        <div class="price glass" data-reveal style="--i:2">
+          <p class="eyebrow">{c.offer.cardEyebrow}</p>
+          <p class="price__big"><span>${offer.price}</span> {offer.name}</p>
+          <hr />
+          <p class="price__then">{c.offer.cardThen}: <strong>${offer.thenWeekly}/week</strong></p>
           <ul class="price__terms small">
-            <li>No joining fee</li>
-            <li>Choose a 12-week or 6-month minimum term</li>
-            <li>Your fee won't go up during your minimum term</li>
-            <li>3 business days to cool off after signing</li>
+            {c.offer.terms.map((t) => <li>{t}</li>)}
           </ul>
-          <a class="btn btn--block" href={join} data-cta="offer">{ctaLabel}</a>
-          <p class="small price__why">Strength and Pilates classes are capped at 14. Booking opens two weeks ahead.</p>
-          <p class="small"><Todo>Mindbody link straight to the $89 Premium start offer</Todo></p>
+          <a class="btn btn--light btn--block" href={join} data-cta="offer">{c.offer.cta}</a>
+          <p class="small price__why">{c.offer.footnote}</p>
         </div>
       </div>
     </section>
@@ -192,46 +205,34 @@ const jsonLd = {
     <!-- CLASSES -->
     <section class="section">
       <div class="wrap">
-        <p class="eyebrow">What's on</p>
-        <h2>The classes</h2>
+        <p class="eyebrow" data-reveal>{c.classes.eyebrow}</p>
+        <h2 data-reveal style="--i:1">{c.classes.headline}</h2>
         <div class="grid grid--2 classes">
-          <article class="card">
-            <Photo ratio="3 / 2" alt="Women lifting barbells in a coached strength class" shot="Strength class, barbells loaded, coach watching" />
-            <h3>Coached strength</h3>
-            <p>Our main class. Barbells, dumbbells and machines, coached from start to finish. Max 14.</p>
-          </article>
-          <article class="card">
-            <Photo ratio="3 / 2" alt="Mat Pilates class on the studio floor" shot="Mat Pilates class" />
-            <h3>Mat Pilates</h3>
-            <p>Mat-based, no reformers. Control, core and mobility to go with your lifting. Max 14. Grip socks required.</p>
-          </article>
-          <article class="card">
-            <Photo ratio="3 / 2" alt="Mum training with her baby in the play area beside her" shot="Mums and bubs: mum training, bub in the play area" />
-            <h3>Mums and bubs</h3>
-            <p>Train with bub in the room. There's a fenced play area with toys, and the class is capped at 10.</p>
-          </article>
-          <article class="card">
-            <Photo ratio="3 / 2" alt="Two people training together in Saturday HIIT" shot="Saturday HIIT, partners working in doubles" />
-            <h3>Saturday HIIT</h3>
-            <p>Bring a training partner of any gender and work in doubles, Hyrox-style.</p>
-          </article>
+          {c.classes.items.map((k, i) => (
+            <article class="card class-card" data-reveal style={`--i:${i % 2}`}>
+              <Photo src={photos[k.photo]} alt={`${k.title} at FIT X Studio`} shot={`${k.title} class with members`} ratio="3 / 2" sizes="(min-width: 48rem) 50vw, 100vw" />
+              <div class="class-card__body">
+                <h3><T text={k.title} /></h3>
+                <p><T text={k.body} /></p>
+              </div>
+            </article>
+          ))}
         </div>
-        <p class="small classes__more">
-          Also on Premium: staffed open gym sessions (max 10) and our monthly beginner workshops.
-          <a href={site.links.timetable}>See the timetable on Mindbody</a>.
+        <p class="small classes__more" data-reveal>
+          {c.classes.more} <a href={site.links.timetable}>See the timetable on Mindbody</a>.
         </p>
       </div>
     </section>
 
-    <!-- PROOF WALL -->
+    <!-- PROOF WALL: only consented testimonials render -->
     <section class="section section--mist">
       <div class="wrap">
-        <p class="eyebrow">From our members</p>
-        <h2>What it's like inside</h2>
+        <p class="eyebrow" data-reveal>{c.proof.eyebrow}</p>
+        <h2 data-reveal style="--i:1">{c.proof.headline}</h2>
         {proof.length > 0 ? (
           <div class="grid grid--3">
-            {proof.map((t: any) => (
-              <blockquote class="card quote">
+            {proof.map((t: any, i: number) => (
+              <blockquote class="card quote" data-reveal style={`--i:${i % 3}`}>
                 <p>“{t.quote}”</p>
                 {t.result && <p class="small">{t.result}{t.timeframe ? ` · ${t.timeframe}` : ''}</p>}
                 <cite>{t.name}</cite>
@@ -239,7 +240,7 @@ const jsonLd = {
             ))}
           </div>
         ) : (
-          <p><Todo>studio testimonials with written consent (Google reviews, member quotes, video). Open day feedback would work well here.</Todo></p>
+          <p data-reveal><mark class="todo">[[NEEDS LAUREN: studio testimonials with written consent: Google reviews, member quotes or video. Open day feedback would work well here.]]</mark></p>
         )}
       </div>
     </section>
@@ -247,26 +248,26 @@ const jsonLd = {
     <!-- OTHER OPTIONS -->
     <section class="section">
       <div class="wrap">
-        <p class="eyebrow">Other ways to train with us</p>
-        <h2>Want just one thing?</h2>
-        <p class="lede">Premium is the one we recommend. If you only want one type of class, these memberships are standard rate with the same terms.</p>
-        <div class="grid grid--3">
-          {others.map((m) => (
-            <article class="card tier">
+        <p class="eyebrow" data-reveal>{c.others.eyebrow}</p>
+        <h2 data-reveal style="--i:1">{c.others.headline}</h2>
+        <p class="lede" data-reveal style="--i:2">{c.others.sub}</p>
+        <div class="grid grid--3 tiers">
+          {others.map((m, i) => (
+            <article class="card tier" data-reveal style={`--i:${i}`}>
               <h3>{m.name}</h3>
               <p class="tier__price"><strong>${m.weekly}</strong>/week</p>
               <ul class="small">{m.includes.map((k) => <li>{inc[k]}</li>)}</ul>
             </article>
           ))}
         </div>
-        <div class="packs">
-          <h3>Casual visits and class packs</h3>
+        <div class="packs" data-reveal>
+          <h3>{c.others.packsTitle}</h3>
           <ul class="small">
-            {studio.casual.map((c) => <li>{c.name}: ${c.price}</li>)}
+            {studio.casual.map((x) => <li>{x.name}: ${x.price}</li>)}
             {studio.classPacks.map((p) => <li>{p.name}: ${p.price} ({p.note.toLowerCase()})</li>)}
           </ul>
-          <p class="small">Prices include GST and may change. The fee schedule you're given when you join applies.</p>
-          <a class="btn btn--ghost" href={join} data-cta="other-options">Join on Mindbody</a>
+          <p class="small">{c.others.packsNote}</p>
+          <a class="btn btn--ghost" href={site.links.memberships} data-cta="other-options">{c.others.cta}</a>
         </div>
       </div>
     </section>
@@ -274,16 +275,13 @@ const jsonLd = {
     <!-- FAQ -->
     <section class="section section--mist">
       <div class="narrow">
-        <p class="eyebrow">Questions</p>
-        <h2>Before you start</h2>
-        <div class="faq">
+        <p class="eyebrow" data-reveal>{c.faq.eyebrow}</p>
+        <h2 data-reveal style="--i:1">{c.faq.headline}</h2>
+        <div class="faq" data-reveal style="--i:2">
           {faq.items.map((f: any) => (
             <details>
               <summary>{f.q}</summary>
-              <div class="faq__a">
-                <p>{f.a}</p>
-                {f.todo && <p><Todo>{f.todo}</Todo></p>}
-              </div>
+              <div class="faq__a"><p><T text={f.a} /></p></div>
             </details>
           ))}
         </div>
@@ -294,29 +292,34 @@ const jsonLd = {
     <section class="section">
       <div class="wrap grid grid--2 location">
         <div>
-          <p class="eyebrow">Find us</p>
-          <h2>Manunda, Cairns</h2>
-          <address>
+          <p class="eyebrow" data-reveal>{c.location.eyebrow}</p>
+          <h2 data-reveal style="--i:1">{c.location.headline}</h2>
+          <address data-reveal style="--i:2">
             FIT X Studio<br />
             {site.address.street}<br />
             {site.address.suburb} {site.address.state} {site.address.postcode}
           </address>
-          <p class="small">{site.parking.startsWith('[[') ? <Todo>parking details</Todo> : site.parking}</p>
-          <p><a href={site.mapsUrl}>Open in Google Maps</a></p>
+          <p class="small" data-reveal style="--i:3"><T text={site.parking} /></p>
+          <p data-reveal style="--i:3"><a href={site.mapsUrl}>Open in Google Maps</a></p>
         </div>
-        <Photo ratio="3 / 2" alt="Inside FIT X Studio, Manunda" shot="Wide shot of the studio floor" />
+        <div data-reveal style="--i:1">
+          <Photo src={pilatesRoom} alt="The mat Pilates room at FIT X Studio, Manunda" ratio="4 / 3" sizes="(min-width: 48rem) 50vw, 100vw" />
+        </div>
       </div>
     </section>
 
     <!-- FINAL CTA -->
-    <section class="section section--navy final">
-      <div class="narrow">
-        <h2>Your first two weeks start here.</h2>
-        <p class="lede">Premium, ${offer.firstTwoWeeks} for the first two weeks, then ${offer.thenWeekly} a week. Classes capped at 14.</p>
-        <a class="btn btn--light" href={join} data-cta="final">{ctaLabel}</a>
-        <div class="cross">
-          <p class="small">Not in Cairns, or can't make class times? <a href={site.links.online}>Train with Coach Loz online</a>.</p>
-          <p class="small">Need something to train in? <a href={site.links.apparel}>Shop FIT X Apparel</a>.</p>
+    <section class="final">
+      <div class="final__media" aria-hidden="true">
+        <Photo src={pilatesMat} alt="" ratio="auto" sizes="100vw" class="final__img" />
+      </div>
+      <div class="narrow final__content">
+        <h2 data-reveal>{c.final.headline}</h2>
+        <p class="lede" data-reveal style="--i:1">{c.final.sub}</p>
+        <div data-reveal style="--i:2"><a class="btn btn--light" href={join} data-cta="final">{c.final.cta}</a></div>
+        <div class="cross glass" data-reveal style="--i:3">
+          <p class="small">{c.final.crossOnline} <a href={site.links.online}>{c.final.crossOnlineLink}</a></p>
+          <p class="small">{c.final.crossApparel} <a href={site.links.apparel}>{c.final.crossApparelLink}</a></p>
         </div>
       </div>
     </section>
@@ -330,9 +333,10 @@ const jsonLd = {
     </div>
   </footer>
 
-  <!-- Mobile sticky CTA: appears once the hero CTA scrolls away -->
-  <div class="dock" aria-hidden="true" data-dock>
-    <a class="btn btn--block" href={join} data-cta="dock" tabindex="-1">{ctaLabel} · then ${offer.thenWeekly}/wk</a>
+  <!-- Mobile dock: a floating glass bar that appears once the hero CTA scrolls away -->
+  <div class="dock glass" aria-hidden="true" data-dock>
+    <div class="dock__text"><strong>${offer.price}</strong> <span>2 weeks unlimited</span></div>
+    <a class="btn btn--light" href={join} data-cta="dock" tabindex="-1">Start</a>
   </div>
 
   <script>
@@ -354,63 +358,119 @@ const jsonLd = {
 </Base>
 
 <style>
-  .hero { padding-block: clamp(2.5rem, 1.5rem + 5vw, 6rem); position: relative; overflow: hidden; }
-  .hero::before {
-    content: ''; position: absolute; inset: -20% -10% auto auto; width: 60vw; height: 60vw; pointer-events: none;
-    background: radial-gradient(closest-side, rgba(91, 140, 255, 0.22), transparent);
+  .center { text-align: center; }
+
+  /* Hero: photo under a navy scrim, content on top */
+  .hero {
+    position: relative; isolation: isolate; color: var(--on-navy); background: var(--navy);
+    min-height: min(100svh - var(--nav-h), 56rem); display: grid; align-items: end;
+    padding-block: clamp(6rem, 10vh, 9rem) clamp(2.5rem, 6vh, 5rem);
+    overflow: hidden;
   }
-  .hero__grid { position: relative; display: grid; gap: 2.5rem; align-items: center; }
-  @media (min-width: 64rem) { .hero__grid { grid-template-columns: 1.05fr 1fr; gap: 4rem; } }
-  .hero .display { margin-bottom: 1.25rem; }
+  .hero__media, .offer-section__media, .final__media { position: absolute; inset: 0; z-index: -1; }
+  .hero__media :global(.hero__img), .offer-section__media :global(.offer-section__img), .final__media :global(.final__img) {
+    width: 100%; height: 100%; object-fit: cover; border-radius: 0;
+  }
+  .hero__media :global(.hero__img) { object-position: 62% 30%; }
+  .hero__media::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(13, 27, 54, 0.35) 0%, rgba(13, 27, 54, 0.55) 45%, rgba(13, 27, 54, 0.96) 100%),
+      linear-gradient(90deg, rgba(13, 27, 54, 0.75) 0%, rgba(13, 27, 54, 0) 70%);
+  }
+  /* Desktop: the portrait photo sits as a panel on the right and fades into the navy */
+  @media (min-width: 64rem) {
+    .hero__media { left: auto; width: 48%; }
+    .hero__media :global(.hero__img) { object-position: 50% 35%; }
+    .hero__media::after {
+      background:
+        linear-gradient(90deg, var(--navy) 0%, rgba(13, 27, 54, 0.35) 40%, rgba(13, 27, 54, 0.1) 100%),
+        linear-gradient(0deg, rgba(13, 27, 54, 0.85) 0%, transparent 35%);
+    }
+    .hero { align-items: center; }
+  }
+  .hero__content { max-width: var(--max); }
+  .hero .display { max-width: 13ch; margin-bottom: 1.25rem; }
+  .hero .lede { max-width: 38rem; color: rgba(255, 255, 255, 0.86); }
+  .hero__eyebrow { color: rgba(255, 255, 255, 0.8); }
   .hero__ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
-  .hero__under { margin-top: 1.5rem; }
+  .hero__note { color: rgba(255, 255, 255, 0.75); margin-bottom: 1.5rem; }
 
-  .strip { border-bottom: 1px solid var(--line); }
-  .strip__inner { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding-block: 1.5rem; }
-  .strip__fact { margin: 0; display: grid; gap: 0.15rem; text-align: center; }
-  .strip__fact strong { font-size: clamp(1.4rem, 1rem + 2vw, 2.25rem); letter-spacing: -0.03em; line-height: 1.1; }
-  .strip__fact span { font-size: 0.8rem; color: var(--ink-soft); line-height: 1.3; }
-  .strip__quote { margin: 0; font-size: 0.95rem; }
-  .strip__quote cite { font-style: normal; font-weight: 700; font-size: 0.85rem; }
-  @media (max-width: 40rem) { .strip__inner:has(.strip__quote) { grid-template-columns: 1fr; } }
+  /* Ticker: slow, continuous, pauses on hover and for reduced motion */
+  .ticker {
+    display: flex; overflow: hidden; background: var(--navy-2); color: var(--on-navy);
+    border-block: 1px solid rgba(255, 255, 255, 0.08);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .ticker__row {
+    display: flex; flex: none; gap: 2.5rem; padding: 0.95rem 1.25rem; margin: 0; list-style: none;
+    animation: ticker 40s linear infinite;
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap;
+  }
+  .ticker__row li::before { content: '✦'; margin-right: 2.5rem; color: #9db8ff; }
+  .ticker:hover .ticker__row { animation-play-state: paused; }
+  @keyframes ticker { to { transform: translateX(-100%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker { overflow-x: auto; }
+    .ticker__row { animation: none; }
+    .ticker__row[aria-hidden] { display: none; }
+  }
 
-  .moments { margin-top: 2rem; gap: 2rem 3rem; }
+  .vsl-section h2 { margin-bottom: 2rem; }
+  .vsl-wrap { max-width: 60rem; display: grid; gap: 1.5rem; }
+
+  .moments { margin-top: 2.5rem; gap: 2rem 3rem; }
   .moment { border-top: 2px solid var(--navy); padding-top: 1.25rem; }
   .moment p { color: var(--ink-soft); margin: 0; }
+
+  .gallery h2 { margin-bottom: 2rem; }
+  .gallery__item { margin: 0; }
+  .gallery__item :global(.photo) { border-radius: var(--radius); }
 
   .story { display: grid; gap: 2rem; align-items: center; }
   @media (min-width: 48rem) { .story { grid-template-columns: 0.8fr 1fr; gap: 4rem; } }
 
-  .steps { list-style: none; padding: 0; margin: 2rem 0 0; counter-reset: none; }
+  .steps { list-style: none; padding: 0; margin: 2rem 0 0; }
   .steps__n {
     display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%;
     background: var(--navy); color: var(--on-navy); font-weight: 800; margin-bottom: 1rem;
   }
   .steps p { color: var(--ink-soft); margin: 0; }
 
-  .offer { display: grid; gap: 2.5rem; align-items: start; }
+  /* Offer on a photo */
+  .offer-section {
+    position: relative; isolation: isolate; overflow: hidden; color: var(--on-navy); background: var(--navy);
+    padding-block: clamp(4rem, 2rem + 7vw, 8rem);
+  }
+  .offer-section__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(13, 27, 54, 0.95) 30%, rgba(13, 27, 54, 0.7)); }
+  .offer-section .lede { color: var(--on-navy-soft); }
+  .offer-section .eyebrow { color: var(--on-navy-soft); }
+  .offer { display: grid; gap: 2.5rem; align-items: center; }
   @media (min-width: 64rem) { .offer { grid-template-columns: 1.1fr 0.9fr; gap: 4rem; } }
   .stack { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 0.6rem; }
   .stack li { display: flex; gap: 0.75rem; align-items: baseline; font-weight: 600; }
   .stack li::before { content: '✓'; flex: none; font-weight: 900; color: #9db8ff; }
-  .price { color: var(--ink); box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.6); padding: 2rem; }
-  .section--navy .price .eyebrow, .section--navy .price .small { color: var(--ink-soft); }
-  .price__big { margin: 0; font-weight: 700; }
-  .price__big span { font-size: clamp(3rem, 2rem + 4vw, 4.5rem); letter-spacing: -0.045em; font-weight: 900; line-height: 1; margin-right: 0.35rem; }
-  .price__then { font-size: 1.1rem; margin: 0.5rem 0 1.25rem; }
-  .price__terms { padding-left: 1.1rem; margin: 0 0 1.5rem; display: grid; gap: 0.3rem; }
-  .price__why { margin: 1rem 0 0.5rem; }
+  .price { padding: 2rem; border-radius: calc(var(--radius) + 0.5rem); color: var(--on-navy); }
+  .price .eyebrow { color: var(--on-navy-soft); }
+  .price__big { margin: 0; font-weight: 700; font-size: 1.05rem; }
+  .price__big span { display: block; font-size: clamp(3.5rem, 2.5rem + 4vw, 5rem); letter-spacing: -0.045em; font-weight: 900; line-height: 1; margin-bottom: 0.35rem; }
+  .price hr { border: 0; border-top: 1px solid rgba(255, 255, 255, 0.18); margin: 1.25rem 0; }
+  .price__then { font-size: 1.1rem; margin: 0 0 0.75rem; }
+  .price__terms { padding-left: 1.1rem; margin: 0 0 1.5rem; display: grid; gap: 0.3rem; color: var(--on-navy-soft); }
+  .price__why { margin: 1rem 0 0; color: var(--on-navy-soft); }
 
   .classes { margin-top: 2rem; }
-  .classes .card { padding: 0.75rem 0.75rem 1.25rem; }
-  .classes .card :global(.photo) { margin-bottom: 1rem; border-radius: var(--radius-sm); }
-  .classes .card h3, .classes .card p { padding-inline: 0.5rem; }
-  .classes .card p { color: var(--ink-soft); margin: 0; }
+  .class-card { padding: 0.75rem; overflow: hidden; transition: transform 500ms var(--spring-fast), box-shadow 300ms var(--ease-out); }
+  @media (hover: hover) { .class-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -28px rgba(13, 27, 54, 0.45); } }
+  .class-card :global(.photo) { border-radius: var(--radius-sm); }
+  .class-card__body { padding: 1rem 0.5rem 0.5rem; }
+  .class-card p { color: var(--ink-soft); margin: 0; }
   .classes__more { margin-top: 1.5rem; }
 
   .quote { margin: 0; }
   .quote cite { font-style: normal; font-weight: 700; }
 
+  .tiers { margin-top: 1.5rem; }
   .tier__price { font-size: 1.1rem; }
   .tier__price strong { font-size: 2rem; letter-spacing: -0.03em; }
   .tier ul, .packs ul { padding-left: 1.1rem; margin: 0; display: grid; gap: 0.25rem; }
@@ -426,34 +486,48 @@ const jsonLd = {
   .faq summary::after {
     content: ''; position: absolute; right: 0.4rem; top: 50%; width: 0.6rem; height: 0.6rem;
     border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
-    transform: translateY(-70%) rotate(45deg); transition: transform 220ms var(--ease-out);
+    transform: translateY(-70%) rotate(45deg); transition: transform 450ms var(--spring-fast);
   }
   .faq details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
   .faq__a { padding-bottom: 1rem; color: var(--ink-soft); }
+  /* Answers open on a spring where the browser supports animating to auto height */
+  @supports (interpolate-size: allow-keywords) {
+    .faq { interpolate-size: allow-keywords; }
+    .faq details::details-content { height: 0; overflow: clip; transition: height 550ms var(--spring-fast), content-visibility 550ms allow-discrete; }
+    .faq details[open]::details-content { height: auto; }
+  }
 
   address { font-style: normal; font-size: 1.1rem; margin-bottom: 1rem; line-height: 1.6; }
   .location { align-items: center; gap: 2rem; }
 
-  .final { text-align: center; }
-  .final .lede { margin-bottom: 1.75rem; }
-  .cross { margin-top: 2.5rem; display: grid; gap: 0.25rem; }
-  .cross p { margin: 0; }
+  .final {
+    position: relative; isolation: isolate; overflow: hidden; text-align: center; color: var(--on-navy); background: var(--navy);
+    padding-block: clamp(5rem, 3rem + 8vw, 9rem);
+  }
+  .final__media::after { content: ''; position: absolute; inset: 0; background: rgba(13, 27, 54, 0.82); }
+  .final .lede { margin-bottom: 1.75rem; color: var(--on-navy-soft); }
+  .cross { margin: 3rem auto 0; display: inline-grid; gap: 0.35rem; padding: 1rem 1.25rem; border-radius: var(--radius); }
+  .cross p { margin: 0; color: var(--on-navy-soft); }
+  .cross a { color: #fff; font-weight: 700; }
 
   .footer { background: #08132a; color: var(--on-navy-soft); padding-block: 2.5rem calc(2.5rem + env(safe-area-inset-bottom)); }
   .footer p { margin: 0 0 0.4rem; color: var(--on-navy-soft); }
 
+  /* Floating glass dock, rises on a spring and returns the same way */
   .dock {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
-    padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
-    background: rgba(255, 255, 255, 0.78);
-    -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%);
-    border-top: 1px solid var(--line);
-    transform: translateY(110%); opacity: 0;
-    transition: transform 380ms var(--ease-out), opacity 240ms var(--ease-out);
+    position: fixed; left: var(--gutter); right: var(--gutter); bottom: calc(0.75rem + env(safe-area-inset-bottom)); z-index: 40;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 0.5rem 0.5rem 0.5rem 1.1rem; border-radius: 999px; color: var(--on-navy);
+    background: rgba(13, 27, 54, 0.72);
+    transform: translateY(calc(100% + 1.5rem)); opacity: 0;
+    transition: transform 700ms var(--spring), opacity 300ms var(--ease-out);
   }
   .dock.is-on { transform: none; opacity: 1; }
+  .dock__text { font-size: 0.95rem; line-height: 1.2; }
+  .dock__text strong { font-size: 1.15rem; letter-spacing: -0.02em; margin-right: 0.3rem; }
+  .dock__text span { color: var(--on-navy-soft); }
+  .dock .btn { min-height: 2.75rem; padding: 0 1.4rem; }
   @media (min-width: 48rem) { .dock { display: none; } }
   @media (max-width: 47.99rem) { .footer { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); } }
   @media (prefers-reduced-motion: reduce) { .dock { transform: none; } }
-  @media (prefers-reduced-transparency: reduce) { .dock { background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none; } }
 </style>
