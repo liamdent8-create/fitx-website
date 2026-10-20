@@ -6,7 +6,7 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 |---|---|---|---|---|
 | 1 | **$89 trial isn't in the contract or fee schedule.** Fee Schedule v2.0 and agreement section 3 only describe the $99 foundation offer. Add the "2 week unlimited trial, $89, counts towards your minimum term if you join Premium" line before ads run | Contract / fee schedule | Lauren | Open |
 | 2 | Copy rewrite: edit the Google Doc "FIT X Studio page – copy for editing (v2)", then tell Claude it's ready | `content/studio.json` | Lauren | Open |
-| 3 | Lauren's story (epiphany bridge) | Story section | Lauren | Open |
+| 3 | Lauren's story (epiphany bridge): now told in the VSL (like EBT), and on the About page later | VSL / About | Lauren | Open |
 | 4 | Studio VSL: YouTube (unlisted) link with captions on | `content/videos.json` → `studio.id` | Lauren | Open |
 | 5 | Photos with people: see `SHOT-LIST.md`. Current photos are space and equipment only | Story, classes | Lauren / crew | Open |
 | 6 | Studio testimonials with written consent | Proof wall | Lauren | Open |
@@ -20,7 +20,6 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 15 | Online higher tier: $59 (brief) vs $69 (FIT X Ops "new pricing") | Online page | Lauren | Open |
 | 16 | Square: assumed not on the site (Loz uses it after the DM) | Online page | Lauren | Open |
 | 17 | Address: current website says "261-272", agreement says "261–273". Site uses 261–273 | Old site | Lauren | Open |
-
 | 20 | **Hero photo with women in it** (EBT's hero is three coaches). Best: Lauren + 2 ambassadors in FIT X gear in front of the neon sign | Hero | Lauren / crew | Open |
 | 21 | **Member results** for the carousel straight after the VSL: 4–8 with consent: first name, training photo (no before/after), result, timeframe, quote | Results | Lauren | Open |
 | 22 | **Opening bonus?** EBT re-hooks with the prize mid-page. Is there a trial-sign-up bonus (e.g. grip socks / tote / free workshop seat)? If not, the panel stays as the $89 offer | Opening offer panel | Lauren | Open |
