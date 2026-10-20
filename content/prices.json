@@ -1,0 +1,24 @@
+{
+  "_note": "Weekly prices, GST inclusive. Edit here only. Anything marked NEEDS LAUREN is unconfirmed and must not go live.",
+  "studio": {
+    "trial": { "name": "2-week trial", "price": 89, "status": "NEEDS LAUREN: confirm this is still the offer" },
+    "memberships": [
+      { "id": "premium", "name": "Premium", "weekly": 75, "recommended": true, "includes": "NEEDS LAUREN" },
+      { "id": "strength-pilates", "name": "Strength + Pilates unlimited", "weekly": 55, "includes": "NEEDS LAUREN", "status": "NEEDS LAUREN: not in FIT X Ops Prices tab" },
+      { "id": "strength", "name": "Strength only", "weekly": 40, "includes": "NEEDS LAUREN", "status": "NEEDS LAUREN: brief says $40, FIT X Ops Prices tab says $45" },
+      { "id": "pilates", "name": "Pilates unlimited", "weekly": 35, "includes": "NEEDS LAUREN" },
+      { "id": "open-gym", "name": "Open gym", "weekly": 30, "includes": "NEEDS LAUREN" }
+    ],
+    "classPacks": [
+      { "id": "5-pack", "name": "5-class pack", "price": "NEEDS LAUREN" },
+      { "id": "10-pack", "name": "10-class pack", "price": "NEEDS LAUREN" }
+    ]
+  },
+  "online": {
+    "minimumTerm": "12 weeks",
+    "tiers": [
+      { "id": "base", "weekly": 39 },
+      { "id": "ultimate", "weekly": 59, "status": "NEEDS LAUREN: brief says $59, FIT X Ops Prices tab says $69 for new clients" }
+    ]
+  }
+}
