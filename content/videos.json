@@ -1,0 +1,12 @@
+{
+  "_note": "One entry per video slot. Set provider to youtube, bunny or mp4 and paste the id/url. Leave id empty to show the 'VSL coming' placeholder. Captions are required before launch.",
+  "studio": {
+    "provider": "youtube",
+    "id": "",
+    "title": "Inside FIT X Studio with Coach Loz",
+    "poster": "",
+    "captions": "NEEDS LAUREN: captions file or YouTube captions turned on"
+  },
+  "home": { "provider": "youtube", "id": "", "title": "FIT X with Coach Loz", "poster": "" },
+  "online": { "provider": "youtube", "id": "", "title": "FIT X online coaching", "poster": "" }
+}

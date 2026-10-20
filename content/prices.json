@@ -1,17 +1,60 @@
 {
-  "_note": "Weekly prices, GST inclusive. Edit here only. Anything marked NEEDS LAUREN is unconfirmed and must not go live.",
+  "_note": "Weekly prices, GST inclusive, standard (post-foundation) rates from Fee Schedule v2.0. Edit here only. Anything marked NEEDS LAUREN must be resolved before launch.",
   "studio": {
-    "trial": { "name": "2-week trial", "price": 89, "status": "NEEDS LAUREN: confirm this is still the offer" },
+    "startOffer": {
+      "membership": "premium",
+      "firstTwoWeeks": 89,
+      "thenWeekly": 75,
+      "status": "NEEDS LAUREN: the $89 start offer is not yet in Fee Schedule v2.0 or the agreement (section 3 only has the foundation offer). Add it before ads go live."
+    },
+    "minimumTerms": ["12 weeks", "6 months"],
+    "joiningFee": 0,
     "memberships": [
-      { "id": "premium", "name": "Premium", "weekly": 75, "recommended": true, "includes": "NEEDS LAUREN" },
-      { "id": "strength-pilates", "name": "Strength + Pilates unlimited", "weekly": 55, "includes": "NEEDS LAUREN", "status": "NEEDS LAUREN: not in FIT X Ops Prices tab" },
-      { "id": "strength", "name": "Strength only", "weekly": 40, "includes": "NEEDS LAUREN", "status": "NEEDS LAUREN: brief says $40, FIT X Ops Prices tab says $45" },
-      { "id": "pilates", "name": "Pilates unlimited", "weekly": 35, "includes": "NEEDS LAUREN" },
-      { "id": "open-gym", "name": "Open gym", "weekly": 30, "includes": "NEEDS LAUREN" }
+      {
+        "id": "premium",
+        "name": "Premium",
+        "weekly": 75,
+        "recommended": true,
+        "includes": ["strength", "pilates", "mumsBubs", "hiit", "openGym", "workshops", "app", "online", "minibar"]
+      },
+      {
+        "id": "strength",
+        "name": "Strength",
+        "weekly": 45,
+        "includes": ["strength", "mumsBubs", "hiit", "minibar"]
+      },
+      {
+        "id": "pilates",
+        "name": "Pilates",
+        "weekly": 35,
+        "includes": ["pilates", "minibar"]
+      },
+      {
+        "id": "open-gym",
+        "name": "Open Gym",
+        "weekly": 30,
+        "includes": ["openGym", "minibar"]
+      }
+    ],
+    "inclusions": {
+      "strength": "Unlimited coached strength classes (max 14)",
+      "pilates": "Unlimited mat Pilates (max 14)",
+      "mumsBubs": "Mums and bubs classes (max 10)",
+      "hiit": "Saturday HIIT",
+      "openGym": "Open gym sessions (max 10)",
+      "workshops": "Beginner workshops",
+      "app": "FIT X fitness app",
+      "online": "Online coaching: 2 sessions a week in the app (no check-ins)",
+      "minibar": "Mini bar access"
+    },
+    "casual": [
+      { "name": "Casual coached strength class", "price": 20 },
+      { "name": "Casual mat Pilates class", "price": 15 },
+      { "name": "Casual open gym visit", "price": 25 }
     ],
     "classPacks": [
-      { "id": "5-pack", "name": "5-class pack", "price": "NEEDS LAUREN" },
-      { "id": "10-pack", "name": "10-class pack", "price": "NEEDS LAUREN" }
+      { "name": "10-class strength pack", "price": 190, "note": "Expires 3 months from purchase" },
+      { "name": "10-class mat Pilates pack", "price": 140, "note": "Expires 3 months from purchase" }
     ]
   },
   "online": {

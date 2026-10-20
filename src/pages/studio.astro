@@ -1,0 +1,459 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Video from '../components/Video.astro';
+import Photo from '../components/Photo.astro';
+import Todo from '../components/Todo.astro';
+import site from '../../content/site.json';
+import prices from '../../content/prices.json';
+import videos from '../../content/videos.json';
+import faq from '../../content/studio-faq.json';
+import testimonials from '../../content/testimonials.json';
+
+const { studio } = prices;
+const offer = studio.startOffer;
+const premium = studio.memberships.find((m) => m.id === 'premium')!;
+const others = studio.memberships.filter((m) => m.id !== 'premium');
+const inc = studio.inclusions as Record<string, string>;
+const proof = testimonials.items.filter((t: any) => t.arm === 'studio' && t.consent?.given === true);
+const join = site.links.studioJoin;
+const ctaLabel = `Start for $${offer.firstTwoWeeks}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ExerciseGym',
+  name: 'FIT X Studio',
+  url: 'https://fitxstudio.com.au/studio',
+  telephone: site.phone,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.street,
+    addressLocality: site.address.suburb,
+    addressRegion: site.address.state,
+    postalCode: site.address.postcode,
+    addressCountry: 'AU',
+  },
+  sameAs: [site.instagram.brand, site.instagram.studio],
+};
+---
+<Base
+  title="Women's Strength Studio in Cairns | FIT X Studio, Manunda"
+  description={`Coached strength classes for women in Manunda, Cairns, capped at 14. Mat Pilates, mums and bubs and Saturday HIIT. Start Premium: first two weeks $${offer.firstTwoWeeks}.`}
+  path="/studio"
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Nav ctaHref={join} ctaLabel={ctaLabel} />
+
+  <main id="main">
+    <!-- HOOK -->
+    <section class="hero section--navy">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow">Women's strength studio · Manunda, Cairns · Opening Mon 26 Oct</p>
+          <h1 class="display">Walk in knowing exactly what to do.</h1>
+          <p class="lede">
+            Coached strength for women, in classes of no more than 14. A coach has eyes on your form,
+            your plan is already written, and nobody's watching you except the person helping you lift.
+          </p>
+          <div class="hero__ctas">
+            <a class="btn btn--light" href={join} data-cta="hero">{ctaLabel}</a>
+            <a class="btn btn--ghost" href="#offer">See what's included</a>
+          </div>
+          <p class="cta-note small">Premium membership · first two weeks ${offer.firstTwoWeeks}, then ${offer.thenWeekly}/week · no joining fee</p>
+        </div>
+        <div class="hero__video">
+          <Video video={videos.studio as any} />
+          <a class="btn btn--light btn--block hero__under" href={join} data-cta="video">Start your first two weeks</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROOF STRIP -->
+    <section class="strip">
+      <div class="wrap strip__inner">
+        {proof.length > 0 ? (
+          proof.slice(0, 3).map((t: any) => (
+            <blockquote class="strip__quote">
+              <p>“{t.quote}”</p>
+              <cite>{t.name}</cite>
+            </blockquote>
+          ))
+        ) : (
+          <>
+            <p class="strip__fact"><strong>14</strong><span>max per strength class</span></p>
+            <p class="strip__fact"><strong>5 yrs</strong><span>as a personal trainer</span></p>
+            <p class="strip__fact"><strong>53</strong><span>foundation members before we opened <Todo>confirm</Todo></span></p>
+          </>
+        )}
+      </div>
+    </section>
+
+    <!-- WHERE YOU END UP -->
+    <section class="section">
+      <div class="wrap">
+        <p class="eyebrow">Where you end up</p>
+        <h2>Strong, confident, and never guessing.</h2>
+        <div class="grid grid--2 moments">
+          <article class="moment">
+            <h3>You walk up to the squat rack like it's yours.</h3>
+            <p>A coach has shown you how to set it up, how deep to go and what to load. So you just get on with it.</p>
+          </article>
+          <article class="moment">
+            <h3>You stop wondering if you're doing it right.</h3>
+            <p>With 14 women and a coach in the room, someone sees your form every set and tells you what to change.</p>
+          </article>
+          <article class="moment">
+            <h3>Training fits around your actual week.</h3>
+            <p>Strength, Pilates, open gym and Saturday HIIT on one membership. Pick the sessions that suit school runs, shifts and late finishes.</p>
+          </article>
+          <article class="moment">
+            <h3>Having a baby doesn't put training on hold.</h3>
+            <p>Bring bub to mums and bubs. There's a fenced play area on the floor, and the class is capped at 10.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="section section--mist">
+      <div class="wrap story">
+        <div class="story__photo">
+          <Photo alt="Coach Loz coaching a member through a squat" shot="Lauren coaching a member at the squat rack" />
+        </div>
+        <div>
+          <p class="eyebrow">Why FIT X exists</p>
+          <h2>From Coach Loz</h2>
+          <p class="lede"><Todo>Lauren's story, in her words: the moment she realised women needed a place like this (epiphany bridge). 4–6 sentences.</Todo></p>
+          <p>
+            I've coached women for five years, in person and online, and I built FIT X Studio around what
+            actually keeps you training: small classes, a plan written for you, and a room full of women
+            backing each other.
+          </p>
+          <p class="small">— Lauren Dent, Coach Loz</p>
+          <p class="small"><Todo>draft wording above: approve or rewrite in your voice</Todo></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section">
+      <div class="wrap">
+        <p class="eyebrow">How it works</p>
+        <h2>Your first two weeks</h2>
+        <ol class="steps grid grid--3">
+          <li class="card">
+            <span class="steps__n">1</span>
+            <h3>Join on Mindbody</h3>
+            <p>Start Premium for ${offer.firstTwoWeeks}, sign your agreement and fill in your pre-exercise screening.</p>
+            <p class="small"><Todo>confirm sign-up steps (Mindbody, then DocuSign?)</Todo></p>
+          </li>
+          <li class="card">
+            <span class="steps__n">2</span>
+            <h3>Learn the lifts</h3>
+            <p>Book a beginner workshop and your first classes. Your coach shows you the main lifts and sets your starting weights.</p>
+          </li>
+          <li class="card">
+            <span class="steps__n">3</span>
+            <h3>Train with a plan</h3>
+            <p>Come to as many classes as you like. Between sessions, the FIT X app gives you two programmed workouts a week.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- OFFER / VALUE STACK -->
+    <section class="section section--navy" id="offer">
+      <div class="wrap offer">
+        <div>
+          <p class="eyebrow">The Premium membership</p>
+          <h2>Everything in the studio, one membership.</h2>
+          <p class="lede">Premium is the membership we built the studio around. It's the only one with the workshops, the app and online coaching.</p>
+          <ul class="stack">
+            {premium.includes.map((k) => <li>{inc[k]}</li>)}
+          </ul>
+        </div>
+        <div class="price card">
+          <p class="eyebrow">Start Premium</p>
+          <p class="price__big"><span>${offer.firstTwoWeeks}</span> first two weeks</p>
+          <p class="price__then">then <strong>${offer.thenWeekly}/week</strong>, paid Mondays</p>
+          <ul class="price__terms small">
+            <li>No joining fee</li>
+            <li>Choose a 12-week or 6-month minimum term</li>
+            <li>Your fee won't go up during your minimum term</li>
+            <li>3 business days to cool off after signing</li>
+          </ul>
+          <a class="btn btn--block" href={join} data-cta="offer">{ctaLabel}</a>
+          <p class="small price__why">Strength and Pilates classes are capped at 14. Booking opens two weeks ahead.</p>
+          <p class="small"><Todo>Mindbody link straight to the $89 Premium start offer</Todo></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLASSES -->
+    <section class="section">
+      <div class="wrap">
+        <p class="eyebrow">What's on</p>
+        <h2>The classes</h2>
+        <div class="grid grid--2 classes">
+          <article class="card">
+            <Photo ratio="3 / 2" alt="Women lifting barbells in a coached strength class" shot="Strength class, barbells loaded, coach watching" />
+            <h3>Coached strength</h3>
+            <p>Our main class. Barbells, dumbbells and machines, coached from start to finish. Max 14.</p>
+          </article>
+          <article class="card">
+            <Photo ratio="3 / 2" alt="Mat Pilates class on the studio floor" shot="Mat Pilates class" />
+            <h3>Mat Pilates</h3>
+            <p>Mat-based, no reformers. Control, core and mobility to go with your lifting. Max 14. Grip socks required.</p>
+          </article>
+          <article class="card">
+            <Photo ratio="3 / 2" alt="Mum training with her baby in the play area beside her" shot="Mums and bubs: mum training, bub in the play area" />
+            <h3>Mums and bubs</h3>
+            <p>Train with bub in the room. There's a fenced play area with toys, and the class is capped at 10.</p>
+          </article>
+          <article class="card">
+            <Photo ratio="3 / 2" alt="Two people training together in Saturday HIIT" shot="Saturday HIIT, partners working in doubles" />
+            <h3>Saturday HIIT</h3>
+            <p>Bring a training partner of any gender and work in doubles, Hyrox-style.</p>
+          </article>
+        </div>
+        <p class="small classes__more">
+          Also on Premium: staffed open gym sessions (max 10) and our monthly beginner workshops.
+          <a href={site.links.timetable}>See the timetable on Mindbody</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- PROOF WALL -->
+    <section class="section section--mist">
+      <div class="wrap">
+        <p class="eyebrow">From our members</p>
+        <h2>What it's like inside</h2>
+        {proof.length > 0 ? (
+          <div class="grid grid--3">
+            {proof.map((t: any) => (
+              <blockquote class="card quote">
+                <p>“{t.quote}”</p>
+                {t.result && <p class="small">{t.result}{t.timeframe ? ` · ${t.timeframe}` : ''}</p>}
+                <cite>{t.name}</cite>
+              </blockquote>
+            ))}
+          </div>
+        ) : (
+          <p><Todo>studio testimonials with written consent (Google reviews, member quotes, video). Open day feedback would work well here.</Todo></p>
+        )}
+      </div>
+    </section>
+
+    <!-- OTHER OPTIONS -->
+    <section class="section">
+      <div class="wrap">
+        <p class="eyebrow">Other ways to train with us</p>
+        <h2>Want just one thing?</h2>
+        <p class="lede">Premium is the one we recommend. If you only want one type of class, these memberships are standard rate with the same terms.</p>
+        <div class="grid grid--3">
+          {others.map((m) => (
+            <article class="card tier">
+              <h3>{m.name}</h3>
+              <p class="tier__price"><strong>${m.weekly}</strong>/week</p>
+              <ul class="small">{m.includes.map((k) => <li>{inc[k]}</li>)}</ul>
+            </article>
+          ))}
+        </div>
+        <div class="packs">
+          <h3>Casual visits and class packs</h3>
+          <ul class="small">
+            {studio.casual.map((c) => <li>{c.name}: ${c.price}</li>)}
+            {studio.classPacks.map((p) => <li>{p.name}: ${p.price} ({p.note.toLowerCase()})</li>)}
+          </ul>
+          <p class="small">Prices include GST and may change. The fee schedule you're given when you join applies.</p>
+          <a class="btn btn--ghost" href={join} data-cta="other-options">Join on Mindbody</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--mist">
+      <div class="narrow">
+        <p class="eyebrow">Questions</p>
+        <h2>Before you start</h2>
+        <div class="faq">
+          {faq.items.map((f: any) => (
+            <details>
+              <summary>{f.q}</summary>
+              <div class="faq__a">
+                <p>{f.a}</p>
+                {f.todo && <p><Todo>{f.todo}</Todo></p>}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section class="section">
+      <div class="wrap grid grid--2 location">
+        <div>
+          <p class="eyebrow">Find us</p>
+          <h2>Manunda, Cairns</h2>
+          <address>
+            FIT X Studio<br />
+            {site.address.street}<br />
+            {site.address.suburb} {site.address.state} {site.address.postcode}
+          </address>
+          <p class="small">{site.parking.startsWith('[[') ? <Todo>parking details</Todo> : site.parking}</p>
+          <p><a href={site.mapsUrl}>Open in Google Maps</a></p>
+        </div>
+        <Photo ratio="3 / 2" alt="Inside FIT X Studio, Manunda" shot="Wide shot of the studio floor" />
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section section--navy final">
+      <div class="narrow">
+        <h2>Your first two weeks start here.</h2>
+        <p class="lede">Premium, ${offer.firstTwoWeeks} for the first two weeks, then ${offer.thenWeekly} a week. Classes capped at 14.</p>
+        <a class="btn btn--light" href={join} data-cta="final">{ctaLabel}</a>
+        <div class="cross">
+          <p class="small">Not in Cairns, or can't make class times? <a href={site.links.online}>Train with Coach Loz online</a>.</p>
+          <p class="small">Need something to train in? <a href={site.links.apparel}>Shop FIT X Apparel</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner small">
+      <p>{site.legalName} · ABN {site.abn}</p>
+      <p>{site.address.street}, {site.address.suburb} {site.address.state} {site.address.postcode} · <a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a> · <a href={`mailto:${site.email}`}>{site.email}</a></p>
+      <p><a href={site.instagram.studio}>Instagram</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+    </div>
+  </footer>
+
+  <!-- Mobile sticky CTA: appears once the hero CTA scrolls away -->
+  <div class="dock" aria-hidden="true" data-dock>
+    <a class="btn btn--block" href={join} data-cta="dock" tabindex="-1">{ctaLabel} · then ${offer.thenWeekly}/wk</a>
+  </div>
+
+  <script>
+    const dock = document.querySelector<HTMLElement>('[data-dock]');
+    const hero = document.querySelector('.hero__ctas');
+    const end = document.querySelector('.final');
+    if (dock && hero && end && 'IntersectionObserver' in window) {
+      let heroGone = false, endShown = false;
+      const sync = () => {
+        const show = heroGone && !endShown;
+        dock.classList.toggle('is-on', show);
+        dock.setAttribute('aria-hidden', String(!show));
+        dock.querySelector('a')!.tabIndex = show ? 0 : -1;
+      };
+      new IntersectionObserver(([e]) => { heroGone = !e.isIntersecting && e.boundingClientRect.top < 0; sync(); }).observe(hero);
+      new IntersectionObserver(([e]) => { endShown = e.isIntersecting; sync(); }).observe(end);
+    }
+  </script>
+</Base>
+
+<style>
+  .hero { padding-block: clamp(2.5rem, 1.5rem + 5vw, 6rem); position: relative; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; inset: -20% -10% auto auto; width: 60vw; height: 60vw; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(91, 140, 255, 0.22), transparent);
+  }
+  .hero__grid { position: relative; display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 64rem) { .hero__grid { grid-template-columns: 1.05fr 1fr; gap: 4rem; } }
+  .hero .display { margin-bottom: 1.25rem; }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
+  .hero__under { margin-top: 1.5rem; }
+
+  .strip { border-bottom: 1px solid var(--line); }
+  .strip__inner { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding-block: 1.5rem; }
+  .strip__fact { margin: 0; display: grid; gap: 0.15rem; text-align: center; }
+  .strip__fact strong { font-size: clamp(1.4rem, 1rem + 2vw, 2.25rem); letter-spacing: -0.03em; line-height: 1.1; }
+  .strip__fact span { font-size: 0.8rem; color: var(--ink-soft); line-height: 1.3; }
+  .strip__quote { margin: 0; font-size: 0.95rem; }
+  .strip__quote cite { font-style: normal; font-weight: 700; font-size: 0.85rem; }
+  @media (max-width: 40rem) { .strip__inner:has(.strip__quote) { grid-template-columns: 1fr; } }
+
+  .moments { margin-top: 2rem; gap: 2rem 3rem; }
+  .moment { border-top: 2px solid var(--navy); padding-top: 1.25rem; }
+  .moment p { color: var(--ink-soft); margin: 0; }
+
+  .story { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 48rem) { .story { grid-template-columns: 0.8fr 1fr; gap: 4rem; } }
+
+  .steps { list-style: none; padding: 0; margin: 2rem 0 0; counter-reset: none; }
+  .steps__n {
+    display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%;
+    background: var(--navy); color: var(--on-navy); font-weight: 800; margin-bottom: 1rem;
+  }
+  .steps p { color: var(--ink-soft); margin: 0; }
+
+  .offer { display: grid; gap: 2.5rem; align-items: start; }
+  @media (min-width: 64rem) { .offer { grid-template-columns: 1.1fr 0.9fr; gap: 4rem; } }
+  .stack { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 0.6rem; }
+  .stack li { display: flex; gap: 0.75rem; align-items: baseline; font-weight: 600; }
+  .stack li::before { content: '✓'; flex: none; font-weight: 900; color: #9db8ff; }
+  .price { color: var(--ink); box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.6); padding: 2rem; }
+  .section--navy .price .eyebrow, .section--navy .price .small { color: var(--ink-soft); }
+  .price__big { margin: 0; font-weight: 700; }
+  .price__big span { font-size: clamp(3rem, 2rem + 4vw, 4.5rem); letter-spacing: -0.045em; font-weight: 900; line-height: 1; margin-right: 0.35rem; }
+  .price__then { font-size: 1.1rem; margin: 0.5rem 0 1.25rem; }
+  .price__terms { padding-left: 1.1rem; margin: 0 0 1.5rem; display: grid; gap: 0.3rem; }
+  .price__why { margin: 1rem 0 0.5rem; }
+
+  .classes { margin-top: 2rem; }
+  .classes .card { padding: 0.75rem 0.75rem 1.25rem; }
+  .classes .card :global(.photo) { margin-bottom: 1rem; border-radius: var(--radius-sm); }
+  .classes .card h3, .classes .card p { padding-inline: 0.5rem; }
+  .classes .card p { color: var(--ink-soft); margin: 0; }
+  .classes__more { margin-top: 1.5rem; }
+
+  .quote { margin: 0; }
+  .quote cite { font-style: normal; font-weight: 700; }
+
+  .tier__price { font-size: 1.1rem; }
+  .tier__price strong { font-size: 2rem; letter-spacing: -0.03em; }
+  .tier ul, .packs ul { padding-left: 1.1rem; margin: 0; display: grid; gap: 0.25rem; }
+  .packs { margin-top: 2.5rem; display: grid; gap: 0.75rem; justify-items: start; }
+
+  .faq { margin-top: 1.5rem; border-top: 1px solid var(--line); }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq summary {
+    list-style: none; cursor: pointer; padding: 1.15rem 2.5rem 1.15rem 0; position: relative;
+    font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: ''; position: absolute; right: 0.4rem; top: 50%; width: 0.6rem; height: 0.6rem;
+    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+    transform: translateY(-70%) rotate(45deg); transition: transform 220ms var(--ease-out);
+  }
+  .faq details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+  .faq__a { padding-bottom: 1rem; color: var(--ink-soft); }
+
+  address { font-style: normal; font-size: 1.1rem; margin-bottom: 1rem; line-height: 1.6; }
+  .location { align-items: center; gap: 2rem; }
+
+  .final { text-align: center; }
+  .final .lede { margin-bottom: 1.75rem; }
+  .cross { margin-top: 2.5rem; display: grid; gap: 0.25rem; }
+  .cross p { margin: 0; }
+
+  .footer { background: #08132a; color: var(--on-navy-soft); padding-block: 2.5rem calc(2.5rem + env(safe-area-inset-bottom)); }
+  .footer p { margin: 0 0 0.4rem; color: var(--on-navy-soft); }
+
+  .dock {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.78);
+    -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%);
+    border-top: 1px solid var(--line);
+    transform: translateY(110%); opacity: 0;
+    transition: transform 380ms var(--ease-out), opacity 240ms var(--ease-out);
+  }
+  .dock.is-on { transform: none; opacity: 1; }
+  @media (min-width: 48rem) { .dock { display: none; } }
+  @media (max-width: 47.99rem) { .footer { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); } }
+  @media (prefers-reduced-motion: reduce) { .dock { transform: none; } }
+  @media (prefers-reduced-transparency: reduce) { .dock { background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none; } }
+</style>

@@ -1,0 +1,28 @@
+---
+// Photo slot. Until the cleared Drive photos are added, shows a labelled
+// placeholder describing the shot that belongs here.
+interface Props {
+  src?: string;
+  alt: string;
+  shot: string;
+  ratio?: string;
+}
+const { src, alt, shot, ratio = '4 / 5' } = Astro.props;
+---
+{src ? (
+  <img class="photo" src={src} alt={alt} loading="lazy" decoding="async" style={`aspect-ratio:${ratio}`} />
+) : (
+  <div class="photo photo--empty" style={`aspect-ratio:${ratio}`} role="img" aria-label={alt}>
+    <span>Photo: {shot}</span>
+  </div>
+)}
+
+<style>
+  .photo { width: 100%; object-fit: cover; border-radius: var(--radius); }
+  .photo--empty {
+    display: grid; place-items: center; padding: 1.5rem; text-align: center;
+    background: repeating-linear-gradient(135deg, #e7ebf2 0 12px, #eef1f6 12px 24px);
+    color: var(--ink-soft); font-size: 0.875rem; font-weight: 600;
+    border: 1px dashed rgba(13, 27, 54, 0.25);
+  }
+</style>
