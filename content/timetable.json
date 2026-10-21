@@ -1,0 +1,68 @@
+{
+  "_note": "Text on the timetable page (/timetable). The class times themselves come live from Mindbody.",
+  "seo": {
+    "title": "Class Timetable | FIT X Studio, Manunda Cairns",
+    "description": "This week's strength, mat Pilates, mums and bubs, Saturday HIIT and open gym sessions at FIT X Studio, Manunda. Book online with Mindbody."
+  },
+  "hero": {
+    "eyebrow": "Class timetable",
+    "headline": "Find your class.",
+    "sub": "Live times from our booking system. Classes open two weeks ahead and you can cancel free up to 12 hours before."
+  },
+  "newHere": {
+    "headline": "New here?",
+    "items": [
+      {
+        "label": "New to FIT X",
+        "title": "2 weeks unlimited",
+        "price": "$89",
+        "body": "Every class for two weeks. Counts towards your Premium minimum term if you stay.",
+        "cta": "Claim my 2 weeks",
+        "link": "studioJoin",
+        "featured": true
+      },
+      {
+        "label": "Just one class",
+        "title": "Casual visit",
+        "price": "From $15",
+        "body": "Strength $20, mat Pilates $15, open gym $25. Or save with a 10-class pack.",
+        "cta": "Buy a casual pass",
+        "link": "memberships",
+        "featured": false
+      },
+      {
+        "label": "Already a member",
+        "title": "Book below",
+        "price": "",
+        "body": "Pick a class, tap Book and sign in with your Mindbody account.",
+        "cta": "Go to the timetable",
+        "link": "#schedule",
+        "featured": false
+      }
+    ]
+  },
+  "schedule": {
+    "headline": "This week",
+    "note": "Booking a class needs a pass or membership.",
+    "loading": "Loading this week's classes…",
+    "fallback": "Timetable not loading?",
+    "fallbackLink": "Open it in Mindbody"
+  },
+  "info": {
+    "headline": "Good to know",
+    "items": [
+      {
+        "title": "What to bring",
+        "body": "Water bottle, towel and enclosed training shoes. Grip socks for mat Pilates (bring yours or buy from us)."
+      },
+      {
+        "title": "Cancelling",
+        "body": "Free up to 12 hours before class. If you miss three booked classes in 30 days without cancelling in time, a $10 fee applies from the third."
+      },
+      {
+        "title": "Getting here",
+        "body": "Shed 6, 261–273 McCormack Street, Manunda. Designated customer parking on site, plus on-street parking."
+      }
+    ]
+  }
+}

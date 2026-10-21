@@ -21,10 +21,11 @@
   },
   "links": {
     "studioJoin": "https://www.mindbodyonline.com/explore/deals/fit-x-studio/intro-offer-100046",
-    "timetable": "https://clients.mindbodyonline.com/classic/ws?studioid=5756603&stype=40",
+    "timetable": "/timetable",
     "apparel": "https://fitxapparelaustralia.myshopify.com",
     "online": "/online",
     "memberships": "https://clients.mindbodyonline.com/classic/ws?studioid=5756603&stype=40",
-    "timetableStatus": "NEEDS LAUREN: confirm the best Mindbody timetable link"
-  }
+    "mindbodySchedule": "https://go.mindbodyonline.com/book/widgets/schedules/view/a667931e82a/schedule"
+  },
+  "mindbodyWidgetId": "a667931e82a"
 }

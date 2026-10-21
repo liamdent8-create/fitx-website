@@ -10,6 +10,7 @@ import Carousel from '../components/Carousel.astro';
 import Countdown from '../components/Countdown.astro';
 import TileSheet from '../components/TileSheet.astro';
 import T from '../components/T.astro';
+import Footer from '../components/Footer.astro';
 import site from '../../content/site.json';
 import prices from '../../content/prices.json';
 import videos from '../../content/videos.json';
@@ -180,6 +181,7 @@ const jsonLd = {
         <div data-reveal style="--i:2"><Countdown label={`${c.urgency.label} ${c.urgency.date}`} until="2026-10-26T00:00:00+10:00" /></div>
         <div data-reveal style="--i:3"><a class="btn btn--big" href={join} data-cta="urgency">{c.urgency.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
         <p class="small" data-reveal style="--i:4">{c.urgency.small}</p>
+        <p data-reveal style="--i:4"><a class="link-more" href={site.links.timetable}>{c.urgency.timetableLink}</a></p>
       </div>
     </section>
 
@@ -410,14 +412,7 @@ const jsonLd = {
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="wrap small">
-      <p class="footer__brand">FIT X <span>Studio.</span></p>
-      <p>{site.address.street}, {site.address.suburb} {site.address.state} {site.address.postcode} · {site.parking}</p>
-      <p><a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a> · <a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.instagram.studio}>Instagram</a></p>
-      <p>{site.legalName} · ABN {site.abn} · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
-    </div>
-  </footer>
+  <Footer />
 
   <!-- Mobile dock: floating glass bar once the hero CTA scrolls away -->
   <div class="dock glass" aria-hidden="true" data-dock>
@@ -651,10 +646,6 @@ const jsonLd = {
   .cross p { margin: 0; color: var(--on-navy-soft); }
   .cross a { color: #fff; font-weight: 600; }
 
-  .footer { background: #070f22; color: var(--on-navy-soft); padding-block: 2.5rem calc(2.5rem + env(safe-area-inset-bottom)); }
-  .footer p { margin: 0 0 0.4rem; color: var(--on-navy-soft); }
-  .footer__brand { font-family: var(--font-promo); font-style: italic; font-weight: 700; text-transform: uppercase; font-size: 1.8rem; color: #fff !important; line-height: 1; margin-bottom: 1rem !important; }
-  .footer__brand span { color: var(--ice); }
 
   /* Floating glass dock: rises on a spring, returns the same way */
   .dock {
@@ -670,6 +661,5 @@ const jsonLd = {
   .dock__text span { color: var(--on-navy-soft); }
   .dock .btn { min-height: 2.75rem; padding: 0 1.4rem; }
   @media (min-width: 48rem) { .dock { display: none; } }
-  @media (max-width: 47.99rem) { .footer { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); } }
   @media (prefers-reduced-motion: reduce) { .dock { transform: none; } }
 </style>

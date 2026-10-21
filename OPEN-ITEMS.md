@@ -12,7 +12,6 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 6 | Studio testimonials with written consent | Proof wall | Lauren | Open |
 | 8 | Mums and bubs cap: agreement says **10**, current website says **14**. Site follows the agreement | Classes, prices | Lauren | Open |
 | 9 | Current website still lists a $55 "Pilates & Strength" tier (6-month) that isn't in the agreement. Remove it from Square or add it to the agreement | Old site | Lauren | Open |
-| 10 | Confirm the best Mindbody timetable link (using the general studio page for now) | `content/site.json` | Lauren | Open |
 | 11 | Logo file (SVG or PNG). Site uses a text logo | Global | Lauren | Open |
 | 12 | Privacy and Terms pages: the agreement says the privacy policy is on the website | Footer | Lauren | Open |
 | 13 | Hosting: Netlify setup and domain (steps in chat) | Launch | Liam | Open |
@@ -31,6 +30,11 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 28 | Email/SMS list ("VIP list" like EBT) for people not ready yet: which tool? (Klaviyo, Mailchimp, ManyChat) | Footer | Lauren | Open |
 | 29 | VSL: EBT autoplays muted with burned-in captions. OK to autoplay muted (no sound) on our page? | VSL | Lauren | Open |
 | 30 | Logo as SVG: the condensed italic "FIT X STUDIO." from the mat and neon sign. Site uses Oswald Italic as a stand-in | Global | Lauren | Open |
+| 31 | **Rename the Mindbody widget heading** from "Book your express class" to "Book a class" (Mindbody → Branded Web Tools → widget a667931e82a) | Timetable | Lauren | Open |
+| 32 | DM keyword for ManyChat (e.g. "STRONG") and the reply flow: $89 link + "strength, Pilates or mums and bubs?" | Instagram / ads | Lauren | Open |
+| 33 | Tropic State's Instagram handle (couldn't verify) and current address (one listing says Unit 7, 261–273 McCormack St, so possibly neighbours) | Research | Lauren | Open |
+| 34 | Confirm "Rhys Livingstone" = @rhyslivingstone (now a business mentor for PTs, Undeniable Mentoring) | Research | Lauren | Open |
+| 35 | Mums and bubs page (SEO, like Tropic State's prenatal page): go ahead? | New page | Lauren | Open |
 
 ## Closed
 | Item | Resolution | Date |
@@ -46,4 +50,5 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | Photo consent | All Drive photos cleared | 2026-10-20 |
 | Network access | Unblocked | 2026-10-20 |
 | Parking | Designated customer parking on site, plus on-street parking | 2026-10-20 |
+| Timetable link | /timetable page with Mindbody widget a667931e82a | 2026-10-22 |
 | Copy doc | v2 created; v1 renamed "OLD – don't edit" | 2026-10-20 |

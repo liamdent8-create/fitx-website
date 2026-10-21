@@ -1,0 +1,58 @@
+---
+// Mindbody "Schedules" widget, loaded only when it's about to scroll into
+// view (it pulls ~550KB plus Mindbody's own analytics). Shows a skeleton while
+// loading and a plain link if it doesn't load within 12 seconds.
+interface Props { widgetId: string; fallbackHref: string; loading: string; fallback: string; fallbackLink: string }
+const { widgetId, fallbackHref, loading, fallback, fallbackLink } = Astro.props;
+---
+<div class="mbs" data-mbs>
+  <div class="mbs__skeleton" aria-hidden="true">
+    <div class="mbs__days">{Array.from({ length: 7 }).map(() => <span></span>)}</div>
+    {Array.from({ length: 4 }).map(() => <div class="mbs__row"><i></i><b></b></div>)}
+    <p>{loading}</p>
+  </div>
+  <div class="mindbody-widget" data-widget-type="Schedules" data-widget-id={widgetId}></div>
+  <p class="mbs__fallback small" hidden data-fallback>{fallback} <a href={fallbackHref}>{fallbackLink} ›</a></p>
+  <noscript><p class="small"><a href={fallbackHref}>{fallbackLink} ›</a></p></noscript>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-mbs]').forEach((root) => {
+    const load = () => {
+      if (!document.querySelector('script[src*="brandedweb.mindbodyonline.com/embed/widget.js"]')) {
+        const s = document.createElement('script');
+        s.src = 'https://brandedweb.mindbodyonline.com/embed/widget.js';
+        s.async = true;
+        document.body.appendChild(s);
+      }
+      // Hide the skeleton once Mindbody's iframe arrives and has height.
+      const done = () => root.classList.add('is-loaded');
+      const mo = new MutationObserver(() => {
+        const f = root.querySelector('iframe');
+        if (f) { f.addEventListener('load', done, { once: true }); setTimeout(done, 2500); mo.disconnect(); }
+      });
+      mo.observe(root, { childList: true, subtree: true });
+      setTimeout(() => { if (!root.querySelector('iframe')) root.querySelector<HTMLElement>('[data-fallback]')!.hidden = false; }, 12000);
+    };
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); load(); } }, { rootMargin: '600px 0px' });
+      io.observe(root);
+    } else load();
+  });
+</script>
+
+<style>
+  .mbs { position: relative; min-height: 32rem; background: #fff; border-radius: var(--radius); padding: 0.5rem clamp(0rem, 2vw, 1rem); box-shadow: 0 20px 50px -35px rgba(13, 27, 54, 0.45), 0 0 0 1px var(--line); overflow: hidden; }
+  .mbs :global(iframe) { width: 100%; border: 0; display: block; }
+  .mbs__skeleton { position: absolute; inset: 1.5rem; display: grid; align-content: start; gap: 1rem; transition: opacity 400ms var(--ease-out); }
+  .mbs.is-loaded .mbs__skeleton { opacity: 0; pointer-events: none; }
+  .mbs__days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; margin-bottom: 0.75rem; }
+  .mbs__days span { aspect-ratio: 1; border-radius: 50%; background: var(--mist); }
+  .mbs__row { display: grid; grid-template-columns: 4rem 1fr; gap: 1rem; padding: 0.9rem 0; border-top: 1px solid var(--line); }
+  .mbs__row i, .mbs__row b { height: 0.9rem; border-radius: 99px; background: var(--mist); }
+  .mbs__row b { width: 70%; }
+  .mbs__skeleton span, .mbs__row i, .mbs__row b { animation: shimmer 1.4s ease-in-out infinite alternate; }
+  @keyframes shimmer { to { opacity: 0.45; } }
+  .mbs__skeleton p { text-align: center; color: var(--ink-soft); font-size: 0.9rem; }
+  .mbs__fallback { text-align: center; padding: 1rem; }
+</style>

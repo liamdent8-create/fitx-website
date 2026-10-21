@@ -1,0 +1,19 @@
+---
+import site from '../../content/site.json';
+---
+<footer class="footer">
+  <div class="wrap small">
+    <p class="footer__brand">FIT X <span>Studio.</span></p>
+    <p>{site.address.street}, {site.address.suburb} {site.address.state} {site.address.postcode} · {site.parking}</p>
+    <p><a href="/studio">Studio</a> · <a href="/timetable">Timetable</a> · <a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a> · <a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.instagram.studio}>Instagram</a></p>
+    <p>{site.legalName} · ABN {site.abn} · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+  </div>
+</footer>
+
+<style>
+  .footer { background: #070f22; color: var(--on-navy-soft); padding-block: 2.5rem calc(2.5rem + env(safe-area-inset-bottom)); }
+  .footer p { margin: 0 0 0.4rem; color: var(--on-navy-soft); }
+  .footer__brand { font-family: var(--font-promo); font-style: italic; font-weight: 700; text-transform: uppercase; font-size: 1.8rem; color: #fff !important; line-height: 1; margin-bottom: 1rem !important; }
+  .footer__brand span { color: var(--ice); }
+  @media (max-width: 47.99rem) { .footer { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); } }
+</style>

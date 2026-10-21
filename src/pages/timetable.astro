@@ -1,0 +1,103 @@
+---
+// Class timetable. Live Mindbody schedule plus a "New here?" router so people
+// without a pass are sent to the right offer before they hit Mindbody's sign-in.
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import MindbodySchedule from '../components/MindbodySchedule.astro';
+import site from '../../content/site.json';
+import prices from '../../content/prices.json';
+import c from '../../content/timetable.json';
+
+const links = site.links as Record<string, string>;
+const href = (key: string) => (key.startsWith('#') ? key : links[key]);
+const offer = prices.studio.startOffer;
+---
+<Base title={c.seo.title} description={c.seo.description} path="/timetable">
+  <Nav ctaHref={site.links.studioJoin} ctaLabel={`$${offer.price} trial`} links={[{ href: '/studio', label: 'Studio', mobile: true }, { href: '/timetable', label: 'Timetable', current: true }]} />
+
+  <main id="main">
+    <section class="tt-hero">
+      <div class="wrap">
+        <p class="eyebrow" data-reveal>{c.hero.eyebrow}</p>
+        <h1 class="display" data-reveal style="--i:1">{c.hero.headline}</h1>
+        <p class="lede" data-reveal style="--i:2">{c.hero.sub}</p>
+      </div>
+    </section>
+
+    <section class="section--tight">
+      <div class="wrap">
+        <h2 class="h3 newhere__h" data-reveal>{c.newHere.headline}</h2>
+        <div class="newhere">
+          {c.newHere.items.map((i, n) => (
+            <a class={`pass ${i.featured ? 'pass--featured' : ''}`} href={href(i.link)} data-reveal style={`--i:${n}`} data-cta={`timetable-${n}`}>
+              <span class="pass__label">{i.label}</span>
+              <span class="pass__title">{i.title}</span>
+              {i.price && <span class="pass__price">{i.price}</span>}
+              <span class="pass__body">{i.body}</span>
+              <span class="pass__cta">{i.cta} ›</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section schedule" id="schedule">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <h2>{c.schedule.headline}</h2>
+          <p class="small schedule__note">{c.schedule.note} <a href={site.links.studioJoin}>Claim 2 weeks for ${offer.price} ›</a></p>
+        </div>
+        <MindbodySchedule widgetId={site.mindbodyWidgetId} fallbackHref={site.links.mindbodySchedule} loading={c.schedule.loading} fallback={c.schedule.fallback} fallbackLink={c.schedule.fallbackLink} />
+      </div>
+    </section>
+
+    <section class="section section--mist">
+      <div class="wrap">
+        <h2 data-reveal>{c.info.headline}</h2>
+        <div class="grid grid--3 info">
+          {c.info.items.map((i, n) => (
+            <article class="card" data-reveal style={`--i:${n}`}>
+              <h3>{i.title}</h3>
+              <p class="small">{i.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .tt-hero { background: var(--navy); color: #fff; padding-block: clamp(3rem, 2rem + 4vw, 5.5rem) clamp(2rem, 1.5rem + 2vw, 3rem); }
+  .tt-hero .eyebrow, .tt-hero .lede { color: var(--on-navy-soft); }
+  .tt-hero .display { margin-bottom: 0.75rem; }
+  .section--tight { padding-block: 2rem 0; }
+  .newhere__h { margin-bottom: 1rem; }
+  .newhere { display: grid; gap: 0.75rem; grid-auto-flow: column; grid-auto-columns: min(80%, 20rem); overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(-1 * var(--gutter)); padding: 0.25rem var(--gutter) 1rem; scrollbar-width: none; }
+  .newhere::-webkit-scrollbar { display: none; }
+  @media (min-width: 64rem) { .newhere { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); overflow: visible; margin: 0; padding: 0; } }
+  .pass {
+    scroll-snap-align: start; display: grid; align-content: start; gap: 0.3rem; padding: 1.4rem; border-radius: var(--radius);
+    background: var(--mist); text-decoration: none; color: var(--ink);
+    transition: transform 450ms var(--spring-fast), box-shadow 300ms var(--ease-out);
+  }
+  .pass:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -30px rgba(13, 27, 54, 0.5); }
+  .pass:active { transform: scale(0.98); transition-duration: 60ms; }
+  .pass--featured { background: var(--navy); color: #fff; }
+  .pass__label { font-size: 0.85rem; font-weight: 600; opacity: 0.75; }
+  .pass__title { font-family: var(--font-promo); font-style: italic; font-weight: 700; text-transform: uppercase; font-size: 1.6rem; line-height: 1; }
+  .pass__price { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; }
+  .pass--featured .pass__price { color: var(--ice); }
+  .pass__body { font-size: 0.92rem; color: var(--ink-soft); }
+  .pass--featured .pass__body { color: var(--on-navy-soft); }
+  .pass__cta { margin-top: 0.6rem; font-weight: 700; color: #2a62d6; }
+  .pass--featured .pass__cta { color: var(--ice); }
+  .schedule .section-head { align-items: baseline; }
+  .schedule__note { margin: 0; max-width: 32rem; }
+  .schedule__note a { color: #2a62d6; font-weight: 600; white-space: nowrap; }
+  .info { margin-top: 1.5rem; }
+  .info .card { border: 0; }
+</style>
