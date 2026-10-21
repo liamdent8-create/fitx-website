@@ -341,7 +341,7 @@ const jsonLd = {
         <div class="packs" data-reveal>
           <h3>{c.pricing.packsTitle}</h3>
           <ul class="small">
-            {studio.casual.map((x) => <li>{x.name}: ${x.price}</li>)}
+            {studio.casual.map((x) => <li>{x.name}: ${x.price} ({x.note.toLowerCase()})</li>)}
             {studio.classPacks.map((p) => <li>{p.name}: ${p.price} ({p.note.toLowerCase()})</li>)}
           </ul>
           <p class="small">{c.pricing.packsNote}</p>

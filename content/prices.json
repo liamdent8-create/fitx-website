@@ -1,5 +1,5 @@
 {
-  "_note": "Weekly prices, GST inclusive, standard (post-foundation) rates from Fee Schedule v2.0. Edit here only. Anything marked NEEDS LAUREN must be resolved before launch.",
+  "_note": "Weekly membership prices: standard (post-foundation) rates from Fee Schedule v2.0. Casual and class pack prices: as set in Mindbody (checked 21 Oct 2026, Lauren: use the Mindbody numbers). GST inclusive. Edit here only. Anything marked NEEDS LAUREN must be resolved before launch.",
   "studio": {
     "startOffer": {
       "thenWeekly": 75,
@@ -77,31 +77,46 @@
       {
         "id": "casual-strength",
         "name": "Casual coached strength class",
-        "price": 20
+        "price": 28,
+        "note": "Expires 14 days from purchase"
       },
       {
         "id": "casual-pilates",
         "name": "Casual mat Pilates class",
-        "price": 15
+        "price": 20,
+        "note": "Expires 30 days from purchase"
       },
       {
         "id": "casual-open-gym",
         "name": "Casual open gym visit",
-        "price": 25
+        "price": 15,
+        "note": "Expires 7 days from purchase"
       }
     ],
     "classPacks": [
       {
-        "id": "pack-strength",
+        "id": "pack-strength-10",
         "name": "10-class strength pack",
-        "price": 190,
+        "price": 230,
         "note": "Expires 3 months from purchase"
       },
       {
-        "id": "pack-pilates",
+        "id": "pack-strength-5",
+        "name": "5-class strength pack",
+        "price": 125,
+        "note": "Expires 2 months from purchase"
+      },
+      {
+        "id": "pack-pilates-10",
         "name": "10-class mat Pilates pack",
-        "price": 140,
+        "price": 175,
         "note": "Expires 3 months from purchase"
+      },
+      {
+        "id": "pack-pilates-5",
+        "name": "5-class mat Pilates pack",
+        "price": 95,
+        "note": "Expires 2 months from purchase"
       }
     ]
   },

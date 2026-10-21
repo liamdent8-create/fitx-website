@@ -37,22 +37,9 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 39 | Mums and bubs: do you take pregnant members, and what clearance? | Mums FAQ | Lauren | Open |
 | 40 | Mums quotes (3–6) with consent, and mums and bubs photos (SHOT-LIST 13–17) | Mums page | Lauren / crew | Open |
 | 43 | **Join buttons for memberships on /timetable:** the Mindbody sign-up link for Premium, Strength, Pilates and Open Gym. Until then they open the Mindbody shop. Paste them into `content/site.json` → `mindbodyProducts` (or see #47) | Timetable | Lauren | Open |
-| 45 | **Prices in Mindbody don't match Fee Schedule v2.0.** The site's studio and mums pages use the fee schedule; the timetable's Mindbody widget shows Mindbody's. Which is right? (table below) | Mindbody / prices.json | Lauren | Open |
-| 46 | 5-class packs (strength $125, Pilates $95, expire 2 months) are in Mindbody but not in the fee schedule. Add them to the fee schedule, or remove from Mindbody? | Fee schedule | Lauren | Open |
 | 47 | **Memberships don't show in the Pricing widget** ("Memberships" tab says "No pricing options found"). In Mindbody, set the membership contracts to sell online, then they can be bought in the widget too | Mindbody | Lauren | Open |
 | 48 | Mindbody's "2 week unlimited trial" says "Expires 14 days after first visit" and offers "Pay in person when sessions run out". Check that wording is what you want buyers to see | Mindbody | Lauren | Open |
-
-### Price check for #45 (Mindbody pricing widget, read 21 Oct 2026)
-
-| Pass | Fee Schedule v2.0 (on the studio page) | Mindbody (on /timetable) |
-|---|---|---|
-| Strength, single class | $20 | $28 (expires 14 days after purchase) |
-| Mat Pilates, single class | $15 | $20 (expires 30 days) |
-| Open gym, single visit | $25 | $15 (expires 7 days) |
-| Strength 10-pack | $190 | $230 (expires 3 months) |
-| Mat Pilates 10-pack | $140 | $175 (expires 3 months) |
-| Strength 5-pack | not listed | $125 (expires 2 months) |
-| Mat Pilates 5-pack | not listed | $95 (expires 2 months) |
+| 49 | Update Fee Schedule v2.0 casual and pack prices to the Mindbody numbers (and add the 5-class packs), so the paperwork matches the website | Fee schedule | Lauren | Open |
 
 ## Closed
 | Item | Resolution | Date |
@@ -78,3 +65,4 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | Brand colours | Keep navy main, slate accent | 2026-10-21 |
 | Mums hero photo | Squat rack (no class photos yet) | 2026-10-21 |
 | Mindbody Pricing widget | a64678e82a, on /timetable, opens on "Passes & packs" | 2026-10-21 |
+| Casual and pack prices | Use the Mindbody numbers: strength $28, Pilates $20, open gym $15 single; strength 10-pack $230, 5-pack $125; Pilates 10-pack $175, 5-pack $95. Fee schedule v2.0 needs updating to match | 2026-10-21 |
