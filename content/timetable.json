@@ -1,71 +1,37 @@
 {
-  "_note": "Text on the timetable page (/timetable). The class times themselves come live from Mindbody.",
+  "_note": "Text on the timetable page (/timetable). Class times and pass prices come live from Mindbody.",
   "seo": {
     "title": "Class Timetable | FIT X Studio, Manunda Cairns",
-    "description": "This week's strength, mat Pilates, mums and bubs, Saturday HIIT and open gym sessions at FIT X Studio, Manunda. Book online with Mindbody."
+    "description": "This week's strength, mat Pilates, mums and bubs, Saturday HIIT and open gym sessions at FIT X Studio, Manunda. Book online, and buy class packs and single sessions."
   },
   "hero": {
     "eyebrow": "Class timetable",
     "headline": "Find your class.",
-    "sub": "Live times from our booking system. Classes open two weeks ahead and you can cancel free up to 12 hours before. Need a pass? You can buy one on this page."
-  },
-  "newHere": {
-    "headline": "New here?",
-    "items": [
-      {
-        "label": "New to FIT X",
-        "title": "2 weeks unlimited",
-        "price": "$89",
-        "body": "Every class for two weeks. Counts towards your Premium minimum term if you stay.",
-        "cta": "Claim my 2 weeks",
-        "link": "studioJoin",
-        "featured": true
-      },
-      {
-        "label": "Just one class",
-        "title": "Casual visit",
-        "price": "From $15",
-        "body": "Strength $20, mat Pilates $15, open gym $25. Or save with a 10-class pack.",
-        "cta": "See casual passes",
-        "link": "#buy-casual",
-        "featured": false
-      },
-      {
-        "label": "Already a member",
-        "title": "Book below",
-        "price": "",
-        "body": "Pick a class, tap Book and sign in with your Mindbody account.",
-        "cta": "Go to the timetable",
-        "link": "#schedule",
-        "featured": false
-      }
-    ]
+    "sub": "Live times from our booking system. Pick a class, tap Book and sign in with Mindbody. Cancel free up to 12 hours before.",
+    "passesLink": "Need a pass? Packs and single sessions",
+    "trialLink": "New here? 2 weeks unlimited"
   },
   "schedule": {
     "headline": "This week",
     "note": "Booking a class needs a pass or membership.",
+    "buyLink": "Buy a pass",
     "loading": "Loading this week's classes…",
     "fallback": "Timetable not loading?",
-    "fallbackLink": "Open it in Mindbody",
-    "buyLink": "Buy a pass below"
+    "fallbackLink": "Open it in Mindbody"
   },
-  "buy": {
-    "eyebrow": "Buy a pass",
-    "headline": "Memberships, packs and casual classes.",
-    "sub": "Pay securely through Mindbody, our booking system. Once your pass is on your account, book any class on the timetable above.",
-    "tabs": {
-      "memberships": "Memberships",
-      "packs": "Class packs",
-      "casual": "Casual"
-    },
+  "passes": {
+    "eyebrow": "Passes and packs",
+    "headline": "Need a pass?",
+    "sub": "Buy a single session or a class pack right here, then book your class on the timetable above. Payment goes through Mindbody, our booking system.",
+    "loading": "Loading passes and packs…",
+    "fallback": "Passes not loading?",
+    "fallbackLink": "Open them in Mindbody",
+    "membershipsHeadline": "Training every week? Become a member.",
     "membershipsNote": "Prices are per week, GST included, with a 12-week or 6-month minimum.",
     "premiumTag": "Most popular",
+    "cta": "Join",
     "trialNote": "New to FIT X? Start with 2 weeks unlimited for $89. It counts towards your minimum term.",
     "trialLink": "Claim my 2 weeks",
-    "packsNote": "Save on casual prices. Each pack expires 3 months from purchase.",
-    "casualNote": "One class, no commitment.",
-    "cta": "Buy",
-    "widgetHeadline": "Browse every pass",
     "legal": "Prices may change. The fee schedule you're given when you join applies."
   },
   "info": {

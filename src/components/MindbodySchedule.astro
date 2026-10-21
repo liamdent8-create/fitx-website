@@ -2,10 +2,11 @@
 // Mindbody Branded Web widget ("Schedules" by default, or "Pricing"), loaded only when it's about to scroll into
 // view (it pulls ~550KB plus Mindbody's own analytics). Shows a skeleton while
 // loading and a plain link if it doesn't load within 12 seconds.
-interface Props { type?: 'Schedules' | 'Pricing'; widgetId: string; fallbackHref: string; loading: string; fallback: string; fallbackLink: string }
-const { type = 'Schedules', widgetId, fallbackHref, loading, fallback, fallbackLink } = Astro.props;
+// `category` opens the Pricing widget on one tab (e.g. "passesAndPacks").
+interface Props { type?: 'Schedules' | 'Pricing'; category?: string; widgetId: string; fallbackHref: string; loading: string; fallback: string; fallbackLink: string }
+const { type = 'Schedules', category, widgetId, fallbackHref, loading, fallback, fallbackLink } = Astro.props;
 ---
-<div class="mbs" data-mbs>
+<div class="mbs" data-mbs data-category={category}>
   <div class="mbs__skeleton" aria-hidden="true">
     {type === 'Schedules' && <div class="mbs__days">{Array.from({ length: 7 }).map(() => <span></span>)}</div>}
     {Array.from({ length: 4 }).map(() => <div class="mbs__row"><i></i><b></b></div>)}
@@ -17,27 +18,39 @@ const { type = 'Schedules', widgetId, fallbackHref, loading, fallback, fallbackL
 </div>
 
 <script>
+  // Mindbody's script fills every widget on the page at once, so watch each
+  // widget for its iframe from the start; only the script itself loads lazily.
+  const loadScript = () => {
+    if (document.querySelector('script[src*="brandedweb.mindbodyonline.com/embed/widget.js"]')) return;
+    const s = document.createElement('script');
+    s.src = 'https://brandedweb.mindbodyonline.com/embed/widget.js';
+    s.async = true;
+    document.body.appendChild(s);
+  };
   document.querySelectorAll<HTMLElement>('[data-mbs]').forEach((root) => {
-    const load = () => {
-      if (!document.querySelector('script[src*="brandedweb.mindbodyonline.com/embed/widget.js"]')) {
-        const s = document.createElement('script');
-        s.src = 'https://brandedweb.mindbodyonline.com/embed/widget.js';
-        s.async = true;
-        document.body.appendChild(s);
+    // Hide the skeleton once Mindbody's iframe arrives and has height.
+    const done = () => root.classList.add('is-loaded');
+    const mo = new MutationObserver(() => {
+      const f = root.querySelector('iframe');
+      if (!f) return;
+      mo.disconnect();
+      if (root.dataset.category) {
+        const u = new URL(f.src);
+        u.searchParams.set('category', root.dataset.category);
+        f.src = u.toString();
       }
-      // Hide the skeleton once Mindbody's iframe arrives and has height.
-      const done = () => root.classList.add('is-loaded');
-      const mo = new MutationObserver(() => {
-        const f = root.querySelector('iframe');
-        if (f) { f.addEventListener('load', done, { once: true }); setTimeout(done, 2500); mo.disconnect(); }
-      });
-      mo.observe(root, { childList: true, subtree: true });
+      f.addEventListener('load', done, { once: true });
+      setTimeout(done, 2500);
+    });
+    mo.observe(root, { childList: true, subtree: true });
+    const start = () => {
+      loadScript();
       setTimeout(() => { if (!root.querySelector('iframe')) root.querySelector<HTMLElement>('[data-fallback]')!.hidden = false; }, 12000);
     };
     if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); load(); } }, { rootMargin: '600px 0px' });
+      const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); start(); } }, { rootMargin: '600px 0px' });
       io.observe(root);
-    } else load();
+    } else start();
   });
 </script>
 

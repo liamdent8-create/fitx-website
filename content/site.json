@@ -25,24 +25,20 @@
     "apparel": "https://fitxapparelaustralia.myshopify.com",
     "online": "/online",
     "memberships": "https://clients.mindbodyonline.com/classic/ws?studioid=5756603&stype=40",
-    "mindbodySchedule": "https://go.mindbodyonline.com/book/widgets/schedules/view/a667931e82a/schedule"
+    "mindbodySchedule": "https://go.mindbodyonline.com/book/widgets/schedules/view/a667931e82a/schedule",
+    "mindbodyPricing": "https://go.mindbodyonline.com/book/widgets/pricing/view/a64678e82a/pricing?category=passesAndPacks"
   },
   "mindbodyWidgetId": "a667931e82a",
   "dm": {
     "keyword": "LIFT",
     "account": "fitx.studio.au"
   },
-  "mindbodyPricingWidgetId": "",
+  "mindbodyPricingWidgetId": "a64678e82a",
   "mindbodyProducts": {
-    "_note": "Direct Mindbody checkout link for each pass. Leave blank to send people to the Mindbody shop instead.",
+    "_note": "Direct Mindbody sign-up link for each membership (Join buttons on /timetable). Leave blank to send people to the Mindbody shop instead.",
     "premium": "",
     "strength": "",
     "pilates": "",
-    "open-gym": "",
-    "pack-strength": "",
-    "pack-pilates": "",
-    "casual-strength": "",
-    "casual-pilates": "",
-    "casual-open-gym": ""
+    "open-gym": ""
   }
 }
