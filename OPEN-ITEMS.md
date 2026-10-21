@@ -13,7 +13,7 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 8 | Mums and bubs cap: agreement says **10**, current website says **14**. Site follows the agreement | Classes, prices | Lauren | Open |
 | 9 | Current website still lists a $55 "Pilates & Strength" tier (6-month) that isn't in the agreement. Remove it from Square or add it to the agreement | Old site | Lauren | Open |
 | 12 | Privacy and Terms pages: the agreement says the privacy policy is on the website | Footer | Lauren | Open |
-| 13 | Hosting: Netlify setup and domain (steps in chat) | Launch | Liam | Open |
+| 13 | Hosting: Netlify setup and domain. Step-by-step in `GO-LIVE.md` (keep the Google Workspace MX records) | Launch | Liam | Open |
 | 14 | GitHub repo is **public**. Fine for website code, but no keys or member data ever go in it. Consider making it private | GitHub | Liam | Open |
 | 15 | Online higher tier: $59 (brief) vs $69 (FIT X Ops "new pricing") | Online page | Lauren | Open |
 | 16 | Square: assumed not on the site (Loz uses it after the DM) | Online page | Lauren | Open |
@@ -30,16 +30,15 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 29 | VSL: EBT autoplays muted with burned-in captions. OK to autoplay muted (no sound) on our page? | VSL | Lauren | Open |
 | 30 | Logo as SVG (sharper at any size). PNG is in use now | Global | Lauren | Nice to have |
 | 31 | **Rename the Mindbody widget heading** from "Book your express class" to "Book a class" (Mindbody → Branded Web Tools → widget a667931e82a) | Timetable | Lauren | Open |
-| 32 | DM keyword for ManyChat (e.g. "STRONG") and the reply flow: $89 link + "strength, Pilates or mums and bubs?" | Instagram / ads | Lauren | Open |
 | 33 | Tropic State's Instagram handle (couldn't verify) and current address (one listing says Unit 7, 261–273 McCormack St, so possibly neighbours) | Research | Lauren | Open |
 | 34 | Confirm "Rhys Livingstone" = @rhyslivingstone (now a business mentor for PTs, Undeniable Mentoring) | Research | Lauren | Open |
-| 36 | **Which Instagram account runs the LIFT ManyChat flow?** Site links DMs to @fitx.au for now (`content/site.json` → `dm.account`) | DM buttons | Lauren | Open |
 | 37 | Mums and bubs: how soon after birth can mums start (and after a caesarean), what clearance you ask for | Mums FAQ | Lauren | Open |
 | 38 | Mums and bubs: age range for bubs | Mums FAQ | Lauren | Open |
 | 39 | Mums and bubs: do you take pregnant members, and what clearance? | Mums FAQ | Lauren | Open |
 | 40 | Mums quotes (3–6) with consent, and mums and bubs photos (SHOT-LIST 13–17) | Mums page | Lauren / crew | Open |
-| 41 | Confirm bubs are welcome at open gym (your current site says so; the agreement doesn't mention it) | Mums tiles | Lauren | Open |
-| 42 | Brand colour: the logo tile is a dusty slate blue (#556280); the site uses navy #0d1b36 as the main colour and slate as an accent. Keep that, or switch the main colour to slate? | Global | Lauren | Open |
+| 43 | **Buy buttons on /timetable:** the direct Mindbody checkout link for each pass (Premium, Strength, Pilates, Open Gym, 10-class strength, 10-class Pilates, casual strength, casual Pilates, casual open gym). Until then every Buy button opens the Mindbody shop. Paste them into `content/site.json` → `mindbodyProducts` | Timetable | Lauren | Open |
+| 44 | **Optional: Mindbody Pricing widget** so people can pay without leaving the site. Mindbody → Marketing → Branded Web Tools → create a **Pricing** widget, show the passes above, then send the widget ID (like `a667931e82a`). It goes in `content/site.json` → `mindbodyPricingWidgetId` | Timetable | Lauren | Open |
+| 45 | Check every pass on /timetable exists in Mindbody at these prices and is set to sell online | Mindbody | Lauren | Open |
 
 ## Closed
 | Item | Resolution | Date |
@@ -60,3 +59,7 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | Mums and bubs page | Built at /mums-and-bubs | 2026-10-22 |
 | DM keyword | LIFT (ManyChat asks goal + experience) | 2026-10-22 |
 | Copy doc | v2 created; v1 renamed "OLD – don't edit" | 2026-10-20 |
+| DM account | LIFT ManyChat flow runs on @fitx.studio.au; all DM buttons point there | 2026-10-21 |
+| Bubs at open gym | Welcome; bub is mum's responsibility the whole time (tile + new FAQ) | 2026-10-21 |
+| Brand colours | Keep navy main, slate accent | 2026-10-21 |
+| Mums hero photo | Squat rack (no class photos yet) | 2026-10-21 |

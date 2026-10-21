@@ -30,7 +30,19 @@
   "mindbodyWidgetId": "a667931e82a",
   "dm": {
     "keyword": "LIFT",
-    "account": "fitx.au",
-    "accountStatus": "NEEDS LAUREN: confirm which Instagram account runs the LIFT ManyChat flow (@fitx.au or @fitx.studio.au)"
+    "account": "fitx.studio.au"
+  },
+  "mindbodyPricingWidgetId": "",
+  "mindbodyProducts": {
+    "_note": "Direct Mindbody checkout link for each pass. Leave blank to send people to the Mindbody shop instead.",
+    "premium": "",
+    "strength": "",
+    "pilates": "",
+    "open-gym": "",
+    "pack-strength": "",
+    "pack-pilates": "",
+    "casual-strength": "",
+    "casual-pilates": "",
+    "casual-open-gym": ""
   }
 }

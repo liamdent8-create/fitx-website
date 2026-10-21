@@ -1,6 +1,8 @@
 ---
-// Class timetable. Live Mindbody schedule plus a "New here?" router so people
-// without a pass are sent to the right offer before they hit Mindbody's sign-in.
+// Class timetable. Live Mindbody schedule, a "New here?" router so people
+// without a pass are sent to the right offer before they hit Mindbody's sign-in,
+// and a "Buy a pass" section (memberships, class packs, casual) that checks out
+// in Mindbody.
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -11,7 +13,18 @@ import c from '../../content/timetable.json';
 
 const links = site.links as Record<string, string>;
 const href = (key: string) => (key.startsWith('#') ? key : links[key]);
-const offer = prices.studio.startOffer;
+const { studio } = prices;
+const offer = studio.startOffer;
+const inc = studio.inclusions as Record<string, string>;
+// Each pass's own Mindbody checkout link, or the Mindbody shop until it's set.
+const products = site.mindbodyProducts as Record<string, string>;
+const buyHref = (id: string) => products[id] || links.memberships;
+const groups = [
+  { key: 'memberships', note: c.buy.membershipsNote, items: studio.memberships.map((m) => ({ id: m.id, name: m.name, price: m.weekly, per: '/week', featured: !!m.recommended, lines: m.includes.map((k) => inc[k]) })) },
+  { key: 'packs', note: c.buy.packsNote, items: studio.classPacks.map((p) => ({ id: p.id, name: p.name, price: p.price, per: '', featured: false, lines: [`$${(p.price / 10).toFixed(0)} a class`] })) },
+  { key: 'casual', note: c.buy.casualNote, items: studio.casual.map((x) => ({ id: x.id, name: x.name, price: x.price, per: '', featured: false, lines: [] as string[] })) },
+] as const;
+const tabs = c.buy.tabs as Record<string, string>;
 ---
 <Base title={c.seo.title} description={c.seo.description} path="/timetable">
   <Nav ctaHref={site.links.studioJoin} ctaLabel={`$${offer.price} trial`} links={[{ href: '/studio', label: 'Studio', mobile: true }, { href: '/mums-and-bubs', label: 'Mums & bubs' }, { href: '/timetable', label: 'Timetable', current: true }]} />
@@ -46,13 +59,53 @@ const offer = prices.studio.startOffer;
       <div class="wrap">
         <div class="section-head" data-reveal>
           <h2>{c.schedule.headline}</h2>
-          <p class="small schedule__note">{c.schedule.note} <a href={site.links.studioJoin}>Claim 2 weeks for ${offer.price} ›</a></p>
+          <p class="small schedule__note">{c.schedule.note} <a href="#buy">{c.schedule.buyLink} ›</a> <a href={site.links.studioJoin}>Claim 2 weeks for ${offer.price} ›</a></p>
         </div>
         <MindbodySchedule widgetId={site.mindbodyWidgetId} fallbackHref={site.links.mindbodySchedule} loading={c.schedule.loading} fallback={c.schedule.fallback} fallbackLink={c.schedule.fallbackLink} />
       </div>
     </section>
 
-    <section class="section section--mist">
+    <section class="section section--mist buy" id="buy">
+      <div class="wrap">
+        <p class="eyebrow" data-reveal>{c.buy.eyebrow}</p>
+        <h2 data-reveal style="--i:1">{c.buy.headline}</h2>
+        <p class="lede buy__sub" data-reveal style="--i:2">{c.buy.sub}</p>
+
+        <div class="seg" data-seg hidden>
+          <span class="seg__thumb" aria-hidden="true"></span>
+          {groups.map((g, n) => <button type="button" class="seg__btn" id={`tab-${g.key}`} aria-controls={`buy-${g.key}`} data-tab={n}>{tabs[g.key]}</button>)}
+        </div>
+
+        {groups.map((g) => (
+          <div class="buy__panel" id={`buy-${g.key}`} data-panel>
+            <h3 class="buy__h">{tabs[g.key]}</h3>
+            <p class="small buy__note">{g.note}</p>
+            <div class="buy__grid">
+              {g.items.map((i, n) => (
+                <article class={`bcard ${i.featured ? 'bcard--featured' : ''}`} style={`--i:${n}`}>
+                  {i.featured && <p class="bcard__tag">{c.buy.premiumTag}</p>}
+                  <h4 class="bcard__name">{i.name}</h4>
+                  <p class="bcard__price"><b>${i.price}</b>{i.per && <span>{i.per}</span>}</p>
+                  {i.lines.length > 0 && <ul class="bcard__lines">{i.lines.map((l) => <li>{l}</li>)}</ul>}
+                  <a class={`btn btn--block ${i.featured ? 'btn--ice' : ''}`} href={buyHref(i.id)} data-cta={`buy-${i.id}`}>{c.buy.cta}<span class="vh"> {i.name}</span></a>
+                </article>
+              ))}
+            </div>
+            {g.key === 'memberships' && <p class="small buy__trial">{c.buy.trialNote} <a href={site.links.studioJoin} data-cta="buy-trial">{c.buy.trialLink} ›</a></p>}
+          </div>
+        ))}
+
+        {site.mindbodyPricingWidgetId && (
+          <div class="buy__widget">
+            <h3>{c.buy.widgetHeadline}</h3>
+            <MindbodySchedule type="Pricing" widgetId={site.mindbodyPricingWidgetId} fallbackHref={links.memberships} loading={c.schedule.loading} fallback={c.schedule.fallback} fallbackLink={c.schedule.fallbackLink} />
+          </div>
+        )}
+        <p class="small buy__legal">{c.buy.legal}</p>
+      </div>
+    </section>
+
+    <section class="section">
       <div class="wrap">
         <h2 data-reveal>{c.info.headline}</h2>
         <div class="grid grid--3 info">
@@ -69,6 +122,47 @@ const offer = prices.studio.startOffer;
 
   <Footer />
 </Base>
+
+<script>
+  // Segmented control: progressive enhancement. Without JS every group shows.
+  document.querySelectorAll<HTMLElement>('[data-seg]').forEach((seg) => {
+    const tabs = [...seg.querySelectorAll<HTMLButtonElement>('[data-tab]')];
+    const panels = tabs.map((t) => document.getElementById(t.getAttribute('aria-controls')!)!);
+    seg.hidden = false;
+    seg.setAttribute('role', 'tablist');
+    seg.setAttribute('aria-label', 'Pass type');
+    const select = (n: number, focus = false) => {
+      tabs.forEach((t, i) => {
+        const on = i === n;
+        t.setAttribute('role', 'tab');
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        panels[i].setAttribute('role', 'tabpanel');
+        panels[i].setAttribute('aria-labelledby', t.id);
+        panels[i].hidden = !on;
+      });
+      seg.style.setProperty('--n', String(n));
+      if (focus) tabs[n].focus();
+    };
+    tabs.forEach((t, i) => t.addEventListener('click', () => select(i)));
+    seg.addEventListener('keydown', (e) => {
+      const i = tabs.indexOf(document.activeElement as HTMLButtonElement);
+      if (i < 0) return;
+      const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+      if (next === undefined) return;
+      e.preventDefault();
+      select((next + tabs.length) % tabs.length, true);
+    });
+    // Links like #buy-casual open that tab.
+    const fromHash = () => {
+      const i = panels.findIndex((p) => '#' + p.id === location.hash);
+      if (i >= 0) { select(i); document.getElementById('buy')!.scrollIntoView(); }
+    };
+    select(0);
+    fromHash();
+    addEventListener('hashchange', fromHash);
+  });
+</script>
 
 <style>
   .tt-hero { background: var(--navy); color: #fff; padding-block: clamp(3rem, 2rem + 4vw, 5.5rem) clamp(2rem, 1.5rem + 2vw, 3rem); }
@@ -98,6 +192,57 @@ const offer = prices.studio.startOffer;
   .schedule .section-head { align-items: baseline; }
   .schedule__note { margin: 0; max-width: 32rem; }
   .schedule__note a { color: #2a62d6; font-weight: 600; white-space: nowrap; }
+  .schedule__note a + a { margin-left: 0.5rem; }
+  .buy { scroll-margin-top: var(--nav-h); }
+  .buy__sub { max-width: 40rem; }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  /* Segmented control with a sliding thumb on a spring */
+  .seg {
+    --n: 0; position: relative; display: grid; grid-template-columns: repeat(3, 1fr);
+    width: min(100%, 30rem); margin: 1.75rem 0 1.25rem; padding: 0.25rem;
+    border-radius: 999px; background: rgba(13, 27, 54, 0.08);
+  }
+  .seg[hidden] { display: none; }
+  .seg__thumb {
+    position: absolute; inset: 0.25rem auto 0.25rem 0.25rem; width: calc((100% - 0.5rem) / 3);
+    border-radius: 999px; background: #fff; box-shadow: 0 3px 10px -2px rgba(13, 27, 54, 0.2), 0 0 0 0.5px rgba(13, 27, 54, 0.06);
+    translate: calc(var(--n) * 100%) 0; transition: translate 500ms var(--spring);
+  }
+  .seg__btn {
+    position: relative; min-height: 2.75rem; border: 0; background: none; border-radius: 999px;
+    font: inherit; font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); cursor: pointer;
+    -webkit-tap-highlight-color: transparent; transition: color 200ms var(--ease-out);
+  }
+  .seg__btn[aria-selected='true'] { color: var(--ink); }
+  @media (prefers-contrast: more) { .seg { background: #fff; box-shadow: inset 0 0 0 1px var(--navy); } .seg__thumb { background: var(--navy); } .seg__btn[aria-selected='true'] { color: #fff; } }
+
+  .buy__panel { margin-top: 1.75rem; }
+  .seg:not([hidden]) ~ .buy__panel { margin-top: 0; }
+  .seg:not([hidden]) ~ .buy__panel .buy__h { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .buy__panel:not([hidden]) .bcard { animation: card-in 600ms var(--spring) both; animation-delay: calc(var(--i, 0) * 50ms); }
+  @keyframes card-in { from { opacity: 0; translate: 0 12px; } }
+  .buy__note { margin: 0 0 1rem; }
+  .buy__grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); align-items: stretch; }
+  .bcard { display: flex; flex-direction: column; gap: 0.35rem; padding: 1.4rem; border-radius: var(--radius); background: #fff; }
+  .bcard--featured { background: var(--navy); color: #fff; }
+  .bcard__tag { margin: 0; font-size: 0.8rem; font-weight: 700; color: var(--ice); }
+  .bcard__name { margin: 0; font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 1.5rem; line-height: 1.05; }
+  .bcard__price { margin: 0.1rem 0 0.4rem; }
+  .bcard__price b { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; }
+  .bcard__price span { font-size: 0.95rem; color: var(--ink-soft); margin-left: 0.15rem; }
+  .bcard--featured .bcard__price span { color: var(--on-navy-soft); }
+  .bcard__lines { list-style: none; margin: 0 0 1rem; padding: 0; font-size: 0.9rem; color: var(--ink-soft); display: grid; gap: 0.35rem; }
+  .bcard--featured .bcard__lines { color: var(--on-navy-soft); }
+  .bcard__lines li { padding-left: 1.3rem; position: relative; }
+  .bcard__lines li::before { content: '✓'; position: absolute; left: 0; font-weight: 700; color: #2a62d6; }
+  .bcard--featured .bcard__lines li::before { color: var(--ice); }
+  .bcard .btn { margin-top: auto; }
+  .buy__trial { margin: 1rem 0 0; }
+  .buy__trial a, .buy__legal a { color: #2a62d6; font-weight: 600; }
+  .buy__widget { margin-top: 2.5rem; }
+  .buy__legal { margin: 1.5rem 0 0; }
+  @media (prefers-reduced-motion: reduce) { .buy__panel:not([hidden]) .bcard { animation: none; } }
   .info { margin-top: 1.5rem; }
   .info .card { border: 0; }
 </style>

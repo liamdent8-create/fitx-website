@@ -7,7 +7,7 @@
   "hero": {
     "eyebrow": "Class timetable",
     "headline": "Find your class.",
-    "sub": "Live times from our booking system. Classes open two weeks ahead and you can cancel free up to 12 hours before."
+    "sub": "Live times from our booking system. Classes open two weeks ahead and you can cancel free up to 12 hours before. Need a pass? You can buy one on this page."
   },
   "newHere": {
     "headline": "New here?",
@@ -26,8 +26,8 @@
         "title": "Casual visit",
         "price": "From $15",
         "body": "Strength $20, mat Pilates $15, open gym $25. Or save with a 10-class pack.",
-        "cta": "Buy a casual pass",
-        "link": "memberships",
+        "cta": "See casual passes",
+        "link": "#buy-casual",
         "featured": false
       },
       {
@@ -46,7 +46,27 @@
     "note": "Booking a class needs a pass or membership.",
     "loading": "Loading this week's classes…",
     "fallback": "Timetable not loading?",
-    "fallbackLink": "Open it in Mindbody"
+    "fallbackLink": "Open it in Mindbody",
+    "buyLink": "Buy a pass below"
+  },
+  "buy": {
+    "eyebrow": "Buy a pass",
+    "headline": "Memberships, packs and casual classes.",
+    "sub": "Pay securely through Mindbody, our booking system. Once your pass is on your account, book any class on the timetable above.",
+    "tabs": {
+      "memberships": "Memberships",
+      "packs": "Class packs",
+      "casual": "Casual"
+    },
+    "membershipsNote": "Prices are per week, GST included, with a 12-week or 6-month minimum.",
+    "premiumTag": "Most popular",
+    "trialNote": "New to FIT X? Start with 2 weeks unlimited for $89. It counts towards your minimum term.",
+    "trialLink": "Claim my 2 weeks",
+    "packsNote": "Save on casual prices. Each pack expires 3 months from purchase.",
+    "casualNote": "One class, no commitment.",
+    "cta": "Buy",
+    "widgetHeadline": "Browse every pass",
+    "legal": "Prices may change. The fee schedule you're given when you join applies."
   },
   "info": {
     "headline": "Good to know",

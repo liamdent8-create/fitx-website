@@ -40,7 +40,8 @@ def field(key, value, indent):
     elif isinstance(value, dict):
         out.append(f'{pad}- name: {key}\n{pad}  label: "{label(key)}"\n{pad}  type: object\n{pad}  fields:')
         for k, v in value.items():
-            out += field(k, v, indent + 4)
+            if not k.startswith('_'):
+                out += field(k, v, indent + 4)
     return out
 
 

@@ -85,7 +85,7 @@
       {
         "label": "Coached strength",
         "title": "A plan that meets you where you are.",
-        "photo": "squat-rack",
+        "photo": "dumbbell-rack",
         "tone": "dark",
         "detail": "Mums and bubs follows the same structure as our strength classes: programmed in five-week blocks, with your coach adjusting exercises and weights for you."
       },
@@ -101,7 +101,7 @@
         "title": "Bub's welcome there too.",
         "photo": "gym-floor-wide",
         "tone": "dark",
-        "detail": "Bring bub to open gym sessions on the timetable as well. Open gym is included in Premium and Open Gym memberships."
+        "detail": "Bring bub to open gym sessions on the timetable as well. Just like in class, bub is your responsibility the whole time you're training. Open gym is included in Premium and Open Gym memberships."
       },
       {
         "label": "Mini bar",
@@ -145,6 +145,10 @@
     {
       "q": "Who looks after bub during class?",
       "a": "You do. Bub stays in the fenced play pen within view. Our reception team may help keep little ones busy, but they don't supervise them."
+    },
+    {
+      "q": "Can I bring bub to open gym?",
+      "a": "Yes. Bub is welcome at open gym sessions too, and they're your responsibility the whole time you train."
     },
     {
       "q": "Where does the pram go?",

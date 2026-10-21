@@ -75,25 +75,30 @@
     },
     "casual": [
       {
+        "id": "casual-strength",
         "name": "Casual coached strength class",
         "price": 20
       },
       {
+        "id": "casual-pilates",
         "name": "Casual mat Pilates class",
         "price": 15
       },
       {
+        "id": "casual-open-gym",
         "name": "Casual open gym visit",
         "price": 25
       }
     ],
     "classPacks": [
       {
+        "id": "pack-strength",
         "name": "10-class strength pack",
         "price": 190,
         "note": "Expires 3 months from purchase"
       },
       {
+        "id": "pack-pilates",
         "name": "10-class mat Pilates pack",
         "price": 140,
         "note": "Expires 3 months from purchase"

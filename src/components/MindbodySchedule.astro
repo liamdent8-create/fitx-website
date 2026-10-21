@@ -1,17 +1,17 @@
 ---
-// Mindbody "Schedules" widget, loaded only when it's about to scroll into
+// Mindbody Branded Web widget ("Schedules" by default, or "Pricing"), loaded only when it's about to scroll into
 // view (it pulls ~550KB plus Mindbody's own analytics). Shows a skeleton while
 // loading and a plain link if it doesn't load within 12 seconds.
-interface Props { widgetId: string; fallbackHref: string; loading: string; fallback: string; fallbackLink: string }
-const { widgetId, fallbackHref, loading, fallback, fallbackLink } = Astro.props;
+interface Props { type?: 'Schedules' | 'Pricing'; widgetId: string; fallbackHref: string; loading: string; fallback: string; fallbackLink: string }
+const { type = 'Schedules', widgetId, fallbackHref, loading, fallback, fallbackLink } = Astro.props;
 ---
 <div class="mbs" data-mbs>
   <div class="mbs__skeleton" aria-hidden="true">
-    <div class="mbs__days">{Array.from({ length: 7 }).map(() => <span></span>)}</div>
+    {type === 'Schedules' && <div class="mbs__days">{Array.from({ length: 7 }).map(() => <span></span>)}</div>}
     {Array.from({ length: 4 }).map(() => <div class="mbs__row"><i></i><b></b></div>)}
     <p>{loading}</p>
   </div>
-  <div class="mindbody-widget" data-widget-type="Schedules" data-widget-id={widgetId}></div>
+  <div class="mindbody-widget" data-widget-type={type} data-widget-id={widgetId}></div>
   <p class="mbs__fallback small" hidden data-fallback>{fallback} <a href={fallbackHref}>{fallbackLink} ›</a></p>
   <noscript><p class="small"><a href={fallbackHref}>{fallbackLink} ›</a></p></noscript>
 </div>

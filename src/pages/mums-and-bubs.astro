@@ -17,13 +17,13 @@ import prices from '../../content/prices.json';
 import testimonials from '../../content/testimonials.json';
 import c from '../../content/mums.json';
 
-import pilatesRoom from '../assets/studio/pilates-room-mat.jpg';
 import rack from '../assets/studio/squat-rack.jpg';
 import floorWide from '../assets/studio/gym-floor-wide.jpg';
+import dumbbells from '../assets/studio/dumbbell-rack.jpg';
 import pilatesWeights from '../assets/studio/pilates-weights.jpg';
 import pilatesMat from '../assets/studio/pilates-mat-closeup.jpg';
 
-const photos: Record<string, ImageMetadata> = { 'squat-rack': rack, 'gym-floor-wide': floorWide, 'pilates-weights': pilatesWeights };
+const photos: Record<string, ImageMetadata> = { 'squat-rack': rack, 'dumbbell-rack': dumbbells, 'gym-floor-wide': floorWide, 'pilates-weights': pilatesWeights };
 const included = c.included.items.map((t) => ({ ...t, photo: photos[t.photo] }));
 const { studio } = prices;
 const offer = studio.startOffer;
@@ -69,7 +69,7 @@ const jsonLd = {
           <div data-reveal style="--i:6"><DmCta tone="dark" /></div>
         </div>
         <div class="mhero__media" data-reveal style="--i:2">
-          <Photo src={pilatesRoom} alt="The bright, mirrored studio room at FIT X Studio" ratio="4 / 5" sizes="(min-width: 64rem) 45vw, 100vw" eager />
+          <Photo src={rack} alt="The squat rack and strength floor at FIT X Studio" ratio="4 / 5" sizes="(min-width: 64rem) 45vw, 100vw" eager />
           <div class="mhero__chip glass glass--light"><b>Max 10</b><span>mums per class</span></div>
         </div>
       </div>
