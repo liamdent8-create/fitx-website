@@ -11,6 +11,9 @@ import Countdown from '../components/Countdown.astro';
 import TileSheet from '../components/TileSheet.astro';
 import T from '../components/T.astro';
 import Footer from '../components/Footer.astro';
+import Banner from '../components/Banner.astro';
+import Ticker from '../components/Ticker.astro';
+import DmCta from '../components/DmCta.astro';
 import site from '../../content/site.json';
 import prices from '../../content/prices.json';
 import videos from '../../content/videos.json';
@@ -80,11 +83,7 @@ const jsonLd = {
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   <!-- 1. Banner: the hook before the page starts -->
-  <a class="banner" href={join} data-cta="banner">
-    <span class="banner__tag">{c.banner.tag}</span>
-    <span class="banner__text">{c.banner.text}</span>
-    <span class="banner__link">{c.banner.link} ›</span>
-  </a>
+  <Banner href={join} tag={c.banner.tag} text={c.banner.text} link={c.banner.link} />
   <Nav ctaHref={join} ctaLabel={`$${offer.price} trial`} />
 
   <main id="main">
@@ -107,14 +106,12 @@ const jsonLd = {
         <ul class="hero__trust" data-reveal style="--i:5">
           {c.hero.trust.map((t) => <li>{t}</li>)}
         </ul>
+        <div class="hero__dm" data-reveal style="--i:6"><DmCta /></div>
       </div>
     </section>
 
     <!-- 3. Ticker: what's included, for skimmers -->
-    <div class="ticker" aria-label="What's included">
-      <ul class="ticker__row">{c.ticker.map((t) => <li>{t}</li>)}</ul>
-      <ul class="ticker__row" aria-hidden="true">{c.ticker.map((t) => <li>{t}</li>)}</ul>
-    </div>
+    <Ticker items={c.ticker} />
 
     <!-- 4. TRUST: the VSL, CTA right under it -->
     <section class="section vsl-section">
@@ -381,7 +378,8 @@ const jsonLd = {
           <p class="lede" data-reveal style="--i:1">{c.contact.sub}</p>
         </div>
         <div class="contact__card glass" data-reveal style="--i:1">
-          <a class="btn btn--light btn--block btn--big" href={site.instagram.studio} data-cta="contact-dm">{c.contact.dm}</a>
+          <a class="btn btn--light btn--block btn--big" href={`https://ig.me/m/${site.dm.account}`} data-cta="contact-dm">{c.contact.dm}</a>
+          <p class="small contact__dmnote">{c.contact.dmNote}</p>
           <div class="contact__rows">
             <a href={`tel:${site.phone.replace(/\s/g, '')}`}><span>Call</span>{site.phone}</a>
             <a href={`mailto:${site.email}`}><span>Email</span>{site.email}</a>
@@ -439,16 +437,6 @@ const jsonLd = {
 </Base>
 
 <style>
-  /* 1. Banner */
-  .banner {
-    display: flex; align-items: center; justify-content: center; gap: 0.6rem; flex-wrap: nowrap;
-    min-height: var(--banner-h); padding: 0.35rem var(--gutter); text-decoration: none;
-    background: var(--ice); color: var(--navy); font-size: 0.82rem; font-weight: 600; letter-spacing: -0.005em;
-  }
-  .banner__tag { border: 1.5px solid currentColor; border-radius: 0.35rem; padding: 0.05rem 0.4rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 800; }
-  .banner__text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .banner__link { text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
-
   /* 2. Hero */
   .hero {
     position: relative; isolation: isolate; color: var(--on-navy); background: var(--navy); overflow: hidden;
@@ -477,25 +465,14 @@ const jsonLd = {
   .hero__badge {
     display: inline-flex; align-items: baseline; gap: 0.5rem; margin: 0 0 1.5rem; padding: 0.45rem 0.9rem;
     background: var(--ice); color: var(--navy); border-radius: 0.5rem; transform: rotate(-2deg);
-    font-family: var(--font-promo); font-style: italic; font-weight: 700; text-transform: uppercase; font-size: 1.05rem; letter-spacing: 0.01em;
+    font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 1.05rem; letter-spacing: 0.01em;
   }
   .hero__badge span { font-size: 1.6rem; line-height: 1; }
-  .hero .display { max-width: 15ch; margin-bottom: 0.85rem; }
+  .hero .display { max-width: 18ch; margin-bottom: 0.75rem; font-family: var(--font); font-style: normal; text-transform: none; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; font-size: clamp(1.9rem, 1.4rem + 2.4vw, 3.2rem); }
   .hero .lede { max-width: 34rem; color: rgba(255, 255, 255, 0.86); margin-bottom: 1.5rem; }
   .hero__trust { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; list-style: none; padding: 0; margin: 1.25rem 0 0; font-size: 0.88rem; color: rgba(255, 255, 255, 0.82); }
+  .hero__dm { margin-top: 1.25rem; }
   .hero__trust li::before { content: '✓ '; color: var(--ice); font-weight: 800; }
-
-  /* 3. Ticker */
-  .ticker { display: flex; overflow: hidden; background: var(--navy-2); color: var(--on-navy); }
-  .ticker__row {
-    display: flex; flex: none; gap: 2.25rem; padding: 0.9rem 1.1rem; margin: 0; list-style: none;
-    animation: ticker 38s linear infinite; white-space: nowrap;
-    font-family: var(--font-promo); font-style: italic; font-weight: 600; text-transform: uppercase; font-size: 1rem; letter-spacing: 0.02em;
-  }
-  .ticker__row li::before { content: '✦'; margin-right: 2.25rem; color: var(--ice); font-style: normal; }
-  .ticker:hover .ticker__row { animation-play-state: paused; }
-  @keyframes ticker { to { transform: translateX(-100%); } }
-  @media (prefers-reduced-motion: reduce) { .ticker { overflow-x: auto; } .ticker__row { animation: none; } .ticker__row[aria-hidden] { display: none; } }
 
   /* 4. VSL */
   .vsl-wrap { max-width: 58rem; margin: 2rem auto 0; display: grid; gap: 1.5rem; }
@@ -508,7 +485,7 @@ const jsonLd = {
   }
   .result img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
   .result figcaption { padding: 1.5rem; }
-  .result__big { font-family: var(--font-promo); font-style: italic; font-weight: 700; text-transform: uppercase; font-size: 2rem; line-height: 1; margin: 0 0 0.25rem; }
+  .result__big { font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 2rem; line-height: 1; margin: 0 0 0.25rem; }
   .result__time { margin: 0 0 1rem; color: var(--ink-soft); font-size: 0.9rem; }
   .result blockquote { margin: 0 0 0.5rem; font-size: 1.05rem; }
   .result cite { font-style: normal; font-weight: 700; }
@@ -543,7 +520,7 @@ const jsonLd = {
   .ticks li::before { content: '✓'; color: var(--ice); font-weight: 900; }
   .bonus__card { padding: 2rem; border-radius: calc(var(--radius) + 0.25rem); text-align: center; }
   .bonus__price { font-size: clamp(5rem, 3rem + 8vw, 8rem); color: #fff; }
-  .bonus__note { font-family: var(--font-promo); font-style: italic; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; font-size: 1.25rem; margin: 0.25rem 0 0.75rem; color: var(--ice); }
+  .bonus__note { font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; letter-spacing: 0.04em; font-size: 1.25rem; margin: 0.25rem 0 0.75rem; color: var(--ice); }
   .bonus__card .small { margin-bottom: 1.5rem; }
 
   /* 10. App */
@@ -584,7 +561,7 @@ const jsonLd = {
   .plan { display: flex; flex-direction: column; background: var(--paper); border-radius: var(--radius); padding: 1.75rem; box-shadow: 0 20px 40px -32px rgba(13, 27, 54, 0.4); }
   .plan--premium { background: var(--navy); color: #fff; box-shadow: 0 40px 80px -40px rgba(13, 27, 54, 0.8); }
   .plan__tag { align-self: start; margin: 0 0 0.9rem; padding: 0.2rem 0.65rem; border-radius: 99px; background: var(--ice); color: var(--navy); font-size: 0.78rem; font-weight: 700; }
-  .plan__name { font-family: var(--font-promo); font-style: italic; text-transform: uppercase; font-size: 1.6rem; font-weight: 700; letter-spacing: 0.01em; margin: 0 0 0.35rem; }
+  .plan__name { font-family: var(--font-promo); font-style: italic; text-transform: uppercase; font-size: 1.6rem; font-weight: 400; letter-spacing: 0.01em; margin: 0 0 0.35rem; }
   .plan__blurb { color: var(--on-navy-soft); margin: 0 0 0.5rem; }
   .plan__price { margin: 0.25rem 0 1rem; }
   .plan__price b { font-size: 2.6rem; letter-spacing: -0.04em; }
@@ -596,7 +573,7 @@ const jsonLd = {
   .plan--premium .plan__min { color: var(--on-navy-soft); }
   .partner { position: relative; overflow: hidden; margin-top: 1.5rem; text-align: center; padding: 2rem 1.5rem; border: 0; box-shadow: 0 20px 40px -32px rgba(13, 27, 54, 0.4); }
   .partner__ribbon { position: absolute; top: 1.1rem; right: -2.6rem; rotate: 45deg; background: var(--navy); color: #fff; padding: 0.25rem 3rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
-  .partner h3 { font-family: var(--font-promo); font-style: italic; text-transform: uppercase; font-size: 1.7rem; }
+  .partner h3 { font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 1.7rem; }
   .partner p { color: var(--ink-soft); max-width: 32rem; margin-inline: auto; }
   .packs { margin-top: 2rem; display: grid; gap: 0.5rem; justify-items: center; text-align: center; }
   .packs ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.2rem; }
@@ -629,6 +606,7 @@ const jsonLd = {
   .contact__h { font-size: clamp(2.6rem, 1.6rem + 4vw, 4.2rem); }
   .contact .lede { color: rgba(255, 255, 255, 0.85); }
   .contact__card { padding: 1.5rem; border-radius: calc(var(--radius) + 0.25rem); background: rgba(255, 255, 255, 0.14); }
+  .contact__dmnote { margin: 0.75rem 0 0; text-align: center; color: var(--on-navy-soft); }
   .contact__rows { display: grid; margin-top: 1rem; }
   .contact__rows > * { display: grid; gap: 0.1rem; padding: 0.85rem 0.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.16); text-decoration: none; margin: 0; }
   .contact__rows span { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--on-navy-soft); }
@@ -657,7 +635,7 @@ const jsonLd = {
   }
   .dock.is-on { transform: none; opacity: 1; }
   .dock__text { font-size: 0.95rem; line-height: 1.2; }
-  .dock__text strong { font-family: var(--font-promo); font-style: italic; font-size: 1.5rem; margin-right: 0.3rem; }
+  .dock__text strong { font-family: var(--font-promo); font-style: italic; font-weight: 400; font-size: 1.5rem; margin-right: 0.3rem; }
   .dock__text span { color: var(--on-navy-soft); }
   .dock .btn { min-height: 2.75rem; padding: 0 1.4rem; }
   @media (min-width: 48rem) { .dock { display: none; } }

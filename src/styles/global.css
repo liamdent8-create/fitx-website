@@ -1,5 +1,5 @@
 /* FIT X design tokens. Navy + white approved; ice blue comes from the studio's neon sign. */
-@import '@fontsource-variable/oswald';
+@import '@fontsource/anton/400.css';
 
 :root {
   --navy: #0d1b36;
@@ -25,7 +25,8 @@
   --banner-h: 2.25rem;
 
   --font: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-  --font-promo: "Oswald Variable", "Oswald", "Arial Narrow", sans-serif;
+  --font-promo: "Anton", "Arial Narrow", Impact, sans-serif;
+  --slate: #556280;        /* the blue behind the square logo tile */
 
   /* Fast response for direct feedback (press, hover) */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -56,17 +57,15 @@ a { color: inherit; }
 .narrow { width: min(100% - 2 * var(--gutter), 44rem); margin-inline: auto; }
 .center { text-align: center; }
 
-/* Typography: semibold, tracking tightens as size grows, leading tightens too */
-.display {
-  font-size: clamp(2.25rem, 1.5rem + 3.6vw, 4rem);
-  line-height: 1.05; letter-spacing: -0.03em; font-weight: 700;
-  margin: 0; text-wrap: balance;
+/* Headlines in Anton (the logo face), uppercase, leaning like the logo.
+   Body copy stays in the system font (SF on Apple devices). */
+.display, h2, .h2 {
+  font-family: var(--font-promo); font-weight: 400; text-transform: uppercase;
+  letter-spacing: 0.005em; text-wrap: balance;
+  font-style: italic; transform-origin: left bottom;
 }
-h2, .h2 {
-  font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3rem);
-  line-height: 1.08; letter-spacing: -0.025em; font-weight: 700;
-  margin: 0 0 0.75rem; text-wrap: balance;
-}
+.display { font-size: clamp(2.9rem, 1.9rem + 5vw, 5.75rem); line-height: 0.95; margin: 0; }
+h2, .h2 { font-size: clamp(2.3rem, 1.6rem + 3.2vw, 4rem); line-height: 0.98; margin: 0 0 0.85rem; }
 h3, .h3 { font-size: 1.2rem; line-height: 1.25; letter-spacing: -0.012em; font-weight: 650; margin: 0 0 0.35rem; }
 p { margin: 0 0 1rem; }
 .lede { font-size: clamp(1.06rem, 1rem + 0.35vw, 1.25rem); line-height: 1.5; color: var(--ink-soft); text-wrap: pretty; letter-spacing: -0.005em; }
@@ -75,8 +74,8 @@ p { margin: 0 0 1rem; }
 
 /* Promo type: the condensed italic of the FIT X logotype, for offer moments only */
 .promo {
-  font-family: var(--font-promo); font-style: italic; font-weight: 700; text-transform: uppercase;
-  line-height: 0.9; letter-spacing: -0.005em; margin: 0;
+  font-family: var(--font-promo); font-weight: 400; text-transform: uppercase;
+  line-height: 0.92; letter-spacing: 0.01em; margin: 0; font-style: italic;
 }
 
 /* Sections */
@@ -129,14 +128,16 @@ p { margin: 0 0 1rem; }
   .grid--4 { grid-template-columns: repeat(4, 1fr); }
 }
 
+@keyframes ticker { to { transform: translateX(-100%); } }
+
 /* Scroll reveal: content settles into place on a critically damped spring.
    Only hidden when JS is running, so the page is always readable without it. */
 .js [data-reveal] {
-  opacity: 0; transform: translateY(28px) scale(0.98);
-  transition: opacity 600ms var(--spring), transform 800ms var(--spring);
+  opacity: 0; translate: 0 28px; scale: 0.98;
+  transition: opacity 600ms var(--spring), translate 800ms var(--spring), scale 800ms var(--spring);
   transition-delay: calc(var(--i, 0) * 70ms);
 }
-.js [data-reveal].is-in { opacity: 1; transform: none; }
+.js [data-reveal].is-in { opacity: 1; translate: none; scale: none; }
 
 /* Glass material: for surfaces floating over photos or content */
 .glass {
@@ -162,7 +163,7 @@ p { margin: 0 0 1rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .js [data-reveal] { transform: none; transition: opacity 200ms ease; }
+  .js [data-reveal] { translate: none; scale: none; transition: opacity 200ms ease; }
   *, *::before, *::after { transition-duration: 1ms !important; animation-duration: 1ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
   .btn:active { transform: none; }
 }

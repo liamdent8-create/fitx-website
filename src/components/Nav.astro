@@ -2,16 +2,14 @@
 interface Props {
   ctaHref: string;
   ctaLabel: string;
-  sub?: string;
   links?: { href: string; label: string; current?: boolean; mobile?: boolean }[];
 }
-const { ctaHref, ctaLabel, sub = 'Studio', links = [{ href: '/timetable', label: 'Timetable', mobile: true }] } = Astro.props;
+const { ctaHref, ctaLabel, links = [{ href: '/mums-and-bubs', label: 'Mums & bubs' }, { href: '/timetable', label: 'Timetable', mobile: true }] } = Astro.props;
 ---
 <header class="nav">
   <div class="wrap nav__inner">
-    <a class="logo" href="/" aria-label="FIT X home">
-      <span class="logo__mark">FIT X</span>
-      <span class="logo__sub">{sub}</span>
+    <a class="logo" href="/" aria-label="FIT X Studio home">
+      <img src="/brand/fitx-studio-logo-white.png" alt="" width="64" height="40" />
     </a>
     <div class="nav__right">
       {links.map((l) => <a class:list={['nav__link', { 'nav__link--mobile': l.mobile }]} href={l.href} aria-current={l.current ? 'page' : undefined}>{l.label}</a>)}
@@ -30,13 +28,12 @@ const { ctaHref, ctaLabel, sub = 'Studio', links = [{ href: '/timetable', label:
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
   .nav__inner { height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-  .logo { display: inline-flex; align-items: baseline; gap: 0.45rem; text-decoration: none; }
-  .logo__mark { font-weight: 900; font-size: 1.25rem; letter-spacing: -0.02em; }
-  .logo__sub { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.8; }
+  .logo { display: block; line-height: 0; transition: transform 450ms var(--spring-fast); }
+  .logo img { height: 2.35rem; width: auto; }
+  .logo:active { transform: scale(0.95); transition-duration: 60ms; }
   .nav__right { display: flex; align-items: center; gap: 1.1rem; }
   .nav__link { font-size: 0.9rem; font-weight: 600; text-decoration: none; opacity: 0.85; }
   @media (max-width: 47.99rem) { .nav__link:not(.nav__link--mobile) { display: none; } .nav__right { gap: 0.85rem; } }
-  .logo { white-space: nowrap; }
   .nav__link:hover, .nav__link[aria-current] { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
   .nav__cta { min-height: 2.5rem; padding: 0 1.1rem; font-size: 0.9rem; }
 

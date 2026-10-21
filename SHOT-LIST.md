@@ -16,3 +16,12 @@ The 10 photos supplied are all of the space and equipment. The page needs **peop
 | 10 | Lauren portrait, relaxed, in the studio | Story, About page, VSL poster | Portrait + landscape |
 | 11 | Short 5–10s vertical clips of each class (for VSL b-roll and ads) | VSL, ads | 9:16 |
 | 12 | Apparel being worn in real training (squat, Pilates) | Apparel page, cross-sell | Portrait |
+
+## Mums and bubs page (added 22 Oct)
+| # | Shot | Where it goes | Orientation |
+|---|---|---|---|
+| 13 | Hero: a mum mid-lift (goblet squat or RDL) with bub in the play pen in frame | Mums hero | Portrait 4:5 |
+| 14 | The play pen with toys, studio floor behind it | "The play pen" tile | Portrait 3:4 |
+| 15 | Whole mums and bubs class, up to 10 mums, coach cueing | "Never more than 10" tile, Saturday HIIT tile equivalent | Portrait 3:4 |
+| 16 | A mum stepping out to settle bub, relaxed, smiling | How it works | Landscape |
+| 17 | Prams parked in the waiting area | How it works | Landscape |

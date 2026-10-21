@@ -1,0 +1,21 @@
+---
+// Scrolling strip of what's included. Pauses on hover; static for reduced motion.
+interface Props { items: string[]; label?: string }
+const { items, label = "What's included" } = Astro.props;
+---
+<div class="ticker" aria-label={label}>
+  <ul class="ticker__row">{items.map((t) => <li>{t}</li>)}</ul>
+  <ul class="ticker__row" aria-hidden="true">{items.map((t) => <li>{t}</li>)}</ul>
+</div>
+
+<style>
+  .ticker { display: flex; overflow: hidden; background: var(--navy-2); color: var(--on-navy); }
+  .ticker__row {
+    display: flex; flex: none; gap: 2.25rem; padding: 0.9rem 1.1rem; margin: 0; list-style: none;
+    animation: ticker 38s linear infinite; white-space: nowrap;
+    font-family: var(--font-promo); font-style: italic; text-transform: uppercase; font-size: 1.05rem; letter-spacing: 0.03em;
+  }
+  .ticker__row li::before { content: '✦'; margin-right: 2.25rem; color: var(--ice); font-style: normal; }
+  .ticker:hover .ticker__row { animation-play-state: paused; }
+  @media (prefers-reduced-motion: reduce) { .ticker { overflow-x: auto; } .ticker__row { animation: none; } .ticker__row[aria-hidden] { display: none; } }
+</style>

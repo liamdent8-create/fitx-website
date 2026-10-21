@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://fitxstudio.com.au/sitemap-index.xml

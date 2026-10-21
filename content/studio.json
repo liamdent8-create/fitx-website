@@ -82,7 +82,7 @@
         "title": "Bub comes too.",
         "photo": "",
         "tone": "light",
-        "detail": "The same structure as our strength classes, with your little one in the play pen within view. Prams stay in the waiting area. Max 10 per class."
+        "detail": "The same structure as our strength classes, with your little one in the play pen within view. Prams stay in the waiting area. Max 10 per class. More on our mums and bubs page."
       },
       {
         "label": "Saturday HIIT",
@@ -181,9 +181,10 @@
   },
   "contact": {
     "headline": "Got a question?",
-    "sub": "Message Coach Loz on Instagram, or call or email the studio. We'd love to hear from you.",
-    "dm": "Message us on Instagram",
-    "form": "[[NEEDS LAUREN: approve a Jotform contact form (name, mobile, email, question) that saves to Google Sheets.]]"
+    "sub": "Send us a DM, or call or email the studio. We'd love to hear from you.",
+    "dm": "DM us \"LIFT\" on Instagram",
+    "form": "[[NEEDS LAUREN: approve a Jotform contact form (name, mobile, email, question) that saves to Google Sheets.]]",
+    "dmNote": "We'll ask about your goal and experience, then point you to the right start."
   },
   "marquee": "Strong · Confident · Never guessing",
   "location": {

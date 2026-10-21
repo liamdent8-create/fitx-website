@@ -14,7 +14,7 @@ const href = (key: string) => (key.startsWith('#') ? key : links[key]);
 const offer = prices.studio.startOffer;
 ---
 <Base title={c.seo.title} description={c.seo.description} path="/timetable">
-  <Nav ctaHref={site.links.studioJoin} ctaLabel={`$${offer.price} trial`} links={[{ href: '/studio', label: 'Studio', mobile: true }, { href: '/timetable', label: 'Timetable', current: true }]} />
+  <Nav ctaHref={site.links.studioJoin} ctaLabel={`$${offer.price} trial`} links={[{ href: '/studio', label: 'Studio', mobile: true }, { href: '/mums-and-bubs', label: 'Mums & bubs' }, { href: '/timetable', label: 'Timetable', current: true }]} />
 
   <main id="main">
     <section class="tt-hero">
@@ -88,7 +88,7 @@ const offer = prices.studio.startOffer;
   .pass:active { transform: scale(0.98); transition-duration: 60ms; }
   .pass--featured { background: var(--navy); color: #fff; }
   .pass__label { font-size: 0.85rem; font-weight: 600; opacity: 0.75; }
-  .pass__title { font-family: var(--font-promo); font-style: italic; font-weight: 700; text-transform: uppercase; font-size: 1.6rem; line-height: 1; }
+  .pass__title { font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 1.6rem; line-height: 1; }
   .pass__price { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; }
   .pass--featured .pass__price { color: var(--ice); }
   .pass__body { font-size: 0.92rem; color: var(--ink-soft); }

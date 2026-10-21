@@ -1,0 +1,327 @@
+---
+// Mums and bubs landing page. Same funnel shape as /studio (hook → proof →
+// value → offer → objections), lighter and warmer, and built to rank for
+// "mums and bubs fitness Cairns".
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Banner from '../components/Banner.astro';
+import Ticker from '../components/Ticker.astro';
+import DmCta from '../components/DmCta.astro';
+import Photo from '../components/Photo.astro';
+import Carousel from '../components/Carousel.astro';
+import TileSheet from '../components/TileSheet.astro';
+import T from '../components/T.astro';
+import site from '../../content/site.json';
+import prices from '../../content/prices.json';
+import testimonials from '../../content/testimonials.json';
+import c from '../../content/mums.json';
+
+import pilatesRoom from '../assets/studio/pilates-room-mat.jpg';
+import rack from '../assets/studio/squat-rack.jpg';
+import floorWide from '../assets/studio/gym-floor-wide.jpg';
+import pilatesWeights from '../assets/studio/pilates-weights.jpg';
+import pilatesMat from '../assets/studio/pilates-mat-closeup.jpg';
+
+const photos: Record<string, ImageMetadata> = { 'squat-rack': rack, 'gym-floor-wide': floorWide, 'pilates-weights': pilatesWeights };
+const included = c.included.items.map((t) => ({ ...t, photo: photos[t.photo] }));
+const { studio } = prices;
+const offer = studio.startOffer;
+const inc = studio.inclusions as Record<string, string>;
+const withMums = studio.memberships.filter((m) => m.includes.includes('mumsBubs'));
+const quotes = testimonials.items.filter((t: any) => t.arm === 'mums' && t.consent?.given === true);
+const join = site.links.studioJoin;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Mums and bubs strength classes',
+  serviceType: 'Postnatal fitness classes',
+  areaServed: 'Cairns, QLD',
+  provider: {
+    '@type': 'ExerciseGym',
+    name: 'FIT X Studio',
+    telephone: site.phone,
+    address: { '@type': 'PostalAddress', streetAddress: site.address.street, addressLocality: site.address.suburb, addressRegion: site.address.state, postalCode: site.address.postcode, addressCountry: 'AU' },
+  },
+  offers: { '@type': 'Offer', name: offer.name, price: offer.price, priceCurrency: 'AUD', url: join },
+};
+---
+<Base title={c.seo.title} description={c.seo.description} path="/mums-and-bubs">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Banner href={join} tag={c.banner.tag} text={c.banner.text} link={c.banner.link} />
+  <Nav ctaHref={join} ctaLabel={`$${offer.price} trial`} links={[{ href: '/studio', label: 'Studio' }, { href: '/mums-and-bubs', label: 'Mums & bubs', current: true }, { href: '/timetable', label: 'Timetable', mobile: true }]} />
+
+  <main id="main">
+    <!-- HOOK: light, warm hero with the offer as the prize -->
+    <section class="mhero">
+      <div class="wrap mhero__grid">
+        <div class="mhero__copy">
+          <p class="promo mhero__promo" data-reveal><span>{c.hero.promoTop}</span><span class="mhero__amp">{c.hero.promoBottom}</span></p>
+          <p class="mhero__badge" data-reveal style="--i:1">{c.hero.badge}</p>
+          <h1 class="mhero__h1" data-reveal style="--i:2">{c.hero.headline}</h1>
+          <p class="lede" data-reveal style="--i:3">{c.hero.sub}</p>
+          <div class="mhero__ctas" data-reveal style="--i:4">
+            <a class="btn btn--big" href={join} data-cta="mums-hero">{c.hero.cta} <span class="arrow" aria-hidden="true">→</span></a>
+            <span class="mhero__price"><b>${offer.price}</b> 2 weeks unlimited</span>
+          </div>
+          <ul class="mhero__trust" data-reveal style="--i:5">{c.hero.trust.map((t) => <li>{t}</li>)}</ul>
+          <div data-reveal style="--i:6"><DmCta tone="dark" /></div>
+        </div>
+        <div class="mhero__media" data-reveal style="--i:2">
+          <Photo src={pilatesRoom} alt="The bright, mirrored studio room at FIT X Studio" ratio="4 / 5" sizes="(min-width: 64rem) 45vw, 100vw" eager />
+          <div class="mhero__chip glass glass--light"><b>Max 10</b><span>mums per class</span></div>
+        </div>
+      </div>
+    </section>
+
+    <Ticker items={c.ticker} label="Mums and bubs at a glance" />
+
+    <!-- OUTCOMES -->
+    <section class="section">
+      <div class="wrap">
+        <p class="eyebrow" data-reveal>{c.moments.eyebrow}</p>
+        <h2 data-reveal style="--i:1">{c.moments.headline}</h2>
+        <div class="grid grid--3 moments">
+          {c.moments.items.map((m, i) => (
+            <article class="moment" data-reveal style={`--i:${i}`}>
+              <h3>{m.title}</h3>
+              <p>{m.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- PROOF -->
+    <section class="section section--mist">
+      <div class="wrap">
+        <p class="eyebrow" data-reveal>{c.results.eyebrow}</p>
+        <h2 data-reveal style="--i:1">{c.results.headline}</h2>
+        {quotes.length > 0 ? (
+          <Carousel label="Quotes from mums">
+            {quotes.map((q: any) => (
+              <blockquote class="quote"><p>“{q.quote}”</p><cite>{q.name}</cite></blockquote>
+            ))}
+          </Carousel>
+        ) : (
+          <p data-reveal style="--i:2"><T text={c.results.empty} /></p>
+        )}
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section">
+      <div class="wrap">
+        <div class="center">
+          <p class="eyebrow" data-reveal>{c.steps.eyebrow}</p>
+          <h2 data-reveal style="--i:1">{c.steps.headline}</h2>
+        </div>
+        <ol class="steps">
+          {c.steps.items.map((s, i) => (
+            <li data-reveal style={`--i:${i}`}>
+              <span class="steps__n">{i + 1}</span>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- VALUE: tiles with detail sheets -->
+    <section class="section section--mist">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">{c.included.eyebrow}</p>
+            <h2>{c.included.headline}</h2>
+          </div>
+          <a class="link-more" href={site.links.timetable}>See the timetable</a>
+        </div>
+        <div data-reveal style="--i:1"><TileSheet id="mums-included" label="What's included for mums" items={included as any} /></div>
+      </div>
+    </section>
+
+    <!-- OFFER -->
+    <section class="moffer">
+      <div class="moffer__media" aria-hidden="true">
+        <Photo src={pilatesMat} alt="" ratio="auto" sizes="100vw" class="moffer__img" />
+      </div>
+      <div class="wrap moffer__grid">
+        <div>
+          <p class="eyebrow" data-reveal>{c.offer.eyebrow}</p>
+          <h2 data-reveal style="--i:1">{c.offer.headline}</h2>
+          <p class="lede" data-reveal style="--i:2">{c.offer.body}</p>
+          <a class="btn btn--ice btn--big" href={join} data-cta="mums-offer" data-reveal style="--i:3">{c.offer.cta} <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+        <div class="moffer__cards" data-reveal style="--i:2">
+          <p class="small moffer__label">{c.offer.membershipsTitle}</p>
+          {withMums.map((m) => (
+            <article class="mcard glass">
+              <div class="mcard__top"><h3>{m.name}</h3><p><b>${m.weekly}</b>/week</p></div>
+              <ul>{m.includes.map((k) => <li>{inc[k]}</li>)}</ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMETABLE -->
+    <section class="section">
+      <div class="narrow center">
+        <h2 data-reveal>{c.timetable.headline}</h2>
+        <p class="lede" data-reveal style="--i:1">{c.timetable.body}</p>
+        <a class="btn btn--ghost" href={site.links.timetable} data-reveal style="--i:2">{c.timetable.cta} ›</a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--mist">
+      <div class="narrow">
+        <div class="center">
+          <p class="eyebrow" data-reveal>Questions</p>
+          <h2 data-reveal style="--i:1">Mums ask us.</h2>
+        </div>
+        <div class="faq" data-reveal style="--i:2">
+          {c.faq.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <div class="faq__a"><p><T text={f.a} /></p></div>
+            </details>
+          ))}
+        </div>
+        <div class="center faq__dm" data-reveal><DmCta tone="dark" lead="Got another question?" /></div>
+      </div>
+    </section>
+
+    <!-- FINAL -->
+    <section class="section final">
+      <div class="narrow center">
+        <h2 data-reveal>{c.final.headline}</h2>
+        <p class="lede" data-reveal style="--i:1">{c.final.sub}</p>
+        <div data-reveal style="--i:2"><a class="btn btn--light btn--big" href={join} data-cta="mums-final">{c.final.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
+        <p class="small final__addr" data-reveal style="--i:3">{site.address.street}, {site.address.suburb} · {site.parking}</p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <div class="dock glass" aria-hidden="true" data-dock>
+    <div class="dock__text"><strong>${offer.price}</strong> <span>2 weeks · bub comes too</span></div>
+    <a class="btn btn--light" href={join} data-cta="mums-dock" tabindex="-1">Claim</a>
+  </div>
+
+  <script>
+    const dock = document.querySelector<HTMLElement>('[data-dock]');
+    const hero = document.querySelector('.mhero .btn');
+    const end = document.querySelector('.final');
+    if (dock && hero && end && 'IntersectionObserver' in window) {
+      let heroGone = false, endShown = false;
+      const sync = () => {
+        const show = heroGone && !endShown && !document.documentElement.classList.contains('sheet-open');
+        dock.classList.toggle('is-on', show);
+        dock.setAttribute('aria-hidden', String(!show));
+        dock.querySelector('a')!.tabIndex = show ? 0 : -1;
+      };
+      new IntersectionObserver(([e]) => { heroGone = !e.isIntersecting && e.boundingClientRect.top < 0; sync(); }).observe(hero);
+      new IntersectionObserver(([e]) => { endShown = e.isIntersecting; sync(); }).observe(end);
+    }
+  </script>
+</Base>
+
+<style>
+  /* Hero: light and warm (Apple product-page feel), Anton promo in navy */
+  .mhero { background: linear-gradient(180deg, #eef3fb 0%, var(--paper) 100%); padding-block: clamp(2rem, 1rem + 4vw, 5rem) clamp(2.5rem, 1.5rem + 3vw, 4.5rem); overflow: hidden; }
+  .mhero__grid { display: grid; gap: 2.25rem; align-items: center; }
+  @media (min-width: 64rem) { .mhero__grid { grid-template-columns: 1.05fr 0.95fr; gap: 4rem; } }
+  .mhero__promo { display: grid; font-size: clamp(3.8rem, 2.2rem + 8vw, 7.5rem); color: var(--navy); margin-bottom: 0.75rem; }
+  .mhero__amp { color: var(--slate); }
+  .mhero__badge {
+    display: inline-block; margin: 0 0 1.25rem; padding: 0.4rem 0.85rem; border-radius: 0.5rem; rotate: -2deg;
+    background: var(--navy); color: var(--ice); font-family: var(--font-promo); font-style: italic; text-transform: uppercase; font-size: 1.15rem; letter-spacing: 0.02em;
+  }
+  .mhero__h1 { font-size: clamp(1.9rem, 1.4rem + 2.2vw, 3rem); line-height: 1.06; letter-spacing: -0.03em; font-weight: 700; margin: 0 0 0.75rem; max-width: 20ch; text-wrap: balance; }
+  .mhero .lede { max-width: 34rem; }
+  .mhero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin: 1.5rem 0 1.1rem; }
+  .mhero__price { color: var(--ink-soft); font-size: 0.95rem; }
+  .mhero__price b { font-family: var(--font-promo); font-style: italic; font-weight: 400; color: var(--navy); font-size: 1.6rem; margin-right: 0.25rem; }
+  .mhero__trust { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; list-style: none; padding: 0; margin: 0 0 1.25rem; font-size: 0.9rem; color: var(--ink-soft); }
+  .mhero__trust li::before { content: '✓ '; color: var(--navy); font-weight: 800; }
+  .mhero__media { position: relative; }
+  .mhero__media :global(.photo) { border-radius: calc(var(--radius) + 0.5rem); box-shadow: 0 40px 80px -45px rgba(13, 27, 54, 0.55); }
+  .mhero__chip { position: absolute; left: -0.5rem; bottom: 1.5rem; display: grid; padding: 0.85rem 1.1rem; border-radius: 1.1rem; color: var(--ink); }
+  @media (min-width: 64rem) { .mhero__chip { left: -1.5rem; } }
+  .mhero__chip b { font-family: var(--font-promo); font-style: italic; font-weight: 400; font-size: 1.8rem; line-height: 1; color: var(--navy); }
+  .mhero__chip span { font-size: 0.85rem; color: var(--ink-soft); }
+
+  .moments { margin-top: 2rem; gap: 2rem; }
+  .moment { border-top: 2px solid var(--navy); padding-top: 1.25rem; }
+  .moment p { color: var(--ink-soft); margin: 0; }
+
+  .quote { margin: 0; padding: 1.75rem; border-radius: var(--radius); background: var(--paper); min-height: 14rem; display: flex; flex-direction: column; justify-content: space-between; }
+  .quote p { font-size: 1.1rem; }
+  .quote cite { font-style: normal; font-weight: 700; }
+
+  .steps { list-style: none; padding: 0; margin: 2.25rem 0 0; display: grid; gap: 1rem; }
+  @media (min-width: 48rem) { .steps { grid-template-columns: repeat(4, 1fr); } }
+  .steps li { background: var(--mist); border-radius: var(--radius); padding: 1.5rem; }
+  .steps__n { display: inline-grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--navy); color: #fff; font-family: var(--font-promo); font-style: italic; font-size: 1.2rem; margin-bottom: 1rem; }
+  .steps p { color: var(--ink-soft); margin: 0; }
+
+  .moffer { position: relative; isolation: isolate; overflow: hidden; background: var(--navy); color: #fff; padding-block: clamp(4rem, 2rem + 6vw, 7rem); }
+  .moffer__media { position: absolute; inset: 0; z-index: -1; }
+  .moffer__media :global(.moffer__img) { width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+  .moffer__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(13, 27, 54, 0.96) 35%, rgba(13, 27, 54, 0.75)); }
+  .moffer .eyebrow, .moffer .lede { color: var(--on-navy-soft); }
+  .moffer .btn { margin-top: 0.5rem; }
+  .moffer__grid { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 64rem) { .moffer__grid { grid-template-columns: 1.1fr 0.9fr; gap: 4rem; } }
+  .moffer__cards { display: grid; gap: 1rem; }
+  .moffer__label { margin: 0; color: var(--on-navy-soft); }
+  .mcard { padding: 1.4rem 1.5rem; border-radius: var(--radius); }
+  .mcard__top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+  .mcard h3 { font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 1.6rem; margin: 0; }
+  .mcard__top p { margin: 0; color: var(--on-navy-soft); }
+  .mcard__top b { font-size: 1.8rem; color: #fff; letter-spacing: -0.03em; }
+  .mcard ul { list-style: none; padding: 0; margin: 0.85rem 0 0; display: grid; gap: 0.35rem; font-size: 0.92rem; color: var(--on-navy-soft); }
+  .mcard li::before { content: '+ '; color: var(--ice); font-weight: 800; }
+
+  .faq { margin-top: 1.75rem; border-top: 1px solid var(--line); }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq summary { list-style: none; cursor: pointer; padding: 1.15rem 2.5rem 1.15rem 0; position: relative; font-weight: 600; font-size: 1.08rem; letter-spacing: -0.01em; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: ''; position: absolute; right: 0.4rem; top: 50%; width: 0.6rem; height: 0.6rem;
+    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+    transform: translateY(-70%) rotate(45deg); transition: transform 450ms var(--spring-fast);
+  }
+  .faq details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+  .faq__a { padding-bottom: 1rem; color: var(--ink-soft); }
+  @supports (interpolate-size: allow-keywords) {
+    .faq { interpolate-size: allow-keywords; }
+    .faq details::details-content { height: 0; overflow: clip; transition: height 550ms var(--spring-fast), content-visibility 550ms allow-discrete; }
+    .faq details[open]::details-content { height: auto; }
+  }
+  .faq__dm { margin-top: 2rem; }
+
+  .final { background: var(--navy); color: #fff; }
+  .final .lede { color: var(--on-navy-soft); margin-bottom: 1.75rem; }
+  .final__addr { margin-top: 2rem; color: var(--on-navy-soft); }
+
+  .dock {
+    position: fixed; left: var(--gutter); right: var(--gutter); bottom: calc(0.75rem + env(safe-area-inset-bottom)); z-index: 40;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 0.5rem 0.5rem 0.5rem 1.1rem; border-radius: 999px; color: var(--on-navy); background: rgba(13, 27, 54, 0.72);
+    transform: translateY(calc(100% + 1.5rem)); opacity: 0;
+    transition: transform 700ms var(--spring), opacity 300ms var(--ease-out);
+  }
+  .dock.is-on { transform: none; opacity: 1; }
+  .dock__text { font-size: 0.92rem; line-height: 1.2; }
+  .dock__text strong { font-family: var(--font-promo); font-style: italic; font-weight: 400; font-size: 1.5rem; margin-right: 0.3rem; }
+  .dock__text span { color: var(--on-navy-soft); }
+  .dock .btn { min-height: 2.75rem; padding: 0 1.4rem; }
+  @media (min-width: 48rem) { .dock { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .dock { transform: none; } }
+</style>

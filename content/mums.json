@@ -1,0 +1,167 @@
+{
+  "_note": "Text on the mums and bubs page (/mums-and-bubs). Facts about the class come from Membership Agreement v2.0 (clause 21, class caps) and the current FIT X website. Anything marked NEEDS LAUREN must be confirmed before launch.",
+  "seo": {
+    "title": "Mums and Bubs Fitness Cairns | Strength Classes with Bub | FIT X Studio",
+    "description": "Coached mums and bubs strength classes in Manunda, Cairns. Bub comes with you, with a play pen in view and classes capped at 10. Try 2 weeks unlimited for $89."
+  },
+  "banner": {
+    "tag": "Mums",
+    "text": "Bub comes too · 2 weeks unlimited for $89",
+    "link": "Claim yours"
+  },
+  "hero": {
+    "promoTop": "Mums",
+    "promoBottom": "& bubs",
+    "badge": "Bub comes too",
+    "headline": "Get strong again, with bub right beside you.",
+    "sub": "Coached strength classes for mums in Manunda, Cairns. Bub plays in the pen within view, classes are capped at 10, and your coach programs every session for you.",
+    "cta": "Claim my 2 weeks",
+    "trust": [
+      "Max 10 per class",
+      "Play pen in view",
+      "Prams welcome"
+    ]
+  },
+  "ticker": [
+    "Bub comes too",
+    "Max 10 mums",
+    "Play pen in view",
+    "Coached every session",
+    "Five-week training blocks",
+    "Prams in the waiting area",
+    "Open gym with bub"
+  ],
+  "moments": {
+    "eyebrow": "Where you end up",
+    "headline": "Training that fits around bub.",
+    "items": [
+      {
+        "title": "You stop waiting for the 'right time'.",
+        "body": "No babysitter to organise. Bub comes with you, and the play pen is right there while you train."
+      },
+      {
+        "title": "You feel strong and capable again.",
+        "body": "Strength work that builds week on week in five-week blocks, with a coach adjusting each exercise to where you're at."
+      },
+      {
+        "title": "You're never the only mum in the room.",
+        "body": "Up to 10 mums, all juggling the same things. Nobody minds a crying baby."
+      }
+    ]
+  },
+  "steps": {
+    "eyebrow": "How a class works",
+    "headline": "Bring bub, we'll do the rest.",
+    "items": [
+      {
+        "title": "Park the pram",
+        "body": "Prams stay in the waiting area. Bub comes onto the floor with you."
+      },
+      {
+        "title": "Settle bub in",
+        "body": "There's a fenced play pen with toys, within view of where you train."
+      },
+      {
+        "title": "Train with a coach",
+        "body": "The same structure as our strength classes, coached from start to finish and adjusted for you."
+      },
+      {
+        "title": "Step out any time",
+        "body": "If bub needs a feed or a cuddle, step out and jump back in when you're ready."
+      }
+    ]
+  },
+  "included": {
+    "eyebrow": "What's included",
+    "headline": "Made for mums.",
+    "items": [
+      {
+        "label": "The play pen",
+        "title": "Bub in view, the whole time.",
+        "photo": "",
+        "tone": "light",
+        "detail": "A fenced play pen with toys sits within view of the training floor. You're responsible for bub during class, and you can step out whenever they need you. Our reception team may help keep little ones busy, but they don't supervise them."
+      },
+      {
+        "label": "Coached strength",
+        "title": "A plan that meets you where you are.",
+        "photo": "squat-rack",
+        "tone": "dark",
+        "detail": "Mums and bubs follows the same structure as our strength classes: programmed in five-week blocks, with your coach adjusting exercises and weights for you."
+      },
+      {
+        "label": "Small classes",
+        "title": "Never more than 10.",
+        "photo": "",
+        "tone": "dark",
+        "detail": "Mums and bubs is capped at 10, so your coach has time for every mum in the room."
+      },
+      {
+        "label": "Open gym",
+        "title": "Bub's welcome there too.",
+        "photo": "gym-floor-wide",
+        "tone": "dark",
+        "detail": "Bring bub to open gym sessions on the timetable as well. Open gym is included in Premium and Open Gym memberships."
+      },
+      {
+        "label": "Mini bar",
+        "title": "Coffee's on us.",
+        "photo": "pilates-weights",
+        "tone": "light",
+        "detail": "Every membership includes the mini bar: coffee, protein shakes and pre-workouts."
+      }
+    ]
+  },
+  "results": {
+    "eyebrow": "From our mums",
+    "headline": "Stronger, with bub in tow.",
+    "empty": "[[NEEDS LAUREN: 3–6 quotes from mums with written consent: first name, how old bub was when they started, and what changed for them. Training photos only, no before/after.]]"
+  },
+  "offer": {
+    "eyebrow": "Start here",
+    "headline": "Two weeks, every class, bub included.",
+    "body": "Try mums and bubs, strength, Pilates and Saturday HIIT for two weeks. If you love it, stay on with a membership that includes mums and bubs. Your trial weeks count towards your minimum term.",
+    "cta": "Claim my 2 weeks",
+    "membershipsTitle": "Memberships that include mums and bubs"
+  },
+  "timetable": {
+    "headline": "When is mums and bubs on?",
+    "body": "Check this week's mums and bubs sessions and open gym times on our live timetable.",
+    "cta": "See the timetable"
+  },
+  "faq": [
+    {
+      "q": "How soon after having a baby can I start?",
+      "a": "Everyone fills in a pre-exercise screening before their first session. If anything in your answers needs it, we'll ask for clearance from your doctor first. [[NEEDS LAUREN: your guidance on timing after birth (e.g. after the 6-week check with GP clearance), and after a caesarean.]]"
+    },
+    {
+      "q": "How old does bub need to be?",
+      "a": "[[NEEDS LAUREN: age range for bubs (e.g. from 6 weeks until walking or 2 years?)]]"
+    },
+    {
+      "q": "What if bub cries or needs a feed?",
+      "a": "That's completely normal here. You're responsible for bub during class, so step out whenever they need you and jump back in when you're ready."
+    },
+    {
+      "q": "Who looks after bub during class?",
+      "a": "You do. Bub stays in the fenced play pen within view. Our reception team may help keep little ones busy, but they don't supervise them."
+    },
+    {
+      "q": "Where does the pram go?",
+      "a": "Prams and baby gear stay in the waiting area, not on the studio floor."
+    },
+    {
+      "q": "Can I come while I'm pregnant?",
+      "a": "[[NEEDS LAUREN: do you take pregnant members in mums and bubs or strength classes, and what do you ask for (e.g. clearance from their midwife or doctor)?]]"
+    },
+    {
+      "q": "Which memberships include mums and bubs?",
+      "a": "Premium ($75 a week) and Strength ($45 a week) both include mums and bubs classes. Start with the 2-week trial for $89."
+    }
+  ],
+  "final": {
+    "headline": "Bring bub. Start this week.",
+    "sub": "Two weeks of unlimited classes for $89, mums and bubs included.",
+    "cta": "Claim my 2 weeks"
+  }
+}

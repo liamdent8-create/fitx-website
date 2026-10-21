@@ -1,0 +1,21 @@
+---
+// Thin offer banner above the nav: the hook before the page starts.
+interface Props { href: string; tag: string; text: string; link: string }
+const { href, tag, text, link } = Astro.props;
+---
+<a class="banner" href={href} data-cta="banner">
+  <span class="banner__tag">{tag}</span>
+  <span class="banner__text">{text}</span>
+  <span class="banner__link">{link} ›</span>
+</a>
+
+<style>
+  .banner {
+    display: flex; align-items: center; justify-content: center; gap: 0.6rem; flex-wrap: nowrap;
+    min-height: var(--banner-h); padding: 0.35rem var(--gutter); text-decoration: none;
+    background: var(--ice); color: var(--navy); font-size: 0.82rem; font-weight: 600; letter-spacing: -0.005em;
+  }
+  .banner__tag { border: 1.5px solid currentColor; border-radius: 0.35rem; padding: 0.05rem 0.4rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 800; }
+  .banner__text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .banner__link { text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+</style>

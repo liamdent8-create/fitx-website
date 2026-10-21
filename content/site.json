@@ -27,5 +27,10 @@
     "memberships": "https://clients.mindbodyonline.com/classic/ws?studioid=5756603&stype=40",
     "mindbodySchedule": "https://go.mindbodyonline.com/book/widgets/schedules/view/a667931e82a/schedule"
   },
-  "mindbodyWidgetId": "a667931e82a"
+  "mindbodyWidgetId": "a667931e82a",
+  "dm": {
+    "keyword": "LIFT",
+    "account": "fitx.au",
+    "accountStatus": "NEEDS LAUREN: confirm which Instagram account runs the LIFT ManyChat flow (@fitx.au or @fitx.studio.au)"
+  }
 }
