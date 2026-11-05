@@ -10,6 +10,7 @@ FILES = [
     ('mums', 'Mums and bubs page text', 'content/mums.json'),
     ('faq', 'Studio FAQs', 'content/studio-faq.json'),
     ('videos', 'Videos', 'content/videos.json'),
+    ('testimonials', 'Reviews and testimonials', 'content/testimonials.json'),
     ('site', 'Contact details and links', 'content/site.json'),
 ]
 

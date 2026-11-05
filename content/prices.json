@@ -1,5 +1,5 @@
 {
-  "_note": "Weekly membership prices: standard (post-foundation) rates from Fee Schedule v2.0. Casual and class pack prices: as set in Mindbody (checked 21 Oct 2026, Lauren: use the Mindbody numbers). GST inclusive. Edit here only. Anything marked NEEDS LAUREN must be resolved before launch.",
+  "_note": "Weekly membership prices: standard (post-foundation) rates from Fee Schedule v2.0. Casual and class pack prices: as set in Mindbody (checked 6 Nov 2026, Lauren: use the Mindbody numbers). GST inclusive. Edit here only. Anything marked NEEDS LAUREN must be resolved before launch.",
   "studio": {
     "startOffer": {
       "thenWeekly": 75,
@@ -77,7 +77,7 @@
       {
         "id": "casual-strength",
         "name": "Casual coached strength class",
-        "price": 28,
+        "price": 25,
         "note": "Expires 14 days from purchase"
       },
       {

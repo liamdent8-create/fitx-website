@@ -7,7 +7,6 @@ import Nav from '../components/Nav.astro';
 import Video from '../components/Video.astro';
 import Photo from '../components/Photo.astro';
 import Carousel from '../components/Carousel.astro';
-import Countdown from '../components/Countdown.astro';
 import TileSheet from '../components/TileSheet.astro';
 import T from '../components/T.astro';
 import Footer from '../components/Footer.astro';
@@ -58,8 +57,19 @@ const premium = studio.memberships.find((m) => m.id === 'premium')!;
 const others = studio.memberships.filter((m) => m.id !== 'premium');
 const inc = studio.inclusions as Record<string, string>;
 const results = testimonials.items.filter((t: any) => t.arm === 'studio' && t.consent?.given === true && t.result);
-const reviews = testimonials.items.filter((t: any) => t.arm === 'studio' && t.consent?.given === true);
+// Consented quotes, plus reviews members posted publicly on Mindbody (shown word for word).
+const reviews = testimonials.items.filter((t: any) => t.arm === 'studio' && (t.consent?.given === true || t.publicReview === true));
+const summary = testimonials.summary;
+const proofLine = c.hero.proof.replace('{count}', String(summary.count)).replace('{source}', summary.source);
 const join = site.links.studioJoin;
+// Honest price anchor: six strength classes at the real casual price.
+const casualStrength = studio.casual.find((x) => x.id === 'casual-strength')!;
+const anchor = c.bonus.anchor.replace('{casualTotal}', '$' + casualStrength.price * 6);
+// Split a quote around its highlighted phrase so the phrase can be bolded without changing any words.
+const parts = (q: string, h?: string) => {
+  const i = h ? q.indexOf(h) : -1;
+  return i < 0 ? [q, '', ''] : [q.slice(0, i), h!, q.slice(i + h!.length)];
+};
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -101,8 +111,9 @@ const jsonLd = {
         <h1 class="display" data-reveal style="--i:2"><T text={c.hero.headline} /></h1>
         <p class="lede" data-reveal style="--i:3"><T text={c.hero.sub} /></p>
         <div data-reveal style="--i:4">
-          <a class="btn btn--light btn--big" href={join} data-cta="hero">{c.hero.cta} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn--go btn--big" href={join} data-cta="hero">{c.hero.cta} <span class="arrow" aria-hidden="true">→</span></a>
         </div>
+        <a class="stars-line" href="#reviews" data-reveal style="--i:5"><span class="stars" aria-hidden="true">★★★★★</span> <b>{summary.rating}</b> {proofLine}</a>
         <ul class="hero__trust" data-reveal style="--i:5">
           {c.hero.trust.map((t) => <li>{t}</li>)}
         </ul>
@@ -122,21 +133,22 @@ const jsonLd = {
         </div>
         <div class="vsl-wrap" data-reveal style="--i:2">
           <Video video={videos.studio as any} />
-          <div class="center"><a class="btn btn--big" href={join} data-cta="video">{c.vsl.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
+          <div class="center"><a class="btn btn--go btn--big" href={join} data-cta="video">{c.vsl.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
         </div>
       </div>
     </section>
 
-    <!-- 5. PROOF: member results straight after the video -->
-    <section class="section section--mist results">
+    <!-- 5. PROOF: straight after the video. Member results when we have them, and real reviews -->
+    <section class="section section--mist proof" id="reviews">
       <div class="wrap">
         <div class="section-head" data-reveal>
           <div>
-            <p class="eyebrow">{c.results.eyebrow}</p>
-            <h2>{c.results.headline}</h2>
+            <p class="eyebrow">{summary.rating} <span class="stars" aria-hidden="true">★★★★★</span> · {proofLine}</p>
+            <h2>{results.length > 0 ? c.results.headline : c.reviews.headline}</h2>
           </div>
+          <a class="link-more" href={summary.url}>{c.reviews.more}</a>
         </div>
-        {results.length > 0 ? (
+        {results.length > 0 && (
           <Carousel label="Member results">
             {results.map((r: any) => (
               <figure class="result">
@@ -150,33 +162,33 @@ const jsonLd = {
               </figure>
             ))}
           </Carousel>
-        ) : (
-          <Carousel label="Member results (coming soon)">
-            {[1, 2, 3, 4].map((n) => (
-              <figure class="result result--empty">
-                <figcaption>
-                  <p class="result__big">Result {n}</p>
-                  <p class="result__time">e.g. first chin-up · 8 weeks</p>
-                  <blockquote>Member quote goes here.</blockquote>
-                  <cite>First name</cite>
-                </figcaption>
-              </figure>
-            ))}
-          </Carousel>
         )}
-        {results.length === 0 && <p class="small" data-reveal><T text={c.results.empty} /></p>}
-        <div class="center results__cta" data-reveal><a class="btn btn--big" href={join} data-cta="results">{c.results.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
+        {reviews.length > 0 ? (
+          <div class="reviews">
+            {reviews.map((t: any, i: number) => (
+              <blockquote class="review" data-reveal style={`--i:${i % 3}`}>
+                <p class="review__stars" aria-label={`${t.rating ?? 5} out of 5 stars`}>★★★★★</p>
+                <p class="review__quote">“{parts(t.quote, t.highlight)[0]}<strong>{parts(t.quote, t.highlight)[1]}</strong>{parts(t.quote, t.highlight)[2]}”</p>
+                <footer><cite>{t.name}</cite><span>{t.context}</span></footer>
+              </blockquote>
+            ))}
+          </div>
+        ) : (
+          <p data-reveal><T text={c.reviews.empty} /></p>
+        )}
+        {results.length === 0 && <p class="small proof__todo" data-reveal><T text={c.results.empty} /></p>}
+        <div class="center results__cta" data-reveal><a class="btn btn--go btn--big" href={join} data-cta="results">{c.results.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
       </div>
     </section>
 
-    <!-- 6. URGENCY: real deadline only -->
+    <!-- 6. URGENCY: a true reason to act now. The trial runs from the first visit, so claiming today costs nothing -->
     <section class="section urgency">
       <div class="narrow center">
         <p class="pill" data-reveal><span>{c.urgency.pill}</span> <i aria-hidden="true"></i> {c.urgency.pillNote}</p>
         <p class="eyebrow urgency__label" data-reveal style="--i:1">{c.urgency.label}</p>
         <p class="promo urgency__date" data-reveal style="--i:1">{c.urgency.date}</p>
-        <div data-reveal style="--i:2"><Countdown label={`${c.urgency.label} ${c.urgency.date}`} until="2026-10-26T00:00:00+10:00" /></div>
-        <div data-reveal style="--i:3"><a class="btn btn--big" href={join} data-cta="urgency">{c.urgency.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
+        <p class="lede urgency__body" data-reveal style="--i:2">{c.urgency.body}</p>
+        <div data-reveal style="--i:3"><a class="btn btn--go btn--big" href={join} data-cta="urgency">{c.urgency.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
         <p class="small" data-reveal style="--i:4">{c.urgency.small}</p>
         <p data-reveal style="--i:4"><a class="link-more" href={site.links.timetable}>{c.urgency.timetableLink}</a></p>
       </div>
@@ -220,8 +232,9 @@ const jsonLd = {
         <div class="bonus__card glass" data-reveal style="--i:2">
           <p class="promo bonus__price">{c.bonus.price}</p>
           <p class="bonus__note">{c.bonus.priceNote}</p>
+          <p class="bonus__anchor">{anchor}</p>
           <p class="small">Then Premium ${offer.thenWeekly}/week if you'd like to stay. Your trial weeks count towards your minimum term.</p>
-          <a class="btn btn--ice btn--block btn--big" href={join} data-cta="bonus">{c.bonus.cta} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn--go btn--block btn--big" href={join} data-cta="bonus">{c.bonus.cta} <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -248,17 +261,6 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- 11. RECAP: checklist -->
-    <section class="section">
-      <div class="narrow center">
-        <p class="eyebrow" data-reveal>{c.checklist.eyebrow}</p>
-        <h2 data-reveal style="--i:1">{c.checklist.headline}</h2>
-      </div>
-      <ul class="wrap checklist">
-        {c.checklist.items.map((i, n) => <li data-reveal style={`--i:${n % 4}`}>{i}</li>)}
-      </ul>
-    </section>
-
     <!-- 12. OBJECTION: "will I feel at home here?" — the space -->
     <section class="section section--mist">
       <div class="wrap">
@@ -279,31 +281,6 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- 13. PROOF AGAIN: reviews -->
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head" data-reveal>
-          <div>
-            <p class="eyebrow">{c.reviews.eyebrow}</p>
-            <h2>{c.reviews.headline}</h2>
-          </div>
-        </div>
-        {reviews.length > 0 ? (
-          <div class="grid grid--3">
-            {reviews.map((t: any, i: number) => (
-              <blockquote class="card review" data-reveal style={`--i:${i % 3}`}>
-                <p class="review__stars" aria-label="5 stars">★★★★★</p>
-                <p>“{t.quote}”</p>
-                <cite>{t.name}</cite>
-              </blockquote>
-            ))}
-          </div>
-        ) : (
-          <p data-reveal><T text={c.reviews.empty} /></p>
-        )}
-      </div>
-    </section>
-
     <!-- 14. PRICING + partner card -->
     <section class="section section--mist" id="pricing">
       <div class="wrap">
@@ -319,7 +296,7 @@ const jsonLd = {
             <p class="plan__blurb">{c.pricing.premiumBlurb}</p>
             <p class="plan__price"><b>${premium.weekly}</b>/week</p>
             <ul class="plan__list">{premium.includes.map((k) => <li>{inc[k]}</li>)}</ul>
-            <a class="btn btn--ice btn--block btn--big" href={join} data-cta="pricing-premium">{c.pricing.cta}</a>
+            <a class="btn btn--go btn--block btn--big" href={join} data-cta="pricing-premium">{c.pricing.cta}</a>
             <p class="plan__min">{c.pricing.minimum}</p>
           </article>
           {others.map((m, i) => (
@@ -327,25 +304,19 @@ const jsonLd = {
               <h3 class="plan__name">{m.name}</h3>
               <p class="plan__price"><b>${m.weekly}</b>/week</p>
               <ul class="plan__list">{m.includes.map((k) => <li>{inc[k]}</li>)}</ul>
-              <a class="btn btn--ghost btn--block" href={site.links.memberships} data-cta={`pricing-${m.id}`}>{c.pricing.otherCta}</a>
+              <a class="btn btn--go btn--block" href={join} data-cta={`pricing-${m.id}`}>{c.pricing.otherCta}</a>
               <p class="plan__min">{c.pricing.minimum}</p>
             </article>
           ))}
         </div>
+        <p class="pricing-note" data-reveal>{c.pricing.trialNote}</p>
         <div class="partner card" data-reveal>
           <span class="partner__ribbon">{c.partner.ribbon}</span>
           <h3>{c.partner.headline}</h3>
           <p>{c.partner.body}</p>
           <a class="btn" href={site.links.timetable} data-cta="partner">{c.partner.cta}</a>
         </div>
-        <div class="packs" data-reveal>
-          <h3>{c.pricing.packsTitle}</h3>
-          <ul class="small">
-            {studio.casual.map((x) => <li>{x.name}: ${x.price} ({x.note.toLowerCase()})</li>)}
-            {studio.classPacks.map((p) => <li>{p.name}: ${p.price} ({p.note.toLowerCase()})</li>)}
-          </ul>
-          <p class="small">{c.pricing.packsNote}</p>
-        </div>
+        <p class="pricing-note small" data-reveal>{c.pricing.packsLine} <a href={`${site.links.timetable}#passes`}>{c.pricing.packsLink} ›</a></p>
       </div>
     </section>
 
@@ -401,7 +372,8 @@ const jsonLd = {
       <div class="narrow center">
         <h2 data-reveal>{c.final.headline}</h2>
         <p class="lede" data-reveal style="--i:1">{c.final.sub}</p>
-        <div data-reveal style="--i:2"><a class="btn btn--light btn--big" href={join} data-cta="final">{c.final.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
+        <div data-reveal style="--i:2"><a class="btn btn--go btn--big" href={join} data-cta="final">{c.final.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
+        <p class="final__ps" data-reveal style="--i:3">{c.final.ps}</p>
         <div class="cross" data-reveal style="--i:3">
           <p class="small">{c.final.crossOnline} <a href={site.links.online}>{c.final.crossOnlineLink}</a></p>
           <p class="small">{c.final.crossApparel} <a href={site.links.apparel}>{c.final.crossApparelLink}</a></p>
@@ -415,7 +387,7 @@ const jsonLd = {
   <!-- Mobile dock: floating glass bar once the hero CTA scrolls away -->
   <div class="dock glass" aria-hidden="true" data-dock>
     <div class="dock__text"><strong>${offer.price}</strong> <span>2 weeks unlimited</span></div>
-    <a class="btn btn--light" href={join} data-cta="dock" tabindex="-1">Claim</a>
+    <a class="btn btn--go" href={join} data-cta="dock" tabindex="-1">Claim</a>
   </div>
 
   <script>
@@ -464,7 +436,7 @@ const jsonLd = {
   .hero__promo-outline { color: transparent; -webkit-text-stroke: 2px var(--ice); text-shadow: 0 0 24px rgba(169, 220, 255, 0.55); }
   .hero__badge {
     display: inline-flex; align-items: baseline; gap: 0.5rem; margin: 0 0 1.5rem; padding: 0.45rem 0.9rem;
-    background: var(--ice); color: var(--navy); border-radius: 0.5rem; transform: rotate(-2deg);
+    background: var(--accent); color: var(--on-accent); border-radius: 0.5rem; transform: rotate(-2deg);
     font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 1.05rem; letter-spacing: 0.01em;
   }
   .hero__badge span { font-size: 1.6rem; line-height: 1; }
@@ -499,13 +471,8 @@ const jsonLd = {
   @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(52, 199, 89, 0); } 100% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0); } }
   .urgency__label { text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.8rem; margin: 0; }
   .urgency__date { font-size: clamp(2.6rem, 1.6rem + 5vw, 4.5rem); color: var(--navy); margin: 0.25rem 0 1.5rem; }
-  .urgency :global(.countdown) { margin-bottom: 1.75rem; background: transparent; border: 0; box-shadow: none; padding: 0; backdrop-filter: none; -webkit-backdrop-filter: none; }
-  .urgency :global(.countdown__label) { display: none; }
-  .urgency :global(.countdown__units) { gap: 0.6rem; }
-  .urgency :global(.countdown__units span) { background: var(--paper); border-radius: 1rem; padding: 0.9rem 0.5rem 0.6rem; min-width: 4.4rem; box-shadow: 0 10px 30px -18px rgba(13, 27, 54, 0.45), 0 0 0 1px var(--line); }
-  .urgency :global(.countdown__units b) { color: var(--navy); font-size: 2rem; }
-  .urgency :global(.countdown__units small) { color: var(--ink-soft); }
   .urgency .small { margin-top: 1rem; }
+  .urgency__body { margin: 0 auto 1.75rem; max-width: 30rem; }
 
   /* 9. Bonus panel */
   .bonus-section { position: relative; isolation: isolate; overflow: hidden; color: var(--on-navy); background: var(--navy); padding-block: clamp(4rem, 2rem + 6vw, 7rem); }
@@ -519,7 +486,8 @@ const jsonLd = {
   .ticks li { display: flex; gap: 0.75rem; }
   .ticks li::before { content: '✓'; color: var(--ice); font-weight: 900; }
   .bonus__card { padding: 2rem; border-radius: calc(var(--radius) + 0.25rem); text-align: center; }
-  .bonus__price { font-size: clamp(5rem, 3rem + 8vw, 8rem); color: #fff; }
+  .bonus__price { font-size: clamp(5rem, 3rem + 8vw, 8rem); color: var(--accent); }
+  .bonus__anchor { margin: 0 auto 0.75rem; max-width: 22rem; font-size: 0.95rem; color: #fff; }
   .bonus__note { font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; letter-spacing: 0.04em; font-size: 1.25rem; margin: 0.25rem 0 0.75rem; color: var(--ice); }
   .bonus__card .small { margin-bottom: 1.5rem; }
 
@@ -550,17 +518,46 @@ const jsonLd = {
 
   .gallery__item { margin: 0; }
 
-  .review { margin: 0; }
-  .review__stars { color: #f5a524; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
-  .review cite { font-style: normal; font-weight: 700; }
+  /* Reviews: real Mindbody reviews, word for word */
+  .stars { color: #ffb400; letter-spacing: 0.08em; }
+  .stars-line { display: inline-block; margin-top: 1rem; line-height: 1.5; font-size: 0.9rem; color: rgba(255, 255, 255, 0.85); text-decoration: none; }
+  .stars-line b { color: #fff; }
+  .stars-line:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .proof .eyebrow { color: var(--ink); }
+  .reviews { columns: 3 19rem; column-gap: 1rem; }
+  .reviews .review { break-inside: avoid; margin-bottom: 1rem; }
+  .review__quote strong { font-weight: 700; background: linear-gradient(transparent 60%, color-mix(in srgb, var(--accent) 70%, transparent) 60%); }
+  .review {
+    margin: 0; padding: 1.6rem; border-radius: var(--radius); background: var(--paper);
+    box-shadow: 0 20px 40px -32px rgba(13, 27, 54, 0.45); display: grid; gap: 0.75rem;
+  }
+  .review__stars { color: #ffb400; letter-spacing: 0.1em; margin: 0; font-size: 1.05rem; }
+  .review__quote { margin: 0; font-size: 1.06rem; line-height: 1.5; letter-spacing: -0.006em; }
+  .review footer { display: grid; gap: 0.1rem; font-size: 0.88rem; color: var(--ink-soft); }
+  .review cite { font-style: normal; font-weight: 700; color: var(--ink); }
+  .proof__todo { margin-top: 1.25rem; }
 
   /* 14. Pricing */
   .pricing-head { margin-bottom: 2.5rem; }
   .plans { display: grid; gap: 1rem; }
-  @media (min-width: 64rem) { .plans { grid-template-columns: 1.3fr 1fr 1fr 1fr; align-items: stretch; } }
+  /* Desktop: Premium is the big anchor card; the other three stack beside it, compact */
+  @media (min-width: 64rem) {
+    .plans { grid-template-columns: 1fr 1fr; align-items: stretch; }
+    .plan--premium { grid-row: span 3; }
+    .plan:not(.plan--premium) {
+      display: grid; grid-template-columns: 1fr auto; grid-template-areas: 'name price' 'list list' 'btn btn' 'min min';
+      align-items: baseline; column-gap: 1rem; padding: 1.4rem 1.6rem;
+    }
+    .plan:not(.plan--premium) .plan__name { grid-area: name; }
+    .plan:not(.plan--premium) .plan__price { grid-area: price; margin: 0; }
+    .plan:not(.plan--premium) .plan__price b { font-size: 2rem; }
+    .plan:not(.plan--premium) .plan__list { grid-area: list; margin: 0.5rem 0 1rem; }
+    .plan:not(.plan--premium) .btn { grid-area: btn; }
+    .plan:not(.plan--premium) .plan__min { grid-area: min; margin-top: 0.5rem; }
+  }
   .plan { display: flex; flex-direction: column; background: var(--paper); border-radius: var(--radius); padding: 1.75rem; box-shadow: 0 20px 40px -32px rgba(13, 27, 54, 0.4); }
   .plan--premium { background: var(--navy); color: #fff; box-shadow: 0 40px 80px -40px rgba(13, 27, 54, 0.8); }
-  .plan__tag { align-self: start; margin: 0 0 0.9rem; padding: 0.2rem 0.65rem; border-radius: 99px; background: var(--ice); color: var(--navy); font-size: 0.78rem; font-weight: 700; }
+  .plan__tag { align-self: start; margin: 0 0 0.9rem; padding: 0.2rem 0.65rem; border-radius: 99px; background: var(--accent); color: var(--on-accent); font-size: 0.78rem; font-weight: 700; }
   .plan__name { font-family: var(--font-promo); font-style: italic; text-transform: uppercase; font-size: 1.6rem; font-weight: 400; letter-spacing: 0.01em; margin: 0 0 0.35rem; }
   .plan__blurb { color: var(--on-navy-soft); margin: 0 0 0.5rem; }
   .plan__price { margin: 0.25rem 0 1rem; }
@@ -575,8 +572,8 @@ const jsonLd = {
   .partner__ribbon { position: absolute; top: 1.1rem; right: -2.6rem; rotate: 45deg; background: var(--navy); color: #fff; padding: 0.25rem 3rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
   .partner h3 { font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 1.7rem; }
   .partner p { color: var(--ink-soft); max-width: 32rem; margin-inline: auto; }
-  .packs { margin-top: 2rem; display: grid; gap: 0.5rem; justify-items: center; text-align: center; }
-  .packs ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.2rem; }
+  .pricing-note { text-align: center; margin: 1.5rem auto 0; max-width: 36rem; }
+  .pricing-note a { color: #2a62d6; font-weight: 600; }
 
   /* 15. FAQ */
   .faq { margin-top: 1.75rem; border-top: 1px solid var(--line); }
@@ -620,6 +617,7 @@ const jsonLd = {
 
   .final { background: var(--navy); color: #fff; padding-top: clamp(2.5rem, 1rem + 4vw, 4rem); }
   .final .lede { color: var(--on-navy-soft); margin-bottom: 1.75rem; }
+  .final__ps { margin: 1.75rem auto 0; max-width: 34rem; font-size: 0.98rem; color: var(--on-navy-soft); text-align: left; padding-left: 1rem; border-left: 3px solid var(--accent); }
   .cross { margin-top: 2.5rem; display: grid; gap: 0.3rem; }
   .cross p { margin: 0; color: var(--on-navy-soft); }
   .cross a { color: #fff; font-weight: 600; }

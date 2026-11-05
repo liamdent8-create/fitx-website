@@ -115,7 +115,15 @@
   "results": {
     "eyebrow": "From our mums",
     "headline": "Stronger, with bub in tow.",
-    "empty": "[[NEEDS LAUREN: 3–6 quotes from mums with written consent: first name, how old bub was when they started, and what changed for them. Training photos only, no before/after.]]"
+    "empty": "[[NEEDS LAUREN: 3–6 quotes from mums with written consent: first name, how old bub was when they started, and what changed for them. Training photos only, no before/after.]]",
+    "fallbackEyebrow": "{rating} from {count} reviews on {source}",
+    "fallbackHeadline": "Welcome from day one.",
+    "fallbackPicks": [
+      "Abby T.",
+      "Anne C.",
+      "Alana P."
+    ],
+    "fallbackNote": "From our members. Mums and bubs quotes coming soon."
   },
   "offer": {
     "eyebrow": "Start here",
@@ -166,6 +174,7 @@
   "final": {
     "headline": "Bring bub. Start this week.",
     "sub": "Two weeks of unlimited classes for $89, mums and bubs included.",
-    "cta": "Claim my 2 weeks"
+    "cta": "Claim my 2 weeks",
+    "ps": "P.S. Your 2 weeks don't start until your first class, so you can claim it now and start when bub's routine allows."
   }
 }

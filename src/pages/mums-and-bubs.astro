@@ -30,6 +30,13 @@ const offer = studio.startOffer;
 const inc = studio.inclusions as Record<string, string>;
 const withMums = studio.memberships.filter((m) => m.includes.includes('mumsBubs'));
 const quotes = testimonials.items.filter((t: any) => t.arm === 'mums' && t.consent?.given === true);
+// Until mums' quotes arrive, show a few real studio reviews (labelled as from members).
+const summary = testimonials.summary;
+const fallback = c.results.fallbackPicks
+  .map((n: string) => testimonials.items.find((t: any) => t.name === n && (t.consent?.given === true || t.publicReview === true)))
+  .filter(Boolean) as any[];
+const proofEyebrow = c.results.fallbackEyebrow
+  .replace('{rating}', summary.rating).replace('{count}', String(summary.count)).replace('{source}', summary.source);
 const join = site.links.studioJoin;
 
 const jsonLd = {
@@ -62,7 +69,7 @@ const jsonLd = {
           <h1 class="mhero__h1" data-reveal style="--i:2">{c.hero.headline}</h1>
           <p class="lede" data-reveal style="--i:3">{c.hero.sub}</p>
           <div class="mhero__ctas" data-reveal style="--i:4">
-            <a class="btn btn--big" href={join} data-cta="mums-hero">{c.hero.cta} <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="btn btn--go btn--big" href={join} data-cta="mums-hero">{c.hero.cta} <span class="arrow" aria-hidden="true">→</span></a>
             <span class="mhero__price"><b>${offer.price}</b> 2 weeks unlimited</span>
           </div>
           <ul class="mhero__trust" data-reveal style="--i:5">{c.hero.trust.map((t) => <li>{t}</li>)}</ul>
@@ -96,14 +103,26 @@ const jsonLd = {
     <!-- PROOF -->
     <section class="section section--mist">
       <div class="wrap">
-        <p class="eyebrow" data-reveal>{c.results.eyebrow}</p>
-        <h2 data-reveal style="--i:1">{c.results.headline}</h2>
+        <p class="eyebrow" data-reveal>{quotes.length > 0 ? c.results.eyebrow : <><span class="stars" aria-hidden="true">★★★★★</span> {proofEyebrow}</>}</p>
+        <h2 data-reveal style="--i:1">{quotes.length > 0 ? c.results.headline : c.results.fallbackHeadline}</h2>
         {quotes.length > 0 ? (
           <Carousel label="Quotes from mums">
             {quotes.map((q: any) => (
               <blockquote class="quote"><p>“{q.quote}”</p><cite>{q.name}</cite></blockquote>
             ))}
           </Carousel>
+        ) : fallback.length > 0 ? (
+          <>
+            <div class="mreviews">
+              {fallback.map((q: any, i: number) => (
+                <blockquote class="quote" data-reveal style={`--i:${i}`}>
+                  <p>“{q.quote}”</p>
+                  <footer><cite>{q.name}</cite> <span>{q.context}</span></footer>
+                </blockquote>
+              ))}
+            </div>
+            <p class="small mreviews__note" data-reveal>{c.results.fallbackNote} <T text={c.results.empty} /></p>
+          </>
         ) : (
           <p data-reveal style="--i:2"><T text={c.results.empty} /></p>
         )}
@@ -153,7 +172,7 @@ const jsonLd = {
           <p class="eyebrow" data-reveal>{c.offer.eyebrow}</p>
           <h2 data-reveal style="--i:1">{c.offer.headline}</h2>
           <p class="lede" data-reveal style="--i:2">{c.offer.body}</p>
-          <a class="btn btn--ice btn--big" href={join} data-cta="mums-offer" data-reveal style="--i:3">{c.offer.cta} <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn--go btn--big" href={join} data-cta="mums-offer" data-reveal style="--i:3">{c.offer.cta} <span class="arrow" aria-hidden="true">→</span></a>
         </div>
         <div class="moffer__cards" data-reveal style="--i:2">
           <p class="small moffer__label">{c.offer.membershipsTitle}</p>
@@ -200,7 +219,8 @@ const jsonLd = {
       <div class="narrow center">
         <h2 data-reveal>{c.final.headline}</h2>
         <p class="lede" data-reveal style="--i:1">{c.final.sub}</p>
-        <div data-reveal style="--i:2"><a class="btn btn--light btn--big" href={join} data-cta="mums-final">{c.final.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
+        <div data-reveal style="--i:2"><a class="btn btn--go btn--big" href={join} data-cta="mums-final">{c.final.cta} <span class="arrow" aria-hidden="true">→</span></a></div>
+        <p class="final__ps" data-reveal style="--i:3">{c.final.ps}</p>
         <p class="small final__addr" data-reveal style="--i:3">{site.address.street}, {site.address.suburb} · {site.parking}</p>
       </div>
     </section>
@@ -210,7 +230,7 @@ const jsonLd = {
 
   <div class="dock glass" aria-hidden="true" data-dock>
     <div class="dock__text"><strong>${offer.price}</strong> <span>2 weeks · bub comes too</span></div>
-    <a class="btn btn--light" href={join} data-cta="mums-dock" tabindex="-1">Claim</a>
+    <a class="btn btn--go" href={join} data-cta="mums-dock" tabindex="-1">Claim</a>
   </div>
 
   <script>
@@ -263,6 +283,12 @@ const jsonLd = {
   .quote { margin: 0; padding: 1.75rem; border-radius: var(--radius); background: var(--paper); min-height: 14rem; display: flex; flex-direction: column; justify-content: space-between; }
   .quote p { font-size: 1.1rem; }
   .quote cite { font-style: normal; font-weight: 700; }
+  .quote footer span { color: var(--ink-soft); font-size: 0.88rem; }
+  .stars { color: #ffb400; letter-spacing: 0.08em; }
+  .mreviews { display: grid; gap: 1rem; margin-top: 1.5rem; }
+  @media (min-width: 48rem) { .mreviews { grid-template-columns: repeat(3, 1fr); } }
+  .mreviews .quote { min-height: 0; gap: 1rem; box-shadow: 0 20px 40px -32px rgba(13, 27, 54, 0.45); }
+  .mreviews__note { margin-top: 1.25rem; }
 
   .steps { list-style: none; padding: 0; margin: 2.25rem 0 0; display: grid; gap: 1rem; }
   @media (min-width: 48rem) { .steps { grid-template-columns: repeat(4, 1fr); } }
@@ -308,6 +334,7 @@ const jsonLd = {
 
   .final { background: var(--navy); color: #fff; }
   .final .lede { color: var(--on-navy-soft); margin-bottom: 1.75rem; }
+  .final__ps { margin: 1.75rem auto 0; max-width: 34rem; font-size: 0.98rem; color: var(--on-navy-soft); text-align: left; padding-left: 1rem; border-left: 3px solid var(--accent); }
   .final__addr { margin-top: 2rem; color: var(--on-navy-soft); }
 
   .dock {

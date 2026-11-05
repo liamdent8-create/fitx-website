@@ -5,8 +5,8 @@
     "description": "Coached strength classes for women in Manunda, Cairns, capped at 14. Mat Pilates, mums and bubs, Saturday HIIT and open gym. Try 2 weeks unlimited for $89."
   },
   "banner": {
-    "tag": "Opening",
-    "text": "Mon 26 Oct · 2 weeks unlimited for $89",
+    "tag": "Now open",
+    "text": "2 weeks unlimited for $89",
     "link": "Claim yours"
   },
   "hero": {
@@ -20,7 +20,8 @@
       "Women only",
       "Max 14 per class",
       "No joining fee"
-    ]
+    ],
+    "proof": "from {count} reviews on {source}"
   },
   "ticker": [
     "Unlimited classes",
@@ -46,13 +47,14 @@
     "cta": "Claim my 2 weeks"
   },
   "urgency": {
-    "pill": "New studio",
+    "pill": "Now open",
     "pillNote": "Classes capped at 14",
-    "label": "Doors open",
-    "date": "Monday 26 October",
+    "label": "Your 2 weeks start",
+    "date": "At your first class",
+    "body": "Not the day you buy. Claim your trial now, then pick your first class when it suits you.",
     "cta": "Claim my 2 weeks",
-    "small": "Bookings open two weeks ahead. Strength and Pilates are capped at 14.",
-    "timetableLink": "See the opening week timetable"
+    "small": "Strength and Pilates are capped at 14, so book your spot early in the week.",
+    "timetableLink": "See this week's timetable"
   },
   "about": {
     "eyebrow": "The 2-week trial",
@@ -115,7 +117,7 @@
     ]
   },
   "bonus": {
-    "eyebrow": "Opening offer",
+    "eyebrow": "The offer",
     "headline": "Your first two weeks, sorted.",
     "price": "$89",
     "priceNote": "2 weeks unlimited",
@@ -126,7 +128,8 @@
       "Mini bar coffee and protein shakes"
     ],
     "extra": "[[NEEDS LAUREN: is there an opening bonus to add here (e.g. free grip socks or a FIT X tote for trial sign-ups)? Leave blank if not.]]",
-    "cta": "Claim my 2 weeks"
+    "cta": "Claim my 2 weeks",
+    "anchor": "Six strength classes at the casual price would cost {casualTotal}. Your trial is $89, and every class is included."
   },
   "app": {
     "eyebrow": "The FIT X app",
@@ -155,19 +158,22 @@
   "reviews": {
     "eyebrow": "Reviews",
     "headline": "What members say.",
+    "sub": "Every review so far is five stars. A few, word for word.",
+    "more": "Read them on Google",
     "empty": "[[NEEDS LAUREN: Google Business Profile link or 6+ reviews with consent. Open day feedback would work well.]]"
   },
   "pricing": {
     "eyebrow": "Memberships",
     "headline": "Choose how you train.",
-    "sub": "Start with the 2-week trial, then pick your membership. Standard rates, GST included.",
+    "sub": "Every membership starts the same way: 2 weeks unlimited for $89. Love it? Choose how you'd like to keep training. Standard rates, GST included.",
     "premiumTag": "Most popular",
     "premiumBlurb": "Everything in the studio, plus the app and online coaching.",
     "minimum": "12-week or 6-month minimum",
-    "cta": "Start for $89",
-    "otherCta": "Join on Mindbody",
-    "packsTitle": "Casual visits and class packs",
-    "packsNote": "Prices may change. The fee schedule you're given when you join applies."
+    "cta": "Try 2 weeks for $89",
+    "otherCta": "Try 2 weeks for $89",
+    "trialNote": "Try every class first, then choose. If you stay on Premium, your trial weeks count towards your minimum term.",
+    "packsLine": "Just after a casual class or a class pack?",
+    "packsLink": "Buy them on the timetable page"
   },
   "partner": {
     "ribbon": "Saturdays",
@@ -198,6 +204,7 @@
     "crossOnline": "Not in Cairns, or can't make class times?",
     "crossOnlineLink": "Train with Coach Loz online",
     "crossApparel": "Need something to train in?",
-    "crossApparelLink": "Shop FIT X Apparel"
+    "crossApparelLink": "Shop FIT X Apparel",
+    "ps": "P.S. Your 2 weeks don't start until your first class, so you won't lose a day by claiming today. Not sure which class to start with? DM us \"LIFT\" on Instagram and we'll point you to the right one."
   }
 }

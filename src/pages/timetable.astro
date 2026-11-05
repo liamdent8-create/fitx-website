@@ -2,7 +2,8 @@
 // Class timetable. The live Mindbody schedule comes first, so people can see
 // what's on and book. Second: Mindbody's Pricing widget (opened on "Passes &
 // packs") so people without a pass can buy one without leaving the page.
-// Memberships follow as cards, because they aren't in the Pricing widget yet.
+// Memberships follow as cards; every Join button starts the $89 trial, because
+// trial sign-ups convert to members far better than cold membership sign-ups.
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -15,9 +16,6 @@ const links = site.links as Record<string, string>;
 const { studio } = prices;
 const offer = studio.startOffer;
 const inc = studio.inclusions as Record<string, string>;
-// Each membership's own Mindbody checkout link, or the Mindbody shop until it's set.
-const products = site.mindbodyProducts as Record<string, string>;
-const joinHref = (id: string) => products[id] || links.memberships;
 const p = c.passes;
 ---
 <Base title={c.seo.title} description={c.seo.description} path="/timetable">
@@ -31,7 +29,7 @@ const p = c.passes;
         <p class="lede" data-reveal style="--i:2">{c.hero.sub}</p>
         <div class="tt-hero__links" data-reveal style="--i:3">
           <a class="chip" href="#passes" data-cta="timetable-passes">{c.hero.passesLink} <span aria-hidden="true">↓</span></a>
-          <a class="chip chip--ice" href={site.links.studioJoin} data-cta="timetable-trial">{c.hero.trialLink}: ${offer.price} ›</a>
+          <a class="chip chip--go" href={site.links.studioJoin} data-cta="timetable-trial">{c.hero.trialLink}: ${offer.price} ›</a>
         </div>
       </div>
     </section>
@@ -64,11 +62,11 @@ const p = c.passes;
               <h4 class="mcard__name">{m.name}</h4>
               <p class="mcard__price"><b>${m.weekly}</b><span>/week</span></p>
               <ul class="mcard__lines">{m.includes.map((k) => <li>{inc[k]}</li>)}</ul>
-              <a class={`btn btn--block ${m.recommended ? 'btn--ice' : ''}`} href={joinHref(m.id)} data-cta={`join-${m.id}`}>{p.cta}<span class="vh"> {m.name}</span></a>
+              <a class="btn btn--go btn--block" href={site.links.studioJoin} data-cta={`join-${m.id}`}>{p.cta}<span class="vh">, then {m.name}</span></a>
             </article>
           ))}
         </div>
-        <p class="small passes__trial">{p.trialNote} <a href={site.links.studioJoin} data-cta="passes-trial">{p.trialLink} ›</a></p>
+        <p class="small passes__trial">{p.trialNote}</p>
         <p class="small passes__legal">{p.legal}</p>
       </div>
     </section>
@@ -105,8 +103,8 @@ const p = c.passes;
   }
   .chip:hover { background: rgba(255, 255, 255, 0.2); }
   .chip:active { transform: scale(0.96); transition-duration: 60ms; }
-  .chip--ice { background: var(--ice); color: var(--navy); box-shadow: none; }
-  .chip--ice:hover { background: #c6e8ff; }
+  .chip--go { background: var(--accent); color: var(--on-accent); box-shadow: none; }
+  .chip--go:hover { background: var(--accent-hover); }
 
   .schedule { padding-top: clamp(2rem, 1.5rem + 2vw, 3rem); }
   .schedule .section-head { align-items: baseline; }
@@ -123,7 +121,7 @@ const p = c.passes;
   .mgrid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); align-items: stretch; }
   .mcard { display: flex; flex-direction: column; gap: 0.35rem; padding: 1.4rem; border-radius: var(--radius); background: #fff; }
   .mcard--featured { background: var(--navy); color: #fff; }
-  .mcard__tag { margin: 0; font-size: 0.8rem; font-weight: 700; color: var(--ice); }
+  .mcard__tag { margin: 0; font-size: 0.8rem; font-weight: 700; color: var(--accent); }
   .mcard__name { margin: 0; font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 1.5rem; line-height: 1.05; }
   .mcard__price { margin: 0.1rem 0 0.4rem; }
   .mcard__price b { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; }

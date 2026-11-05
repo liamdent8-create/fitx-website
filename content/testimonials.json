@@ -1,4 +1,90 @@
 {
-  "_note": "Only entries with consent.given = true render on the site. arm: studio | online | apparel. Never edit a review's wording.",
-  "items": []
+  "_note": "Entries render only when consent.given = true, or when publicReview = true (a review the person posted publicly on Mindbody; shown word for word with first name, last initial and source). arm: studio | mums | online | apparel. Never edit a review's wording. Delete an entry to stop showing it. \"highlight\" bolds an exact phrase from the quote; it must match the wording exactly.",
+  "items": [
+    {
+      "arm": "studio",
+      "name": "Abby T.",
+      "context": "Google review",
+      "quote": "Amazing very welcoming and great for beginners who feel lost and don’t know where to start",
+      "rating": 5,
+      "date": "2026-10-17",
+      "source": "Google",
+      "url": "https://www.google.com/maps/search/?api=1&query=Fit%20X%20Studio&query_place_id=ChIJ45uz2zxleGkRZvNcraZD6Es",
+      "publicReview": true,
+      "consent": {
+        "given": false
+      },
+      "highlight": "great for beginners who feel lost and don’t know where to start"
+    },
+    {
+      "arm": "studio",
+      "name": "Anne C.",
+      "context": "Google review",
+      "quote": "Wow so was not what I expected as someone a little bit older felt welcomed and supported, will be joining and cannot wait to see my goals reached",
+      "rating": 5,
+      "date": "2026-10-25",
+      "source": "Google",
+      "url": "https://www.google.com/maps/search/?api=1&query=Fit%20X%20Studio&query_place_id=ChIJ45uz2zxleGkRZvNcraZD6Es",
+      "publicReview": true,
+      "consent": {
+        "given": false
+      },
+      "highlight": "as someone a little bit older felt welcomed and supported"
+    },
+    {
+      "arm": "studio",
+      "name": "Jessica M.",
+      "context": "Open gym · Mindbody review",
+      "quote": "Such a great, relaxing space with an amazing variety of equipment and a functional layout. No better feeling than being able to walk into a gym and not feel overwhelmed or unwelcome. BONUS there’s an amazing mini bar with coffee, Oxyshred cans, and supplements! Tried the HYDR8 after my class and it was incredible!  Can’t wait to be using this space more, highly recommend! 💗",
+      "rating": 5,
+      "date": "2026-10-27",
+      "source": "Mindbody",
+      "url": "https://www.mindbodyonline.com/explore/locations/fit-x-studio",
+      "publicReview": true,
+      "consent": {
+        "given": false
+      },
+      "highlight": "not feel overwhelmed or unwelcome"
+    },
+    {
+      "arm": "studio",
+      "name": "Alana P.",
+      "context": "Google review",
+      "quote": "Lauren is so welcoming and friendly, she makes you feel like she is your best friend with the level of care and support she provides. This gym is so cute and fresh, just what Cairns needs ✨💕",
+      "rating": 5,
+      "date": "2026-10-17",
+      "source": "Google",
+      "url": "https://www.google.com/maps/search/?api=1&query=Fit%20X%20Studio&query_place_id=ChIJ45uz2zxleGkRZvNcraZD6Es",
+      "publicReview": true,
+      "consent": {
+        "given": false
+      },
+      "highlight": "the level of care and support she provides"
+    },
+    {
+      "arm": "studio",
+      "name": "Natalie R.",
+      "context": "First mat Pilates class · Mindbody review",
+      "quote": "This was my first pilates class at Fit-X and first class with Aly, and I loved it! Aly is great, heaps of fun, great technique and just enough intensity. She took the time to chat to most of us before that were new, and check in after. Can't wait to come back.",
+      "rating": 5,
+      "date": "2026-11-02",
+      "source": "Mindbody",
+      "url": "https://www.mindbodyonline.com/explore/locations/fit-x-studio",
+      "publicReview": true,
+      "consent": {
+        "given": false
+      },
+      "highlight": "She took the time to chat to most of us before that were new, and check in after."
+    }
+  ],
+  "summary": {
+    "rating": "5.0",
+    "count": 18,
+    "source": "Google and Mindbody",
+    "checked": "2026-11-06",
+    "url": "https://www.google.com/maps/search/?api=1&query=Fit%20X%20Studio&query_place_id=ChIJ45uz2zxleGkRZvNcraZD6Es",
+    "googleUrl": "https://www.google.com/maps/search/?api=1&query=Fit%20X%20Studio&query_place_id=ChIJ45uz2zxleGkRZvNcraZD6Es",
+    "mindbodyUrl": "https://www.mindbodyonline.com/explore/locations/fit-x-studio",
+    "note": "Google 9 reviews (5.0) + Mindbody 9 reviews (all 5 stars), checked 6 Nov 2026. Update the count as reviews come in."
+  }
 }

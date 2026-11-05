@@ -13,7 +13,7 @@ const { ctaHref, ctaLabel, links = [{ href: '/mums-and-bubs', label: 'Mums & bub
     </a>
     <div class="nav__right">
       {links.map((l) => <a class:list={['nav__link', { 'nav__link--mobile': l.mobile }]} href={l.href} aria-current={l.current ? 'page' : undefined}>{l.label}</a>)}
-      <a class="btn btn--light nav__cta" href={ctaHref} data-cta="nav">{ctaLabel}</a>
+      <a class="btn btn--go nav__cta" href={ctaHref} data-cta="nav">{ctaLabel}</a>
     </div>
   </div>
 </header>

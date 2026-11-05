@@ -27,6 +27,11 @@
   --font: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   --font-promo: "Anton", "Arial Narrow", Impact, sans-serif;
   --slate: #556280;        /* the blue behind the square logo tile */
+  /* Two quiet colours (navy, white) and one loud one. The accent is only for
+     the thing we want clicked: the $89 trial. */
+  --accent: #d4ff3d;
+  --accent-hover: #e4ff85;
+  --on-accent: #0d1b36;
 
   /* Fast response for direct feedback (press, hover) */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -105,6 +110,11 @@ p { margin: 0 0 1rem; }
 .btn--light:hover { background: #eef1f6; }
 .btn--ice { background: var(--ice); color: var(--navy); border-color: var(--ice); }
 .btn--ice:hover { background: #c6e8ff; }
+.btn--go {
+  background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 700;
+  box-shadow: 0 12px 28px -14px color-mix(in srgb, var(--accent) 80%, #000), inset 0 -2px 0 rgba(13, 27, 54, 0.12);
+}
+.btn--go:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
 .btn--ghost { background: transparent; color: inherit; border-color: currentColor; }
 .btn--ghost:hover { background: rgba(127, 127, 127, 0.12); }
 .btn--block { width: 100%; }

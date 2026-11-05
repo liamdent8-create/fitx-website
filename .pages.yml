@@ -33,6 +33,7 @@ content:
           - { name: sub, label: "Sub", type: text }
           - { name: cta, label: "Cta", type: string }
           - { name: trust, label: "Trust", type: string, list: true }
+          - { name: proof, label: "Proof", type: string }
       - { name: ticker, label: "Ticker", type: string, list: true }
       - name: vsl
         label: "Vsl"
@@ -58,6 +59,7 @@ content:
           - { name: pillNote, label: "Pill note", type: string }
           - { name: label, label: "Label", type: string }
           - { name: date, label: "Date", type: string }
+          - { name: body, label: "Body", type: text }
           - { name: cta, label: "Cta", type: string }
           - { name: small, label: "Small", type: string }
           - { name: timetableLink, label: "Timetable link", type: string }
@@ -95,6 +97,7 @@ content:
           - { name: items, label: "Items", type: string, list: true }
           - { name: extra, label: "Extra", type: text }
           - { name: cta, label: "Cta", type: string }
+          - { name: anchor, label: "Anchor", type: text }
       - name: app
         label: "App"
         type: object
@@ -122,6 +125,8 @@ content:
         fields:
           - { name: eyebrow, label: "Eyebrow", type: string }
           - { name: headline, label: "Headline", type: string }
+          - { name: sub, label: "Sub", type: string }
+          - { name: more, label: "More", type: string }
           - { name: empty, label: "Empty", type: text }
       - name: pricing
         label: "Pricing"
@@ -135,8 +140,9 @@ content:
           - { name: minimum, label: "Minimum", type: string }
           - { name: cta, label: "Cta", type: string }
           - { name: otherCta, label: "Other cta", type: string }
-          - { name: packsTitle, label: "Packs title", type: string }
-          - { name: packsNote, label: "Packs note", type: string }
+          - { name: trialNote, label: "Trial note", type: text }
+          - { name: packsLine, label: "Packs line", type: string }
+          - { name: packsLink, label: "Packs link", type: string }
       - name: partner
         label: "Partner"
         type: object
@@ -178,6 +184,7 @@ content:
           - { name: crossOnlineLink, label: "Cross online link", type: string }
           - { name: crossApparel, label: "Cross apparel", type: string }
           - { name: crossApparelLink, label: "Cross apparel link", type: string }
+          - { name: ps, label: "Ps", type: text }
   - name: timetable
     label: "Timetable page text"
     type: file
@@ -220,11 +227,10 @@ content:
           - { name: fallback, label: "Fallback", type: string }
           - { name: fallbackLink, label: "Fallback link", type: string }
           - { name: membershipsHeadline, label: "Memberships headline", type: string }
-          - { name: membershipsNote, label: "Memberships note", type: string }
+          - { name: membershipsNote, label: "Memberships note", type: text }
           - { name: premiumTag, label: "Premium tag", type: string }
           - { name: cta, label: "Cta", type: string }
-          - { name: trialNote, label: "Trial note", type: text }
-          - { name: trialLink, label: "Trial link", type: string }
+          - { name: trialNote, label: "Trial note", type: string }
           - { name: legal, label: "Legal", type: string }
       - name: info
         label: "Info"
@@ -318,6 +324,10 @@ content:
           - { name: eyebrow, label: "Eyebrow", type: string }
           - { name: headline, label: "Headline", type: string }
           - { name: empty, label: "Empty", type: text }
+          - { name: fallbackEyebrow, label: "Fallback eyebrow", type: string }
+          - { name: fallbackHeadline, label: "Fallback headline", type: string }
+          - { name: fallbackPicks, label: "Fallback picks", type: string, list: true }
+          - { name: fallbackNote, label: "Fallback note", type: string }
       - name: offer
         label: "Offer"
         type: object
@@ -348,6 +358,7 @@ content:
           - { name: headline, label: "Headline", type: string }
           - { name: sub, label: "Sub", type: string }
           - { name: cta, label: "Cta", type: string }
+          - { name: ps, label: "Ps", type: text }
   - name: faq
     label: "Studio FAQs"
     type: file
@@ -392,6 +403,44 @@ content:
           - { name: id, label: "Id", type: string }
           - { name: title, label: "Title", type: string }
           - { name: poster, label: "Poster", type: string }
+  - name: testimonials
+    label: "Reviews and testimonials"
+    type: file
+    path: content/testimonials.json
+    format: json
+    fields:
+      - name: items
+        label: "Items"
+        type: object
+        list: true
+        fields:
+          - { name: arm, label: "Arm", type: string }
+          - { name: name, label: "Name", type: string }
+          - { name: context, label: "Context", type: string }
+          - { name: quote, label: "Quote", type: text }
+          - { name: rating, label: "Rating", type: number }
+          - { name: date, label: "Date", type: string }
+          - { name: source, label: "Source", type: string }
+          - { name: url, label: "Url", type: string }
+          - { name: publicReview, label: "Public review", type: boolean }
+          - name: consent
+            label: "Consent"
+            type: object
+            fields:
+              - { name: given, label: "Given", type: boolean }
+          - { name: highlight, label: "Highlight", type: text }
+      - name: summary
+        label: "Summary"
+        type: object
+        fields:
+          - { name: rating, label: "Rating", type: string }
+          - { name: count, label: "Count", type: number }
+          - { name: source, label: "Source", type: string }
+          - { name: checked, label: "Checked", type: string }
+          - { name: url, label: "Url", type: text }
+          - { name: googleUrl, label: "Google url", type: text }
+          - { name: mindbodyUrl, label: "Mindbody url", type: string }
+          - { name: note, label: "Note", type: text }
   - name: site
     label: "Contact details and links"
     type: file
