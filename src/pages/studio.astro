@@ -108,6 +108,12 @@ const jsonLd = {
     <section class="hero">
       <div class="hero__media" aria-hidden="true">
         <Photo src={neon} alt="" ratio="auto" sizes="100vw" eager class="hero__img" />
+        {videos.heroLoop.mp4 && (
+          <video class="hero__img hero__video" muted loop playsinline preload="none" data-hero-loop>
+            {videos.heroLoop.webm && <source src={videos.heroLoop.webm} type="video/webm" />}
+            <source src={videos.heroLoop.mp4} type="video/mp4" />
+          </video>
+        )}
       </div>
       <div class="wrap hero__content">
         <p class="promo hero__promo" data-reveal>
@@ -401,6 +407,17 @@ const jsonLd = {
   </div>
 
   <script>
+    // Hero loop: silent, plays only when motion and data are fine; the photo stays underneath.
+    const loop = document.querySelector<HTMLVideoElement>('[data-hero-loop]');
+    const saveData = (navigator as any).connection?.saveData;
+    if (loop && !saveData && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      loop.preload = 'auto';
+      loop.addEventListener('playing', () => loop.classList.add('is-playing'), { once: true });
+      loop.play().catch(() => {});
+    }
+  </script>
+
+  <script>
     const dock = document.querySelector<HTMLElement>('[data-dock]');
     const hero = document.querySelector('.hero .btn');
     const end = document.querySelector('.final');
@@ -428,6 +445,8 @@ const jsonLd = {
   }
   .hero__media { position: absolute; inset: 0; z-index: -1; }
   .hero__media :global(.hero__img) { width: 100%; height: 100%; object-fit: cover; object-position: 60% 25%; border-radius: 0; }
+  .hero__video { position: absolute; inset: 0; opacity: 0; transition: opacity 600ms var(--ease-out); }
+  .hero__video.is-playing { opacity: 1; }
   .hero__media::after {
     content: ''; position: absolute; inset: 0;
     background: linear-gradient(180deg, rgba(13, 27, 54, 0.15) 0%, rgba(13, 27, 54, 0.55) 40%, rgba(13, 27, 54, 0.97) 82%);

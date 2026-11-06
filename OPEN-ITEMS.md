@@ -52,7 +52,7 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 62 | Before launch, re-run `research/SITE-CHECKLIST.md` (the 30-point "looks vibecoded" list) | Launch | Claude | Open |
 | 63 | **Privacy contact email:** the policy says fitx.coachloz@gmail.com, but the rest of the site uses lauren@fitxstudio.com.au. Keep both, or switch the policy to one address? | Privacy | Lauren | Open |
 | 64 | When Meta Pixel or Google Analytics are added (item 25), the privacy policy needs a line about website analytics and cookies, and the Instagram DM automation (ManyChat) could be named under "Who we share your information with" | Privacy | Lauren | Later |
-| 65 | **Hero video loop:** a 6 to 10 second silent clip from the VSL footage (women training, the neon sign) for the top of the studio page. The biggest visual upgrade left | Studio hero | Lauren | Open |
+| 65 | **Hero video loop:** the slot is built and tested. Send the VSL file (attach it in this chat, or say which Drive file it is: "copy_83CF…MP4" from 5 Nov or "687651E8…MOV" from 22 Oct) and the moment to loop (e.g. 0:12 to 0:20). Also upload the full VSL to YouTube as Unlisted for the video section (item 4) | Studio hero | Lauren | Open |
 
 ## Closed
 | Item | Resolution | Date |

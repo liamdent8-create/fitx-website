@@ -7,6 +7,21 @@
     "poster": "",
     "captions": "NEEDS LAUREN: captions file or YouTube captions turned on"
   },
-  "home": { "provider": "youtube", "id": "", "title": "FIT X with Coach Loz", "poster": "" },
-  "online": { "provider": "youtube", "id": "", "title": "FIT X online coaching", "poster": "" }
+  "home": {
+    "provider": "youtube",
+    "id": "",
+    "title": "FIT X with Coach Loz",
+    "poster": ""
+  },
+  "online": {
+    "provider": "youtube",
+    "id": "",
+    "title": "FIT X online coaching",
+    "poster": ""
+  },
+  "heroLoop": {
+    "_note": "Silent 6 to 10 second loop at the top of the studio page. Make it with scripts/make-hero-loop.sh, then set both paths (e.g. /video/hero-loop.mp4). Leave blank to show the photo.",
+    "mp4": "",
+    "webm": ""
+  }
 }
