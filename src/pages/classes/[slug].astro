@@ -1,0 +1,252 @@
+---
+// Class pages (/classes/strength, /classes/mat-pilates, ...). Simple pages for
+// Google and for booking: what the class is, the live Mindbody timetable, prices,
+// FAQs and a couple of real reviews. The studio page is the sales funnel.
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Photo from '../../components/Photo.astro';
+import T from '../../components/T.astro';
+import MindbodySchedule from '../../components/MindbodySchedule.astro';
+import site from '../../../content/site.json';
+import prices from '../../../content/prices.json';
+import testimonials from '../../../content/testimonials.json';
+import content from '../../../content/classes.json';
+
+import rack from '../../assets/studio/squat-rack.jpg';
+import dumbbells from '../../assets/studio/dumbbell-rack.jpg';
+import pilatesRoom from '../../assets/studio/pilates-room-mat.jpg';
+import floorLand from '../../assets/studio/gym-floor-landscape.jpg';
+
+export function getStaticPaths() {
+  return content.classes.map((k) => ({ params: { slug: k.slug }, props: { k } }));
+}
+
+const { k } = Astro.props;
+const s = content.shared;
+const photos: Record<string, ImageMetadata> = { 'squat-rack': rack, 'dumbbell-rack': dumbbells, 'pilates-room-mat': pilatesRoom, 'gym-floor-landscape': floorLand };
+const { studio } = prices;
+const offer = studio.startOffer;
+const join = site.links.studioJoin;
+const path = `/classes/${k.slug}`;
+
+const members = studio.memberships.filter((m) => m.includes.includes(k.inclusion));
+const memberList = members.map((m) => `${m.name} ($${m.weekly}/week)`).join(' and ').replace(/ and (?=.* and )/g, ', ');
+const casual = k.casual ? studio.casual.find((x) => x.id === k.casual) : undefined;
+const reviews = k.reviews
+  .map((n) => testimonials.items.find((t: any) => t.name === n && (t.consent?.given === true || t.publicReview === true)))
+  .filter(Boolean) as any[];
+const others = content.classes.filter((x) => x.slug !== k.slug);
+const bookNote = k.classType ? s.bookNote.replace('{classType}', `“${k.classType}”`) : s.bookNoteAll;
+
+// Only confirmed answers go into the FAQ schema (never [[NEEDS LAUREN]] placeholders).
+const faqLd = k.faq.filter((f) => !f.a.includes('[['));
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `${k.name} classes`,
+    serviceType: k.label,
+    description: k.seo.description,
+    areaServed: 'Cairns, QLD',
+    provider: {
+      '@type': 'ExerciseGym',
+      name: 'FIT X Studio',
+      telephone: site.phone,
+      address: { '@type': 'PostalAddress', streetAddress: site.address.street, addressLocality: site.address.suburb, addressRegion: site.address.state, postalCode: site.address.postcode, addressCountry: 'AU' },
+    },
+    offers: [
+      { '@type': 'Offer', name: offer.name, price: offer.price, priceCurrency: 'AUD', url: join },
+      ...(casual ? [{ '@type': 'Offer', name: casual.name, price: casual.price, priceCurrency: 'AUD' }] : []),
+    ],
+  },
+  ...(faqLd.length ? [{
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqLd.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  }] : []),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Classes', item: new URL('/classes', Astro.site).toString() },
+      { '@type': 'ListItem', position: 2, name: k.name, item: new URL(path, Astro.site).toString() },
+    ],
+  },
+];
+---
+<Base title={k.seo.title} description={k.seo.description} path={path}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Nav ctaHref={join} ctaLabel={`$${offer.price} trial`} />
+
+  <main id="main">
+    <section class="khero">
+      <div class="wrap khero__grid">
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="/classes">Classes</a> <span aria-hidden="true">›</span> <span aria-current="page">{k.name}</span></nav>
+          <h1 class="display khero__h" data-reveal>{k.headline}</h1>
+          <p class="lede" data-reveal style="--i:1">{k.intro}</p>
+          <div class="khero__ctas" data-reveal style="--i:2">
+            <a class="btn btn--light" href="#book">{s.heroBook} <span aria-hidden="true">↓</span></a>
+            <a class="btn btn--go" href={join} data-cta={`class-${k.slug}-hero`}>{s.heroTrial}</a>
+          </div>
+        </div>
+        {photos[k.photo] && (
+          <div class="khero__media" data-reveal style="--i:1">
+            <Photo src={photos[k.photo]} alt={k.photoAlt} ratio="4 / 3" sizes="(min-width: 64rem) 45vw, 100vw" eager />
+          </div>
+        )}
+      </div>
+    </section>
+
+    <section class="section kexpect">
+      <div class="wrap">
+        <h2 data-reveal>{s.expectHeadline}</h2>
+        <ol class="kexpect__list">
+          {k.expect.map((x, n) => (
+            <li data-reveal style={`--i:${n}`}><h3>{x.title}</h3><p class="small">{x.body}</p></li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section--mist kbook" id="book">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <h2>{s.bookHeadline}</h2>
+          <p class="small kbook__note">{bookNote}</p>
+        </div>
+        <MindbodySchedule widgetId={k.widgetId || site.mindbodyWidgetId} fallbackHref={site.links.mindbodySchedule} loading={s.loading} fallback={s.fallback} fallbackLink={s.fallbackLink} />
+
+        <h3 class="kways__h">{s.waysHeadline}</h3>
+        <div class="kways">
+          <div class="kway kway--go">
+            <p class="kway__label">{s.trialTitle}</p>
+            <p class="kway__price">${offer.price}</p>
+            <p class="small">{s.trialBody}</p>
+            <a class="btn btn--go btn--block" href={join} data-cta={`class-${k.slug}-ways`}>{s.trialCta}</a>
+          </div>
+          {casual && (
+            <div class="kway">
+              <p class="kway__label">{s.casualTitle}</p>
+              <p class="kway__price">${casual.price}</p>
+              <p class="small">{s.casualBody} {casual.note}.</p>
+              <a class="btn btn--light btn--block" href="/timetable#passes">{s.casualCta}</a>
+            </div>
+          )}
+          {members.length > 0 && (
+            <div class="kway">
+              <p class="kway__label">{s.memberTitle}</p>
+              <p class="kway__price">from ${Math.min(...members.map((m) => m.weekly))}<span>/week</span></p>
+              <p class="small">{s.memberBody.replace('{list}', memberList)}</p>
+              <a class="btn btn--light btn--block" href="/studio#pricing">{s.memberCta}</a>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+
+    {reviews.length > 0 && (
+      <section class="section">
+        <div class="wrap">
+          <p class="eyebrow" data-reveal><span class="stars" aria-hidden="true">★★★★★</span> {testimonials.summary.rating} from {testimonials.summary.count} reviews on {testimonials.summary.source}</p>
+          <h2 data-reveal>{s.reviewsHeadline}</h2>
+          <div class="kreviews">
+            {reviews.map((r, n) => (
+              <blockquote class="kreview" data-reveal style={`--i:${n}`}>
+                <p>“{r.quote}”</p>
+                <footer><cite>{r.name}</cite> <span>{r.context}</span></footer>
+              </blockquote>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="section section--mist">
+      <div class="narrow">
+        <h2 data-reveal>{s.faqHeadline}</h2>
+        <div class="kfaq" data-reveal style="--i:1">
+          {k.faq.map((f) => (
+            <details><summary>{f.q}</summary><p><T text={f.a} /></p></details>
+          ))}
+        </div>
+        <p class="small kfaq__more"><a href="/faq">All questions ›</a></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2 data-reveal>{s.otherHeadline}</h2>
+        <div class="kothers">
+          {others.map((o, n) => (
+            <a class="kother" href={`/classes/${o.slug}`} data-reveal style={`--i:${n}`}><span>{o.name}</span> <b aria-hidden="true">›</b></a>
+          ))}
+          <a class="kother" href="/timetable" data-reveal style="--i:3"><span>Full timetable</span> <b aria-hidden="true">›</b></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .khero { background: var(--navy); color: #fff; padding-block: clamp(2.5rem, 1.5rem + 4vw, 4.5rem); }
+  .khero .lede { color: var(--on-navy-soft); max-width: 36rem; }
+  .khero__grid { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 64rem) { .khero__grid { grid-template-columns: 1.1fr 0.9fr; } }
+  .khero__h { font-size: clamp(2.6rem, 1.8rem + 4vw, 4.75rem); margin: 0.5rem 0 1rem; }
+  .khero__ctas { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+  .khero__media :global(img) { border-radius: var(--radius); }
+  .crumbs { font-size: 0.88rem; color: var(--on-navy-soft); }
+  .crumbs a { color: #fff; text-decoration: none; font-weight: 600; }
+  .crumbs a:hover { text-decoration: underline; }
+
+  .kexpect__list { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: 1rem; counter-reset: k; }
+  @media (min-width: 48rem) { .kexpect__list { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 64rem) { .kexpect__list { grid-template-columns: repeat(4, 1fr); } }
+  .kexpect__list li { counter-increment: k; background: var(--mist); border-radius: var(--radius); padding: 1.5rem; }
+  .kexpect__list li::before { content: counter(k); display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--navy); color: var(--accent); font-weight: 800; margin-bottom: 0.9rem; }
+  .kexpect__list h3 { margin-bottom: 0.3rem; }
+  .kexpect__list p { margin: 0; }
+
+  .kbook { scroll-margin-top: var(--nav-h); }
+  .kbook .section-head { align-items: baseline; }
+  .kbook__note { margin: 0; max-width: 30rem; }
+  .kways__h { margin: 2.5rem 0 1rem; font-size: 1.4rem; }
+  .kways { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  .kway { display: flex; flex-direction: column; gap: 0.3rem; padding: 1.4rem; border-radius: var(--radius); background: #fff; }
+  .kway--go { background: var(--navy); color: #fff; }
+  .kway--go .small { color: var(--on-navy-soft); }
+  .kway__label { margin: 0; font-size: 0.85rem; font-weight: 700; color: var(--ink-soft); }
+  .kway--go .kway__label { color: var(--accent); }
+  .kway__price { margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; }
+  .kway__price span { font-size: 0.95rem; font-weight: 500; color: var(--ink-soft); }
+  .kway .small { margin: 0 0 1rem; }
+  .kway .btn { margin-top: auto; }
+  .kway .btn--light { background: var(--mist); border-color: var(--mist); }
+
+  .stars { color: #ffb400; letter-spacing: 0.08em; }
+  .kreviews { display: grid; gap: 1rem; margin-top: 1rem; }
+  @media (min-width: 48rem) { .kreviews { grid-template-columns: repeat(2, 1fr); } }
+  .kreview { margin: 0; padding: 1.5rem; border-radius: var(--radius); background: var(--mist); display: grid; gap: 0.75rem; }
+  .kreview p { margin: 0; font-size: 1.04rem; }
+  .kreview cite { font-style: normal; font-weight: 700; }
+  .kreview footer span { color: var(--ink-soft); font-size: 0.88rem; }
+
+  .kfaq { margin-top: 1rem; border-top: 1px solid var(--line); }
+  .kfaq details { border-bottom: 1px solid var(--line); }
+  .kfaq summary { cursor: pointer; padding: 1.05rem 0; font-weight: 650; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  .kfaq summary::-webkit-details-marker { display: none; }
+  .kfaq summary::after { content: '+'; font-weight: 400; font-size: 1.4rem; line-height: 1; }
+  .kfaq details[open] summary::after { content: '\2212'; }
+  .kfaq p { margin: 0 0 1.1rem; color: var(--ink-soft); }
+  .kfaq__more { margin-top: 1.25rem; }
+  .kfaq__more a { color: #2a62d6; font-weight: 600; text-decoration: none; }
+
+  .kothers { display: grid; gap: 0.6rem; margin-top: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
+  .kother { display: flex; justify-content: space-between; align-items: center; padding: 1.1rem 1.25rem; border-radius: 1.1rem; background: var(--mist); text-decoration: none; font-weight: 700; transition: transform 450ms var(--spring-fast); }
+  .kother:hover { transform: translateY(-2px); }
+  .kother b { font-size: 1.3rem; }
+</style>

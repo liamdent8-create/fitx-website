@@ -1,5 +1,5 @@
 {
-  "_note": "Weekly membership prices: standard (post-foundation) rates from Fee Schedule v2.0. Casual and class pack prices: as set in Mindbody (checked 6 Nov 2026, Lauren: use the Mindbody numbers). GST inclusive. Edit here only. Anything marked NEEDS LAUREN must be resolved before launch.",
+  "_note": "Weekly membership prices: standard (post-foundation) rates from Fee Schedule v2.0. Casual and class pack prices: as set in Mindbody (checked 6 Nov 2026, Lauren: use the Mindbody numbers). GST inclusive. Edit here only. Anything marked NEEDS LAUREN must be resolved before launch. Minimum terms (Lauren, 6 Nov 2026): Premium 3 months; Strength, Pilates and Open Gym 6 months.",
   "studio": {
     "startOffer": {
       "thenWeekly": 75,
@@ -9,10 +9,10 @@
       "thenMembership": "premium",
       "countsTowardsMinimumTerm": true
     },
-    "minimumTerms": [
-      "12 weeks",
-      "6 months"
-    ],
+    "minimumTerms": {
+      "premium": "3 months",
+      "others": "6 months"
+    },
     "joiningFee": 0,
     "memberships": [
       {
@@ -30,7 +30,8 @@
           "app",
           "online",
           "minibar"
-        ]
+        ],
+        "minimumTerm": "3 months"
       },
       {
         "id": "strength",
@@ -41,7 +42,8 @@
           "mumsBubs",
           "hiit",
           "minibar"
-        ]
+        ],
+        "minimumTerm": "6 months"
       },
       {
         "id": "pilates",
@@ -50,7 +52,8 @@
         "includes": [
           "pilates",
           "minibar"
-        ]
+        ],
+        "minimumTerm": "6 months"
       },
       {
         "id": "open-gym",
@@ -59,15 +62,16 @@
         "includes": [
           "openGym",
           "minibar"
-        ]
+        ],
+        "minimumTerm": "6 months"
       }
     ],
     "inclusions": {
-      "strength": "Unlimited coached strength classes (max 14)",
-      "pilates": "Unlimited mat Pilates (max 14)",
-      "mumsBubs": "Mums and bubs classes (max 10)",
+      "strength": "Unlimited coached strength classes",
+      "pilates": "Unlimited mat Pilates",
+      "mumsBubs": "Mums and bubs classes",
       "hiit": "Saturday HIIT",
-      "openGym": "Open gym sessions (max 10)",
+      "openGym": "Open gym sessions",
       "workshops": "Beginner workshops",
       "app": "FIT X fitness app",
       "online": "Online coaching: 2 sessions a week in the app (no check-ins)",

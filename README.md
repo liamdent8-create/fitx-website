@@ -16,7 +16,7 @@ Yellow `[[NEEDS LAUREN: …]]` boxes on the site are things only Lauren can answ
 |---|---|
 | Studio page words | `content/studio.json` |
 | Timetable page words (including "Buy a pass") | `content/timetable.json` |
-| Mums and bubs page words | `content/mums.json` |
+| Class pages (strength, Pilates, mums and bubs, open gym) | `content/classes.json` |
 | Prices, tiers, what's included | `content/prices.json` |
 | Studio FAQs | `content/studio-faq.json` |
 | Video links | `content/videos.json` (paste the YouTube ID into `id`) |
@@ -37,9 +37,10 @@ npm run build    # output in dist/
 
 ## Pages
 
-- `/studio`: studio sales landing page (ads point here)
-- `/timetable`: live Mindbody timetable, plus "Buy a pass" (memberships, class packs, casual) checking out in Mindbody
-- `/mums-and-bubs`: mums and bubs page (SEO + offer)
-- `/`: redirects to `/studio` for now (location router comes later)
+- `/studio`: the sales funnel (ads and Instagram point here)
+- `/classes`: class hub, linking to `/classes/strength`, `/classes/mat-pilates`, `/classes/mums-and-bubs`, `/classes/open-gym` (simple pages for Google and booking)
+- `/timetable`: live Mindbody timetable, plus passes and packs
+- `/faq`: every question, grouped, with FAQ structured data
+- `/`: redirects to `/studio`; `/mums-and-bubs` redirects to `/classes/mums-and-bubs`
 
 See `OPEN-ITEMS.md` for what's still needed and `DECISIONS.md` for why things are the way they are.

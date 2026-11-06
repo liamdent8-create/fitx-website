@@ -56,6 +56,12 @@ const offer = studio.startOffer;
 const premium = studio.memberships.find((m) => m.id === 'premium')!;
 const others = studio.memberships.filter((m) => m.id !== 'premium');
 const inc = studio.inclusions as Record<string, string>;
+// Premium value anchor from real prices: the three single-type memberships added up.
+const separate = others.reduce((sum, m) => sum + m.weekly, 0);
+const premiumValue = c.pricing.premiumValue.replace('{separate}', `$${separate}`).replace('{premium}', `$${premium.weekly}`);
+const termFor = (m: { minimumTerm?: string }) => c.pricing.minimum.replace('{term}', m.minimumTerm ?? '');
+// Comparison table rows: every inclusion, in the order listed in prices.json.
+const compareRows = Object.keys(inc).map((k) => ({ label: inc[k], has: studio.memberships.map((m) => m.includes.includes(k)) }));
 const results = testimonials.items.filter((t: any) => t.arm === 'studio' && t.consent?.given === true && t.result);
 // Consented quotes, plus reviews members posted publicly on Mindbody (shown word for word).
 const reviews = testimonials.items.filter((t: any) => t.arm === 'studio' && (t.consent?.given === true || t.publicReview === true));
@@ -281,7 +287,7 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- 14. PRICING + partner card -->
+    <!-- 14. PRICING: Premium anchored first, with its value stack -->
     <section class="section section--mist" id="pricing">
       <div class="wrap">
         <div class="center pricing-head">
@@ -294,10 +300,12 @@ const jsonLd = {
             <p class="plan__tag">{c.pricing.premiumTag}</p>
             <h3 class="plan__name">{premium.name}</h3>
             <p class="plan__blurb">{c.pricing.premiumBlurb}</p>
-            <p class="plan__price"><b>${premium.weekly}</b>/week</p>
-            <ul class="plan__list">{premium.includes.map((k) => <li>{inc[k]}</li>)}</ul>
+            <p class="plan__price"><b>${premium.weekly}</b>/week <span class="plan__term">{termFor(premium)}</span></p>
+            <p class="plan__why-h">{c.pricing.premiumWhyTitle}</p>
+            <ul class="plan__why">{c.pricing.premiumWhy.map((w) => <li>{w}</li>)}</ul>
+            <p class="plan__value">{premiumValue}</p>
             <a class="btn btn--go btn--block btn--big" href={join} data-cta="pricing-premium">{c.pricing.cta}</a>
-            <p class="plan__min">{c.pricing.minimum}</p>
+            <p class="plan__min">{termFor(premium)}</p>
           </article>
           {others.map((m, i) => (
             <article class="plan" data-reveal style={`--i:${i + 1}`}>
@@ -305,16 +313,26 @@ const jsonLd = {
               <p class="plan__price"><b>${m.weekly}</b>/week</p>
               <ul class="plan__list">{m.includes.map((k) => <li>{inc[k]}</li>)}</ul>
               <a class="btn btn--go btn--block" href={join} data-cta={`pricing-${m.id}`}>{c.pricing.otherCta}</a>
-              <p class="plan__min">{c.pricing.minimum}</p>
+              <p class="plan__min">{termFor(m)}</p>
             </article>
           ))}
         </div>
         <p class="pricing-note" data-reveal>{c.pricing.trialNote}</p>
-        <div class="partner card" data-reveal>
-          <span class="partner__ribbon">{c.partner.ribbon}</span>
-          <h3>{c.partner.headline}</h3>
-          <p>{c.partner.body}</p>
-          <a class="btn" href={site.links.timetable} data-cta="partner">{c.partner.cta}</a>
+        <div class="compare" data-reveal>
+          <h3 class="compare__h">{c.pricing.compareTitle}</h3>
+          <div class="compare__scroll">
+            <table>
+              <thead>
+                <tr><th scope="col"><span class="vh">What's included</span></th>{studio.memberships.map((m) => <th scope="col" class:list={[{ 'is-premium': m.id === 'premium' }]}>{m.name}<small>${m.weekly}/wk</small></th>)}</tr>
+              </thead>
+              <tbody>
+                {compareRows.map((r) => (
+                  <tr><th scope="row">{r.label}</th>{r.has.map((h, i) => <td class:list={[{ 'is-premium': i === 0 }]}>{h ? <span class="yes" aria-label="Included">✓</span> : <span class="no" aria-label="Not included">–</span>}</td>)}</tr>
+                ))}
+                <tr><th scope="row">{c.pricing.compareTerm}</th>{studio.memberships.map((m, i) => <td class:list={['term', { 'is-premium': i === 0 }]}>{m.minimumTerm}</td>)}</tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <p class="pricing-note small" data-reveal>{c.pricing.packsLine} <a href={`${site.links.timetable}#passes`}>{c.pricing.packsLink} ›</a></p>
       </div>
@@ -568,10 +586,37 @@ const jsonLd = {
   .plan--premium .plan__list li::before { color: var(--ice); }
   .plan__min { margin: 0.75rem 0 0; text-align: center; font-size: 0.82rem; font-style: italic; color: var(--ink-soft); }
   .plan--premium .plan__min { color: var(--on-navy-soft); }
-  .partner { position: relative; overflow: hidden; margin-top: 1.5rem; text-align: center; padding: 2rem 1.5rem; border: 0; box-shadow: 0 20px 40px -32px rgba(13, 27, 54, 0.4); }
-  .partner__ribbon { position: absolute; top: 1.1rem; right: -2.6rem; rotate: 45deg; background: var(--navy); color: #fff; padding: 0.25rem 3rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
-  .partner h3 { font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 1.7rem; }
-  .partner p { color: var(--ink-soft); max-width: 32rem; margin-inline: auto; }
+  .plan__term { display: inline-block; margin-left: 0.5rem; padding: 0.15rem 0.55rem; border-radius: 99px; font-size: 0.78rem; font-weight: 700; background: rgba(255, 255, 255, 0.12); color: #fff; vertical-align: middle; }
+  .plan__why-h { margin: 0.25rem 0 0.6rem; font-weight: 700; color: var(--accent); }
+  .plan__why { list-style: none; padding: 0; margin: 0 0 1rem; display: grid; gap: 0.6rem; font-size: 1rem; font-weight: 600; }
+  .plan__why li { display: grid; grid-template-columns: 1.4rem 1fr; gap: 0.4rem; }
+  .plan__why li::before { content: '✓'; display: grid; place-items: center; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-size: 0.8rem; font-weight: 900; }
+  .plan__value { margin: 0 0 1.5rem; padding: 0.9rem 1rem; border-radius: 1rem; background: rgba(255, 255, 255, 0.08); font-size: 0.92rem; color: var(--on-navy-soft); }
+  .plan--premium .plan__list { font-size: 0.88rem; color: var(--on-navy-soft); }
+
+  /* Comparison table: shows Premium ticking every row */
+  .compare { margin-top: 2rem; background: var(--paper); border-radius: var(--radius); padding: 1.5rem clamp(1rem, 3vw, 2rem); box-shadow: 0 20px 40px -32px rgba(13, 27, 54, 0.4); }
+  .compare__h { font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 1.6rem; margin: 0 0 1rem; }
+  .compare__scroll { overflow-x: auto; }
+  .compare table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  .compare th, .compare td { padding: 0.6rem 0.4rem; border-bottom: 1px solid var(--line); text-align: center; }
+  .compare tbody th { text-align: left; font-weight: 500; color: var(--ink); min-width: 9rem; }
+  .compare thead th { font-weight: 700; vertical-align: bottom; }
+  .compare thead small { display: block; font-weight: 500; color: var(--ink-soft); }
+  .compare .is-premium { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+  .compare thead .is-premium { border-radius: 0.75rem 0.75rem 0 0; }
+  .compare .yes { font-weight: 900; color: var(--navy); }
+  .compare .no { color: var(--ink-soft); }
+  .compare .term { font-weight: 700; white-space: nowrap; }
+  @media (max-width: 47.99rem) {
+    .compare { padding-inline: 0.75rem; }
+    .compare table { font-size: 0.76rem; }
+    .compare tbody th { min-width: 0; }
+    .compare th, .compare td { padding: 0.5rem 0.2rem; }
+    .compare thead small { display: none; }
+    .compare .term { white-space: normal; }
+  }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .pricing-note { text-align: center; margin: 1.5rem auto 0; max-width: 36rem; }
   .pricing-note a { color: #2a62d6; font-weight: 600; }
 

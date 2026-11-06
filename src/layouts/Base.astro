@@ -8,7 +8,8 @@ interface Props {
 }
 
 const { title, description, path = '/' } = Astro.props;
-const canonical = new URL(path, Astro.site).toString();
+// Trailing slash to match the sitemap and how the static pages are served.
+const canonical = new URL(path.endsWith('/') ? path : `${path}/`, Astro.site).toString();
 ---
 <!doctype html>
 <html lang="en-AU">

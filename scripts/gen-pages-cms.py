@@ -7,7 +7,7 @@ import json, re
 FILES = [
     ('studio', 'Studio page text', 'content/studio.json'),
     ('timetable', 'Timetable page text', 'content/timetable.json'),
-    ('mums', 'Mums and bubs page text', 'content/mums.json'),
+    ('classes', 'Class pages text', 'content/classes.json'),
     ('faq', 'Studio FAQs', 'content/studio-faq.json'),
     ('videos', 'Videos', 'content/videos.json'),
     ('testimonials', 'Reviews and testimonials', 'content/testimonials.json'),

@@ -1,0 +1,115 @@
+---
+// FAQ page for Google: every question in one place, grouped, with FAQPage
+// structured data. Studio questions come from studio-faq.json, class questions
+// from classes.json, and the price answer is built from prices.json.
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import T from '../components/T.astro';
+import DmCta from '../components/DmCta.astro';
+import site from '../../content/site.json';
+import prices from '../../content/prices.json';
+import faq from '../../content/studio-faq.json';
+import classes from '../../content/classes.json';
+
+const page = faq.page;
+const { studio } = prices;
+const offer = studio.startOffer;
+const join = site.links.studioJoin;
+
+const memberships = studio.memberships.map((m) => `${m.name} $${m.weekly}`).join(', ');
+const cheapestCasual = Math.min(...studio.casual.map((x) => x.price));
+const priceA = `Start with 2 weeks of unlimited classes for $${offer.price}. Memberships are charged weekly: ${memberships}. Premium has a 3-month minimum term; Strength, Pilates and Open Gym have a 6-month minimum. Casual visits start from $${cheapestCasual}, and class packs are on the timetable page. There's no joining fee.`;
+
+type Q = { q: string; a: string };
+const groups: { title: string; id: string; link?: string; items: Q[] }[] = page.groups.map((g) => ({
+  title: g,
+  id: g.toLowerCase().replace(/[^a-z]+/g, '-'),
+  items: [
+    ...(g === 'Memberships and contracts' ? [{ q: page.priceQ, a: priceA }] : []),
+    ...faq.items.filter((i) => i.group === g),
+  ],
+}));
+// One group per class; skip questions already answered above.
+const asked = new Set(groups.flatMap((g) => g.items.map((i) => i.q)));
+for (const k of classes.classes) {
+  const items = k.faq.filter((f) => !asked.has(f.q) && !/^(What should I bring|How do I book)/.test(f.q));
+  if (items.length) groups.push({ title: k.name, id: k.slug, link: `/classes/${k.slug}`, items });
+}
+
+// Only confirmed answers go into the schema.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: groups.flatMap((g) => g.items).filter((i) => !i.a.includes('[[')).map((i) => ({ '@type': 'Question', name: i.q, acceptedAnswer: { '@type': 'Answer', text: i.a } })),
+};
+---
+<Base title={page.seo.title} description={page.seo.description} path="/faq">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Nav ctaHref={join} ctaLabel={`$${offer.price} trial`} links={[{ href: '/classes', label: 'Classes' }, { href: '/timetable', label: 'Timetable', mobile: true }, { href: '/faq', label: 'FAQ', current: true }]} />
+
+  <main id="main">
+    <section class="fhero">
+      <div class="wrap">
+        <p class="eyebrow" data-reveal>{page.eyebrow}</p>
+        <h1 class="display" data-reveal style="--i:1">{page.headline}</h1>
+        <p class="lede" data-reveal style="--i:2">{page.sub}</p>
+        <nav class="fjump" aria-label="Topics" data-reveal style="--i:3">
+          {groups.map((g) => <a href={`#${g.id}`}>{g.title}</a>)}
+        </nav>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="narrow">
+        {groups.map((g) => (
+          <div class="fgroup" id={g.id}>
+            <div class="fgroup__head">
+              <h2 class="h3">{g.title}</h2>
+              {g.link && <a href={g.link}>Class page ›</a>}
+            </div>
+            {g.items.map((i) => (
+              <details><summary>{i.q}</summary><p><T text={i.a} /></p></details>
+            ))}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section fend">
+      <div class="narrow center">
+        <h2 data-reveal>Ready to start?</h2>
+        <p class="lede" data-reveal style="--i:1">Two weeks of unlimited classes for ${offer.price}. Your 2 weeks start at your first class.</p>
+        <div data-reveal style="--i:2"><a class="btn btn--go btn--big" href={join} data-cta="faq-final">Claim my 2 weeks <span class="arrow" aria-hidden="true">→</span></a></div>
+        <div class="fend__dm" data-reveal style="--i:3"><DmCta lead="Still got a question?" /></div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .fhero { background: var(--navy); color: #fff; padding-block: clamp(2.5rem, 1.5rem + 4vw, 4.5rem); }
+  .fhero .eyebrow, .fhero .lede { color: var(--on-navy-soft); }
+  .fhero .lede { max-width: 38rem; }
+  .fhero .display { margin-bottom: 0.75rem; }
+  .fjump { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .fjump a { padding: 0.5rem 0.95rem; border-radius: 99px; font-size: 0.9rem; font-weight: 600; color: #fff; text-decoration: none; background: rgba(255, 255, 255, 0.12); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2); }
+  .fjump a:hover { background: rgba(255, 255, 255, 0.2); }
+
+  .fgroup { margin-bottom: 2.5rem; scroll-margin-top: calc(var(--nav-h) + 1rem); }
+  .fgroup__head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; border-bottom: 2px solid var(--navy); padding-bottom: 0.5rem; }
+  .fgroup__head h2 { margin: 0; font-family: var(--font-promo); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 1.6rem; letter-spacing: 0.01em; }
+  .fgroup__head a { color: #2a62d6; font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .fgroup details { border-bottom: 1px solid var(--line); }
+  .fgroup summary { cursor: pointer; padding: 1.05rem 0; font-weight: 650; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  .fgroup summary::-webkit-details-marker { display: none; }
+  .fgroup summary::after { content: '+'; font-weight: 400; font-size: 1.4rem; line-height: 1; }
+  .fgroup details[open] summary::after { content: '\2212'; }
+  .fgroup details p { margin: 0 0 1.1rem; color: var(--ink-soft); }
+
+  .fend { background: var(--navy); color: #fff; }
+  .fend .lede { color: var(--on-navy-soft); margin-bottom: 1.75rem; }
+  .fend__dm { margin-top: 1.5rem; display: flex; justify-content: center; }
+</style>

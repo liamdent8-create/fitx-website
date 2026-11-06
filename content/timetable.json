@@ -27,11 +27,12 @@
     "fallback": "Passes not loading?",
     "fallbackLink": "Open them in Mindbody",
     "membershipsHeadline": "Training every week? Start with the trial.",
-    "membershipsNote": "Every membership starts with 2 weeks unlimited for $89, so you can try every class before you choose. Prices are per week, GST included, with a 12-week or 6-month minimum.",
-    "premiumTag": "Most popular",
+    "membershipsNote": "Every membership starts with 2 weeks unlimited for $89, so you can try every class before you choose. Prices are per week, GST included.",
+    "premiumTag": "Best value",
     "cta": "Try 2 weeks for $89",
-    "trialNote": "If you stay on Premium, your trial weeks count towards your minimum term.",
-    "legal": "Prices may change. The fee schedule you're given when you join applies."
+    "trialNote": "If you stay on Premium, your trial weeks count towards your 3-month minimum.",
+    "legal": "Prices may change. The fee schedule you're given when you join applies.",
+    "minimum": "{term} minimum"
   },
   "info": {
     "headline": "Good to know",

@@ -2,7 +2,7 @@
   "_note": "All text on the studio page (/studio), in page order. Edit the words here. Prices come from prices.json, links from site.json. See FUNNEL.md for why each section exists.",
   "seo": {
     "title": "Women's Strength Studio in Cairns | 2 Weeks Unlimited $89 | FIT X Studio",
-    "description": "Coached strength classes for women in Manunda, Cairns, capped at 14. Mat Pilates, mums and bubs, Saturday HIIT and open gym. Try 2 weeks unlimited for $89."
+    "description": "Coached strength classes for women in Manunda, Cairns, plus mat Pilates, mums and bubs, Saturday HIIT and open gym. Women only. Try 2 weeks unlimited for $89."
   },
   "banner": {
     "tag": "Now open",
@@ -14,11 +14,11 @@
     "promoBottom": "unlimited",
     "badge": "$89 · every class",
     "headline": "Walk in knowing exactly what to do.",
-    "sub": "Coached strength for women in Manunda, Cairns. Classes capped at 14, so your coach can see every lift you do.",
+    "sub": "Coached strength for women in Manunda, Cairns. Small classes, so your coach can see every lift you do.",
     "cta": "Claim my 2 weeks",
     "trust": [
       "Women only",
-      "Max 14 per class",
+      "Coached every class",
       "No joining fee"
     ],
     "proof": "from {count} reviews on {source}"
@@ -48,12 +48,12 @@
   },
   "urgency": {
     "pill": "Now open",
-    "pillNote": "Classes capped at 14",
+    "pillNote": "Women only",
     "label": "Your 2 weeks start",
     "date": "At your first class",
     "body": "Not the day you buy. Claim your trial now, then pick your first class when it suits you.",
     "cta": "Claim my 2 weeks",
-    "small": "Strength and Pilates are capped at 14, so book your spot early in the week.",
+    "small": "Classes open two weeks ahead in Mindbody.",
     "timetableLink": "See this week's timetable"
   },
   "about": {
@@ -70,35 +70,35 @@
         "title": "Lift with a coach watching.",
         "photo": "squat-rack",
         "tone": "dark",
-        "detail": "Our main class. Structured weight training in a small group, programmed in five-week blocks so you practise the main lifts, add weight and track your progress. Max 14 per class."
+        "detail": "Our main class. Structured weight training in a small group, programmed in five-week blocks so you practise the main lifts, add weight and track your progress."
       },
       {
         "label": "Mat Pilates",
         "title": "Core, control and calm.",
         "photo": "pilates-room-mat",
         "tone": "light",
-        "detail": "Core, sculpt and control on the mat, no reformers. A good match for your lifting. Max 14 per class. Grip socks required (bring your own or buy from us)."
+        "detail": "Core, sculpt and control on the mat, no reformers. A good match for your lifting. Grip socks required (bring your own or buy from us)."
       },
       {
         "label": "Mums and bubs",
         "title": "Bub comes too.",
         "photo": "",
         "tone": "light",
-        "detail": "The same structure as our strength classes, with your little one in the play pen within view. Prams stay in the waiting area. Max 10 per class. More on our mums and bubs page."
+        "detail": "The same structure as our strength classes, with your little one in the play pen within view. Prams stay in the waiting area. More on our mums and bubs class page."
       },
       {
         "label": "Saturday HIIT",
-        "title": "Bring a partner.",
+        "title": "Finish the week strong.",
         "photo": "",
         "tone": "dark",
-        "detail": "On Saturdays, bring a training partner of any gender and work in doubles, Hyrox-style."
+        "detail": "A high-energy session to end your training week. Like everything at FIT X Studio, it is for women only."
       },
       {
         "label": "Open gym",
         "title": "Your space, on your time.",
         "photo": "gym-floor-wide",
         "tone": "dark",
-        "detail": "Staffed open gym sessions on the timetable, capped at 10 so it's never crowded. Included in Premium and Open Gym memberships."
+        "detail": "Staffed open gym sessions on the timetable, for when you want to train on your own. Included in Premium and Open Gym memberships."
       },
       {
         "label": "Beginner workshops",
@@ -166,20 +166,25 @@
     "eyebrow": "Memberships",
     "headline": "Choose how you train.",
     "sub": "Every membership starts the same way: 2 weeks unlimited for $89. Love it? Choose how you'd like to keep training. Standard rates, GST included.",
-    "premiumTag": "Most popular",
-    "premiumBlurb": "Everything in the studio, plus the app and online coaching.",
-    "minimum": "12-week or 6-month minimum",
+    "premiumTag": "Best value",
+    "premiumBlurb": "Every class, open gym, workshops, the FIT X app and online coaching, on our shortest commitment.",
+    "minimum": "{term} minimum",
     "cta": "Try 2 weeks for $89",
     "otherCta": "Try 2 weeks for $89",
-    "trialNote": "Try every class first, then choose. If you stay on Premium, your trial weeks count towards your minimum term.",
+    "trialNote": "Try every class first, then choose. If you stay on Premium, your trial weeks count towards your 3-month minimum.",
     "packsLine": "Just after a casual class or a class pack?",
-    "packsLink": "Buy them on the timetable page"
-  },
-  "partner": {
-    "ribbon": "Saturdays",
-    "headline": "Training with a partner?",
-    "body": "Saturday HIIT is open to a training partner of any gender. Bring them along and work in doubles.",
-    "cta": "See the timetable"
+    "packsLink": "Buy them on the timetable page",
+    "premiumWhyTitle": "Why Premium is the best value",
+    "premiumWhy": [
+      "Every class, every week: strength, Pilates, mums and bubs, Saturday HIIT and open gym",
+      "Our shortest commitment: 3 months (other memberships are 6)",
+      "Train on the days you can't get in: 2 programmed sessions a week in the FIT X app",
+      "Learn the lifts first at our beginner workshops",
+      "First offer of waitlist spots when a class is full"
+    ],
+    "premiumValue": "Strength, Pilates and Open Gym bought separately: {separate} a week on 6-month terms. Premium: {premium} a week on a 3-month term, with the app, online coaching and workshops on top.",
+    "compareTitle": "Compare memberships",
+    "compareTerm": "Minimum term"
   },
   "faq": {
     "eyebrow": "Questions",

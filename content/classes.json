@@ -1,0 +1,273 @@
+{
+  "_note": "Class pages at /classes/<slug>. Simple pages for Google and booking: the live Mindbody timetable is on every page. widgetId: optional Mindbody Schedules widget filtered to just this class (Mindbody > Branded Web Tools). Blank = the full timetable. inclusion: the key in prices.json \"inclusions\" used to list the memberships that include this class. casual: the id of the casual pass in prices.json, or blank.",
+  "index": {
+    "seo": {
+      "title": "Classes for Women in Cairns | Strength, Pilates, Mums & Bubs | FIT X Studio",
+      "description": "Women-only classes in Manunda, Cairns: coached strength, mat Pilates, mums and bubs and open gym. See this week’s timetable and book online, or try 2 weeks unlimited for $89."
+    },
+    "eyebrow": "Manunda, Cairns · Women only",
+    "headline": "Our classes.",
+    "sub": "Coached strength, mat Pilates, mums and bubs and open gym, all women only. Pick a class to see what to expect and book it on the live timetable.",
+    "cta": "See this week’s timetable"
+  },
+  "shared": {
+    "bookHeadline": "Book a class",
+    "bookNote": "Live times from Mindbody. Tap “Class Type” and choose {classType} to see just these classes.",
+    "bookNoteAll": "Live times from Mindbody, our booking system. Tap Book and sign in to reserve your spot.",
+    "loading": "Loading this week’s classes…",
+    "fallback": "Timetable not loading?",
+    "fallbackLink": "Open it in Mindbody",
+    "waysHeadline": "Ways to book",
+    "trialTitle": "New to FIT X",
+    "trialBody": "2 weeks unlimited, every class. Your 2 weeks start at your first class.",
+    "trialCta": "Claim my 2 weeks",
+    "casualTitle": "One class",
+    "casualBody": "Casual visit, no commitment.",
+    "casualCta": "Buy a casual pass",
+    "memberTitle": "Members",
+    "memberBody": "Included in {list}.",
+    "memberCta": "Compare memberships",
+    "expectHeadline": "What to expect",
+    "faqHeadline": "Questions",
+    "reviewsHeadline": "What members say",
+    "otherHeadline": "Other classes",
+    "heroBook": "Book a class",
+    "heroTrial": "New? 2 weeks for $89"
+  },
+  "classes": [
+    {
+      "slug": "strength",
+      "name": "Strength",
+      "label": "Coached strength",
+      "classType": "Strength class",
+      "inclusion": "strength",
+      "casual": "casual-strength",
+      "photo": "squat-rack",
+      "photoAlt": "The squat rack and strength floor at FIT X Studio",
+      "widgetId": "",
+      "seo": {
+        "title": "Strength Training Classes for Women in Cairns | FIT X Studio",
+        "description": "Coached strength classes for women in Manunda, Cairns. Small groups, five-week training blocks and a coach on every lift. Book online or try 2 weeks unlimited for $89."
+      },
+      "headline": "Strength classes for women in Cairns",
+      "intro": "Our main class. Structured weight training in a small group, coached from start to finish and programmed in five-week blocks, so you practise the main lifts, add weight and track your progress.",
+      "expect": [
+        {
+          "title": "Coached every class",
+          "body": "A coach runs every session, shows you each lift and helps you pick your weights."
+        },
+        {
+          "title": "Five-week training blocks",
+          "body": "You repeat the main lifts across each block, so you can see yourself getting stronger."
+        },
+        {
+          "title": "Beginners welcome",
+          "body": "Never lifted before? Premium includes beginner workshops where we go through the main lifts step by step."
+        },
+        {
+          "title": "60 minutes, women only",
+          "body": "Every class at FIT X Studio is for women only."
+        }
+      ],
+      "faq": [
+        {
+          "q": "I've never lifted before. Is this for me?",
+          "a": "Yes. Every strength class is coached, so a coach can see your form and adjust your weights. Premium also includes beginner workshops, where we go through the main lifts step by step before you do them in class."
+        },
+        {
+          "q": "How long is a class?",
+          "a": "Strength classes run for 60 minutes."
+        },
+        {
+          "q": "What should I bring?",
+          "a": "A water bottle, a towel and enclosed training shoes."
+        },
+        {
+          "q": "How do I book?",
+          "a": "Book on this page through Mindbody. You need a pass or membership first: start with 2 weeks unlimited, buy a casual class, or use a class pack."
+        }
+      ],
+      "reviews": [
+        "Anne C.",
+        "Abby T."
+      ]
+    },
+    {
+      "slug": "mat-pilates",
+      "name": "Mat Pilates",
+      "label": "Mat Pilates",
+      "classType": "Mat pilates",
+      "inclusion": "pilates",
+      "casual": "casual-pilates",
+      "photo": "pilates-room-mat",
+      "photoAlt": "The bright mat Pilates room at FIT X Studio with a blue FIT X mat",
+      "widgetId": "",
+      "seo": {
+        "title": "Mat Pilates Classes in Cairns | Women Only, Manunda | FIT X Studio",
+        "description": "Mat Pilates classes for women in Manunda, Cairns. Core, sculpt and control on the mat, no reformer needed. Book online or try 2 weeks unlimited for $89."
+      },
+      "headline": "Mat Pilates classes in Cairns",
+      "intro": "Core, sculpt and control on the mat, no reformers. A good match for your lifting days, or a class on its own.",
+      "expect": [
+        {
+          "title": "On the mat",
+          "body": "No reformer machines: a mat and light hand and ankle weights."
+        },
+        {
+          "title": "Core, sculpt and control",
+          "body": "Slow, controlled work that builds your core and pairs well with strength training."
+        },
+        {
+          "title": "Grip socks needed",
+          "body": "Bring your own or buy a pair from us at the studio."
+        },
+        {
+          "title": "Women only",
+          "body": "Every class at FIT X Studio is for women only."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is it reformer Pilates?",
+          "a": "No. It’s mat Pilates, so there are no reformer machines."
+        },
+        {
+          "q": "Do I need Pilates experience?",
+          "a": "No. Let your coach know it’s your first class when you arrive."
+        },
+        {
+          "q": "What should I bring?",
+          "a": "A water bottle, a towel and grip socks. You can bring your own or buy a pair from us."
+        },
+        {
+          "q": "How do I book?",
+          "a": "Book on this page through Mindbody. You need a pass or membership first: start with 2 weeks unlimited, buy a casual class, or use a class pack."
+        }
+      ],
+      "reviews": [
+        "Natalie R."
+      ]
+    },
+    {
+      "slug": "mums-and-bubs",
+      "name": "Mums and bubs",
+      "label": "Mums and bubs",
+      "classType": "",
+      "inclusion": "mumsBubs",
+      "casual": "",
+      "photo": "dumbbell-rack",
+      "photoAlt": "Dumbbell racks on the strength floor at FIT X Studio",
+      "widgetId": "",
+      "seo": {
+        "title": "Mums and Bubs Fitness Classes Cairns | Bub Comes Too | FIT X Studio",
+        "description": "Coached mums and bubs strength classes in Manunda, Cairns. Bub plays in the pen within view while you train. Book online or try 2 weeks unlimited for $89."
+      },
+      "headline": "Mums and bubs classes in Cairns",
+      "intro": "Coached strength classes for mums, with bub right beside you. Bub plays in the fenced play pen within view, and your coach adjusts every exercise to where you’re at.",
+      "expect": [
+        {
+          "title": "Park the pram",
+          "body": "Prams stay in the waiting area. Bub comes onto the floor with you."
+        },
+        {
+          "title": "Settle bub in",
+          "body": "There's a fenced play pen with toys, within view of where you train."
+        },
+        {
+          "title": "Train with a coach",
+          "body": "The same structure as our strength classes, coached from start to finish and adjusted for you."
+        },
+        {
+          "title": "Step out any time",
+          "body": "If bub needs a feed or a cuddle, step out and jump back in when you're ready."
+        }
+      ],
+      "faq": [
+        {
+          "q": "How soon after having a baby can I start?",
+          "a": "Everyone fills in a pre-exercise screening before their first session. If anything in your answers needs it, we'll ask for clearance from your doctor first. [[NEEDS LAUREN: your guidance on timing after birth (e.g. after the 6-week check with GP clearance), and after a caesarean.]]"
+        },
+        {
+          "q": "How old does bub need to be?",
+          "a": "[[NEEDS LAUREN: age range for bubs (e.g. from 6 weeks until walking or 2 years?)]]"
+        },
+        {
+          "q": "What if bub cries or needs a feed?",
+          "a": "That's completely normal here. You're responsible for bub during class, so step out whenever they need you and jump back in when you're ready."
+        },
+        {
+          "q": "Who looks after bub during class?",
+          "a": "You do. Bub stays in the fenced play pen within view. Our reception team may help keep little ones busy, but they don't supervise them."
+        },
+        {
+          "q": "Can I bring bub to open gym?",
+          "a": "Yes. Bub is welcome at open gym sessions too, and they're your responsibility the whole time you train."
+        },
+        {
+          "q": "Where does the pram go?",
+          "a": "Prams and baby gear stay in the waiting area, not on the studio floor."
+        },
+        {
+          "q": "Can I come while I'm pregnant?",
+          "a": "[[NEEDS LAUREN: do you take pregnant members in mums and bubs or strength classes, and what do you ask for (e.g. clearance from their midwife or doctor)?]]"
+        }
+      ],
+      "reviews": [
+        "Alana P.",
+        "Abby T."
+      ]
+    },
+    {
+      "slug": "open-gym",
+      "name": "Open gym",
+      "label": "Open gym",
+      "classType": "open gym",
+      "inclusion": "openGym",
+      "casual": "casual-open-gym",
+      "photo": "gym-floor-landscape",
+      "photoAlt": "The FIT X Studio gym floor with dumbbells, benches and a cable machine",
+      "widgetId": "",
+      "seo": {
+        "title": "Women's Open Gym in Cairns | Book a Session | FIT X Studio",
+        "description": "Book a 60-minute, women-only open gym session in Manunda, Cairns. Dumbbells, a squat rack, benches and a cable machine. Casual visits or an Open Gym membership."
+      },
+      "headline": "Women's open gym in Cairns",
+      "intro": "Train on your own time in a women-only space. Book a 60-minute open gym slot on the timetable and use the dumbbells, squat rack, benches and cable machine.",
+      "expect": [
+        {
+          "title": "Book a slot",
+          "body": "Open gym runs in 60-minute slots that you book on the timetable."
+        },
+        {
+          "title": "Staffed sessions",
+          "body": "Open gym sessions are staffed, so there’s someone around if you need a hand."
+        },
+        {
+          "title": "Bub’s welcome",
+          "body": "Mums can bring bub to open gym. Bub is your responsibility the whole time you train."
+        },
+        {
+          "title": "Women only",
+          "body": "Like every class at FIT X Studio, open gym is for women only."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do I need to book?",
+          "a": "Yes. Book a 60-minute slot on the timetable on this page."
+        },
+        {
+          "q": "Can I bring bub?",
+          "a": "Yes. Bub is welcome at open gym, and they’re your responsibility the whole time you train."
+        },
+        {
+          "q": "What should I bring?",
+          "a": "A water bottle, a towel and enclosed training shoes."
+        }
+      ],
+      "reviews": [
+        "Jessica M."
+      ]
+    }
+  ]
+}

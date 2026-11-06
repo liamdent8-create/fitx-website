@@ -1,0 +1,73 @@
+---
+// Classes hub: links to each class page (internal links help Google find them)
+// and the live timetable.
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Photo from '../../components/Photo.astro';
+import site from '../../../content/site.json';
+import prices from '../../../content/prices.json';
+import content from '../../../content/classes.json';
+
+import rack from '../../assets/studio/squat-rack.jpg';
+import dumbbells from '../../assets/studio/dumbbell-rack.jpg';
+import pilatesRoom from '../../assets/studio/pilates-room-mat.jpg';
+import floorLand from '../../assets/studio/gym-floor-landscape.jpg';
+
+const photos: Record<string, ImageMetadata> = { 'squat-rack': rack, 'dumbbell-rack': dumbbells, 'pilates-room-mat': pilatesRoom, 'gym-floor-landscape': floorLand };
+const c = content.index;
+const offer = prices.studio.startOffer;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: content.classes.map((k, i) => ({ '@type': 'ListItem', position: i + 1, name: `${k.name} classes`, url: new URL(`/classes/${k.slug}`, Astro.site).toString() })),
+};
+---
+<Base title={c.seo.title} description={c.seo.description} path="/classes">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Nav ctaHref={site.links.studioJoin} ctaLabel={`$${offer.price} trial`} links={[{ href: '/classes', label: 'Classes', current: true }, { href: '/timetable', label: 'Timetable', mobile: true }, { href: '/faq', label: 'FAQ' }]} />
+
+  <main id="main">
+    <section class="chero">
+      <div class="wrap">
+        <p class="eyebrow" data-reveal>{c.eyebrow}</p>
+        <h1 class="display" data-reveal style="--i:1">{c.headline}</h1>
+        <p class="lede" data-reveal style="--i:2">{c.sub}</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap cgrid">
+        {content.classes.map((k, n) => (
+          <a class="ccard" href={`/classes/${k.slug}`} data-reveal style={`--i:${n}`}>
+            {photos[k.photo] && <Photo src={photos[k.photo]} alt="" ratio="4 / 3" sizes="(min-width: 64rem) 25vw, (min-width: 48rem) 50vw, 100vw" class="ccard__img" />}
+            <span class="ccard__body">
+              <span class="ccard__label">{k.label}</span>
+              <span class="ccard__h">{k.headline}</span>
+              <span class="ccard__more">See classes and book ›</span>
+            </span>
+          </a>
+        ))}
+      </div>
+      <p class="center"><a class="btn btn--light ctt" href="/timetable">{c.cta} ›</a></p>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .chero { background: var(--navy); color: #fff; padding-block: clamp(2.5rem, 1.5rem + 4vw, 4.5rem); }
+  .chero .eyebrow, .chero .lede { color: var(--on-navy-soft); }
+  .chero .lede { max-width: 38rem; }
+  .chero .display { margin-bottom: 0.75rem; }
+  .cgrid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  .ccard { display: flex; flex-direction: column; border-radius: var(--radius); overflow: hidden; background: var(--mist); text-decoration: none; color: var(--ink); transition: transform 450ms var(--spring-fast), box-shadow 300ms var(--ease-out); }
+  .ccard:hover { transform: translateY(-3px); box-shadow: 0 24px 48px -32px rgba(13, 27, 54, 0.5); }
+  .ccard :global(.ccard__img) { width: 100%; object-fit: cover; }
+  .ccard__body { display: grid; gap: 0.35rem; padding: 1.25rem 1.4rem 1.5rem; }
+  .ccard__label { font-size: 0.85rem; font-weight: 700; color: var(--ink-soft); }
+  .ccard__h { font-family: var(--font-promo); font-style: italic; text-transform: uppercase; font-size: 1.55rem; line-height: 1.02; }
+  .ccard__more { margin-top: 0.4rem; font-weight: 700; color: #2a62d6; }
+  .ctt { margin-top: 2rem; background: var(--mist); border-color: var(--mist); }
+</style>

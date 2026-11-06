@@ -4,7 +4,7 @@ interface Props {
   ctaLabel: string;
   links?: { href: string; label: string; current?: boolean; mobile?: boolean }[];
 }
-const { ctaHref, ctaLabel, links = [{ href: '/mums-and-bubs', label: 'Mums & bubs' }, { href: '/timetable', label: 'Timetable', mobile: true }] } = Astro.props;
+const { ctaHref, ctaLabel, links = [{ href: '/classes', label: 'Classes' }, { href: '/timetable', label: 'Timetable', mobile: true }, { href: '/faq', label: 'FAQ' }] } = Astro.props;
 ---
 <header class="nav">
   <div class="wrap nav__inner">

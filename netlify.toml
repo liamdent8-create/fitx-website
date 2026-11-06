@@ -10,3 +10,9 @@
   from = "/"
   to = "/studio"
   status = 302
+
+# The old mums and bubs page is now the mums and bubs class page.
+[[redirects]]
+  from = "/mums-and-bubs"
+  to = "/classes/mums-and-bubs"
+  status = 301

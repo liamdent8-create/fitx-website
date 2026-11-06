@@ -1,11 +1,14 @@
 ---
 import site from '../../content/site.json';
+import classes from '../../content/classes.json';
 ---
 <footer class="footer">
   <div class="wrap small">
     <img class="footer__logo" src="/brand/fitx-studio-logo-white.png" alt="FIT X Studio" width="115" height="72" loading="lazy" />
     <p>{site.address.street}, {site.address.suburb} {site.address.state} {site.address.postcode} · {site.parking}</p>
-    <p><a href="/studio">Studio</a> · <a href="/mums-and-bubs">Mums &amp; bubs</a> · <a href="/timetable">Timetable</a> · <a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a> · <a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.instagram.studio}>Instagram</a></p>
+    <p><a href="/studio">Studio</a> · <a href="/classes">Classes</a> · <a href="/timetable">Timetable</a> · <a href="/faq">FAQ</a></p>
+    <p>{classes.classes.map((k, i) => <>{i > 0 && ' · '}<a href={`/classes/${k.slug}`}>{k.name}</a></>)}</p>
+    <p><a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a> · <a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.instagram.studio}>Instagram</a></p>
     <p>{site.legalName} · ABN {site.abn} · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
   </div>
 </footer>

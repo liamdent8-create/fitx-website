@@ -19,7 +19,7 @@ const inc = studio.inclusions as Record<string, string>;
 const p = c.passes;
 ---
 <Base title={c.seo.title} description={c.seo.description} path="/timetable">
-  <Nav ctaHref={site.links.studioJoin} ctaLabel={`$${offer.price} trial`} links={[{ href: '/studio', label: 'Studio', mobile: true }, { href: '/mums-and-bubs', label: 'Mums & bubs' }, { href: '/timetable', label: 'Timetable', current: true }]} />
+  <Nav ctaHref={site.links.studioJoin} ctaLabel={`$${offer.price} trial`} links={[{ href: '/classes', label: 'Classes' }, { href: '/timetable', label: 'Timetable', current: true, mobile: true }, { href: '/faq', label: 'FAQ' }]} />
 
   <main id="main">
     <section class="tt-hero">
@@ -63,6 +63,7 @@ const p = c.passes;
               <p class="mcard__price"><b>${m.weekly}</b><span>/week</span></p>
               <ul class="mcard__lines">{m.includes.map((k) => <li>{inc[k]}</li>)}</ul>
               <a class="btn btn--go btn--block" href={site.links.studioJoin} data-cta={`join-${m.id}`}>{p.cta}<span class="vh">, then {m.name}</span></a>
+              <p class="mcard__term">{p.minimum.replace('{term}', m.minimumTerm)}</p>
             </article>
           ))}
         </div>
@@ -133,6 +134,8 @@ const p = c.passes;
   .mcard__lines li::before { content: '✓'; position: absolute; left: 0; font-weight: 700; color: #2a62d6; }
   .mcard--featured .mcard__lines li::before { color: var(--ice); }
   .mcard .btn { margin-top: auto; }
+  .mcard__term { margin: 0.6rem 0 0; text-align: center; font-size: 0.82rem; font-style: italic; color: var(--ink-soft); }
+  .mcard--featured .mcard__term { color: var(--on-navy-soft); }
   .passes__trial { margin: 1rem 0 0; }
   .passes__legal { margin: 1.25rem 0 0; }
 

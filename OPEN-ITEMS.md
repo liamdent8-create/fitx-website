@@ -10,7 +10,6 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 4 | Studio VSL: YouTube (unlisted) link with captions on | `content/videos.json` → `studio.id` | Lauren | Open |
 | 5 | Photos with people: see `SHOT-LIST.md`. Current photos are space and equipment only | Story, classes | Lauren / crew | Open |
 | 6 | Studio testimonials with written consent | Proof wall | Lauren | Open |
-| 8 | Mums and bubs cap: agreement says **10**, current website says **14**. Site follows the agreement | Classes, prices | Lauren | Open |
 | 9 | Current website still lists a $55 "Pilates & Strength" tier (6-month) that isn't in the agreement. Remove it from Square or add it to the agreement | Old site | Lauren | Open |
 | 12 | Privacy and Terms pages: the agreement says the privacy policy is on the website | Footer | Lauren | Open |
 | 13 | Hosting: Netlify setup and domain. Step-by-step in `GO-LIVE.md` (keep the Google Workspace MX records) | Launch | Liam | Open |
@@ -31,20 +30,24 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 31 | **Rename the Mindbody widget heading** from "Book your express class" to "Book a class" (Mindbody → Branded Web Tools → widget a667931e82a) | Timetable | Lauren | Open |
 | 33 | Tropic State's Instagram handle (couldn't verify) and current address (one listing says Unit 7, 261–273 McCormack St, so possibly neighbours) | Research | Lauren | Open |
 | 34 | Confirm "Rhys Livingstone" = @rhyslivingstone (now a business mentor for PTs, Undeniable Mentoring) | Research | Lauren | Open |
-| 37 | Mums and bubs: how soon after birth can mums start (and after a caesarean), what clearance you ask for | Mums FAQ | Lauren | Open |
-| 38 | Mums and bubs: age range for bubs | Mums FAQ | Lauren | Open |
-| 39 | Mums and bubs: do you take pregnant members, and what clearance? | Mums FAQ | Lauren | Open |
+| 37 | Mums and bubs: how soon after birth can mums start (and after a caesarean), what clearance you ask for | Mums and bubs class page FAQ | Lauren | Open |
+| 38 | Mums and bubs: age range for bubs | Mums and bubs class page FAQ | Lauren | Open |
+| 39 | Mums and bubs: do you take pregnant members, and what clearance? | Mums and bubs class page FAQ | Lauren | Open |
 | 40 | Mums quotes (3–6) with consent, and mums and bubs photos (SHOT-LIST 13–17) | Mums page | Lauren / crew | Open |
 | 48 | Mindbody's "2 week unlimited trial" says "Expires 14 days after first visit" and offers "Pay in person when sessions run out". Check that wording is what you want buyers to see | Mindbody | Lauren | Open |
 | 49 | Update Fee Schedule v2.0 casual and pack prices to the Mindbody numbers (and add the 5-class packs), so the paperwork matches the website | Fee schedule | Lauren | Open |
 
-| 50 | **OK to show public reviews?** The studio and mums pages now quote 5 reviews word for word from Google and Mindbody (Abby T., Anne C., Jessica M., Alana P., Natalie R.) with first name and last initial, plus "5.0 from 18 reviews". Delete any you'd rather not show in `content/testimonials.json` | Studio, mums | Lauren | Open |
 | 51 | **Staff and family reviews on Google.** Ciara Miller (a coach) and Cory Dent have left 5-star Google reviews. The ACCC says reviews from staff or relatives should be disclosed or removed. They're not quoted on the site, but they are in the "18 reviews" count Google shows. Consider asking them to remove or edit them | Google | Lauren | Open |
 | 52 | Do trial weeks count towards the Strength, Pilates and Open Gym minimum terms too, or only Premium? The site only promises Premium for now | Pricing | Lauren | Open |
 | 53 | **Hormozi: risk reversal.** A guarantee lowers the fear of buying, e.g. "Love your first class or we'll refund your $89." Only if you're happy to honour it every time; check it against Australian Consumer Law first. Not on the site | Offer | Lauren | Idea |
 | 54 | **Hormozi: ask for the review at the high point.** Text every trial member after their 3rd class asking for a Google review (link in the review count). Volume beats a perfect score | After purchase | Lauren | Idea |
 | 55 | **Hormozi: bring a friend.** Offer each trial member a second $89 trial for a friend to start the same week; friends who start together stay longer | Offer | Lauren | Idea |
-| 56 | Accent colour is volt `#D4FF3D` (from the reel's "two quiet colours, one loud" rule). Prefer flame orange `#FF5A1F`? It's one line: `--accent` in `src/styles/global.css` | Global | Lauren | Open |
+
+| 57 | **Update Membership Agreement v2.0 to the new minimum terms:** Premium 3 months; Strength, Pilates and Open Gym 6 months (it currently says 12 weeks or 6 months). The site and FAQ now use the new terms | Contract | Lauren | Open |
+| 58 | **Add "Mums and bubs" as a class type in Mindbody.** Mindbody's class types are only MAT CLASS, Mat pilates, open gym and Strength class, so mums can't filter the timetable to find mums and bubs | Mindbody | Lauren | Open |
+| 59 | Optional: one Mindbody Schedules widget per class (Branded Web Tools, filtered to that class type), so each class page shows only its own times. Paste each ID into `content/classes.json` → `widgetId`. Until then, class pages show the full timetable with a "tap Class Type" tip | Class pages | Lauren | Optional |
+| 60 | Saturday HIIT isn't a Mindbody class type yet either. Add it when it's on the timetable, and I can add a Saturday HIIT class page | Mindbody | Lauren | Open |
+| 61 | Mindbody also lists a "MAT CLASS" type next to "Mat pilates". If they're the same class, merge them so the filter is clear | Mindbody | Lauren | Optional |
 
 ## Closed
 | Item | Resolution | Date |
@@ -75,3 +78,9 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | Google reviews | 9 Google reviews (5.0) found; best ones quoted alongside Mindbody's | 2026-11-06 |
 | Opening date urgency | Removed (date passed). Replaced with a true reason to act: the 2 weeks start at the first class | 2026-11-06 |
 | Strength single class price | $25, as now set in Mindbody (was $28 on 21 Oct) | 2026-11-06 |
+| Class size caps | Removed everywhere ("(max 14)" read like a limit on the number of classes) | 2026-11-06 |
+| Minimum terms | Premium 3 months; Strength, Pilates and Open Gym 6 months | 2026-11-06 |
+| Saturday HIIT | Female only like everything else; partner card and partner FAQ removed | 2026-11-06 |
+| Featured reviews | Approved by Lauren | 2026-11-06 |
+| Accent colour | Volt approved | 2026-11-06 |
+| Mums and bubs funnel page | Replaced by a simple class page at /classes/mums-and-bubs (old URL redirects) | 2026-11-06 |
