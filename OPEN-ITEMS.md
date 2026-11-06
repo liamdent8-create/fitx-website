@@ -11,7 +11,7 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 5 | Photos with people: see `SHOT-LIST.md`. Current photos are space and equipment only | Story, classes | Lauren / crew | Open |
 | 6 | Studio testimonials with written consent | Proof wall | Lauren | Open |
 | 9 | Current website still lists a $55 "Pilates & Strength" tier (6-month) that isn't in the agreement. Remove it from Square or add it to the agreement | Old site | Lauren | Open |
-| 12 | **Privacy policy and terms are drafted** at /privacy and /terms (text in `content/legal.json`, editable in Pages CMS). Have them checked by a professional before launch | Footer | Lauren | Open |
+| 12 | **Privacy policy is live on /privacy** (your Version 1.0 document, word for word). Your document says to have it reviewed by a Queensland solicitor before it is first published. The website terms on /terms are still a draft for review | Footer | Lauren | Open |
 | 13 | Hosting: Netlify setup and domain. Step-by-step in `GO-LIVE.md` (keep the Google Workspace MX records) | Launch | Liam | Open |
 | 14 | GitHub repo is **public**. Fine for website code, but no keys or member data ever go in it. Consider making it private | GitHub | Liam | Open |
 | 15 | Online higher tier: $59 (brief) vs $69 (FIT X Ops "new pricing") | Online page | Lauren | Open |
@@ -50,6 +50,9 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 61 | Mindbody also lists a "MAT CLASS" type next to "Mat pilates". If they're the same class, merge them so the filter is clear | Mindbody | Lauren | Optional |
 
 | 62 | Before launch, re-run `research/SITE-CHECKLIST.md` (the 30-point "looks vibecoded" list) | Launch | Claude | Open |
+| 63 | **Privacy contact email:** the policy says fitx.coachloz@gmail.com, but the rest of the site uses lauren@fitxstudio.com.au. Keep both, or switch the policy to one address? | Privacy | Lauren | Open |
+| 64 | When Meta Pixel or Google Analytics are added (item 25), the privacy policy needs a line about website analytics and cookies, and the Instagram DM automation (ManyChat) could be named under "Who we share your information with" | Privacy | Lauren | Later |
+| 65 | **Hero video loop:** a 6 to 10 second silent clip from the VSL footage (women training, the neon sign) for the top of the studio page. The biggest visual upgrade left | Studio hero | Lauren | Open |
 
 ## Closed
 | Item | Resolution | Date |

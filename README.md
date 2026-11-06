@@ -27,6 +27,10 @@ After adding or renaming a field in a content file, run `python3 scripts/gen-pag
 
 Going live on the domain: see `GO-LIVE.md`.
 
+## Before launch
+
+`npm run check` checks every page as the public will see it. See also `research/SITE-CHECKLIST.md` and `BRAND.md`.
+
 ## Running locally
 
 ```

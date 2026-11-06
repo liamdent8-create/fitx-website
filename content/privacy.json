@@ -1,0 +1,471 @@
+{
+  "_note": "Privacy policy at /privacy, word for word from FITX-Privacy-Policy.docx (Version 1.0, September 2026). Edit the Word document first, then this file to match. Block types: h2 (numbered section), h3, p, ul, table (first row is the header), callout.",
+  "seo": {
+    "title": "Privacy Policy | FIT X Studio",
+    "description": "How FIT X Studio in Manunda, Cairns collects, uses, shares and protects your personal and health information under the Australian Privacy Principles."
+  },
+  "title": "Privacy Policy",
+  "version": "Version 1.0 · September 2026 · Lauren May Dent trading as Fit X Studio, ABN 76 968 117 388",
+  "internalNote": "Version 1.0 · September 2026 · Please have this policy reviewed by a Queensland solicitor before it is first published.",
+  "blocks": [
+    {
+      "type": "callout",
+      "text": "Fit X Studio collects health information about our members. That means the Privacy Act 1988 (Cth) applies to us regardless of our size, and we are bound by the Australian Privacy Principles. This policy explains what we collect, why, who we share it with, and what you can do about it.",
+      "strong": false
+    },
+    {
+      "type": "h2",
+      "text": "Who we are",
+      "num": "1"
+    },
+    {
+      "type": "p",
+      "text": "Fit X Studio is operated by Lauren May Dent, trading as Fit X Studio, ABN 76 968 117 388, of 6/261–273 McCormack Street, Manunda QLD 4870."
+    },
+    {
+      "type": "p",
+      "text": "In this policy, “we”, “us” and “our” mean Fit X Studio, and “you” means a member, a casual visitor, a prospective member, a guest, or anyone else whose personal information we hold."
+    },
+    {
+      "type": "h2",
+      "text": "Why the Privacy Act applies to us",
+      "num": "2"
+    },
+    {
+      "type": "p",
+      "text": "Many small businesses are exempt from the Privacy Act. That exemption does not apply to a business that provides a health service and holds health information. Because we carry out pre-exercise health screening and hold information about your injuries, conditions and medications, we are treated as a health service provider and the Act applies to us in full."
+    },
+    {
+      "type": "p",
+      "text": "We are therefore bound by the 13 Australian Privacy Principles (APPs) and by the Notifiable Data Breaches scheme."
+    },
+    {
+      "type": "h2",
+      "text": "What information we collect",
+      "num": "3"
+    },
+    {
+      "type": "h3",
+      "text": "Personal information"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Your name, date of birth, address, phone number and email address",
+        "Your emergency contact's name and phone number",
+        "Your membership type, start date, minimum term and attendance history",
+        "Your payment details and payment history",
+        "Any correspondence, complaints or feedback you send us"
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Health information"
+    },
+    {
+      "type": "p",
+      "text": "Health information is a type of sensitive information and has extra protection under the Privacy Act. We collect:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Your answers to our pre-exercise screening questionnaire, including any heart condition, chest pain, dizziness or fainting, blood pressure, diabetes, respiratory conditions, stroke or circulation problems, pregnancy or recent birth, injuries, joint problems or chronic pain, recent surgery, current treatment by a health practitioner, and medications that may affect exercise",
+        "Any medical certificate or clearance you give us",
+        "Any injury or incident that happens at the studio, recorded in our incident register",
+        "Where you choose to have them taken, body measurements, weights and progress photos"
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Images and footage"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Photographs and video taken in the studio, where you have consented to us using them",
+        "CCTV footage — see section 10"
+      ]
+    },
+    {
+      "type": "h3",
+      "text": "Website and online"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Information you give us through our website, booking system or social media",
+        "Standard technical information your browser sends when you visit our website"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "How we collect it",
+      "num": "4"
+    },
+    {
+      "type": "p",
+      "text": "We collect information directly from you wherever we can — on your membership form, your pre-exercise screening questionnaire, when you book a class, when you speak to a coach, and when you contact us."
+    },
+    {
+      "type": "p",
+      "text": "We also collect information through our booking and payment systems when you use them, and through CCTV when you are in the studio."
+    },
+    {
+      "type": "p",
+      "text": "Sometimes we collect information about you from someone else — for example, if a family member books on your behalf, or if your doctor provides a clearance. If we collect your information from someone else, we will take reasonable steps to let you know."
+    },
+    {
+      "type": "h2",
+      "text": "Why we collect it and how we use it",
+      "num": "5"
+    },
+    {
+      "type": "p",
+      "text": "We collect and use your personal information to:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Train you safely, and design and adjust programs to suit you",
+        "Decide whether you need medical clearance before taking part in a particular activity",
+        "Set up and manage your membership, bookings and account",
+        "Take payments and manage arrears",
+        "Contact you about your training, your bookings, class changes and your account",
+        "Respond to an emergency, including contacting your emergency contact or emergency services",
+        "Keep the studio safe and secure, and investigate incidents, injuries or damage",
+        "Handle complaints and disputes",
+        "Meet our legal, insurance and record-keeping obligations",
+        "Send you marketing, if you have opted in"
+      ]
+    },
+    {
+      "type": "p",
+      "text": "We will not use your information for anything else unless you would reasonably expect it, you have consented, or the law requires or permits it."
+    },
+    {
+      "type": "h2",
+      "text": "Health information — the extra rules",
+      "num": "6"
+    },
+    {
+      "type": "callout",
+      "text": "We collect your health information only with your consent, and only where it is reasonably necessary for us to train you safely. You give that consent when you sign your membership agreement and complete the screening questionnaire, and you can withdraw it at any time — though without it we may not be able to let you train.",
+      "strong": false
+    },
+    {
+      "type": "p",
+      "text": "We apply a strict need-to-know rule inside the business:"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Who",
+          "What they can see"
+        ],
+        [
+          "Lauren (owner)",
+          "All member information, including full health information."
+        ],
+        [
+          "Coaches, employed or contracted",
+          "The injuries, conditions and modifications relevant to training the members they actually coach, plus emergency contact details. Not your full medical history."
+        ],
+        [
+          "Reception",
+          "Your name, contact details, membership status and emergency contact. No health information."
+        ],
+        [
+          "Bookkeeper and accountant",
+          "Financial records only. No health information."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "We do not use health information for marketing, and we never will."
+    },
+    {
+      "type": "h2",
+      "text": "Who we share your information with",
+      "num": "7"
+    },
+    {
+      "type": "p",
+      "text": "We share your information only where we need to. The people and organisations we may share it with are:"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Who",
+          "What we share",
+          "Why"
+        ],
+        [
+          "Our coaches",
+          "Health information relevant to your training, emergency contact",
+          "So you can be trained safely"
+        ],
+        [
+          "Mindbody",
+          "Contact details, membership, bookings, payment details",
+          "Our booking and membership platform"
+        ],
+        [
+          "Mindbody's payment provider",
+          "Payment details",
+          "Processes your membership payments"
+        ],
+        [
+          "Square",
+          "Contact and payment details",
+          "Personal training payments"
+        ],
+        [
+          "Shopify",
+          "Contact and payment details",
+          "Apparel orders"
+        ],
+        [
+          "Our email/SMS platform",
+          "Name, email, mobile",
+          "Sending you studio and account messages, and marketing if you opted in"
+        ],
+        [
+          "Our accountant and bookkeeper",
+          "Financial records",
+          "Bookkeeping, BAS and tax"
+        ],
+        [
+          "Emergency services, your emergency contact, or a treating practitioner",
+          "Whatever is necessary",
+          "If you are injured or unwell"
+        ],
+        [
+          "Our insurer and lawyers",
+          "Whatever is necessary",
+          "If there is a claim, an incident or a dispute"
+        ],
+        [
+          "A debt collection agency",
+          "Name, contact details, amount owing",
+          "Only if your account is in arrears and we have told you first"
+        ],
+        [
+          "Government agencies or courts",
+          "Whatever is required",
+          "Where the law requires it"
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "We do not sell your personal information, and we do not give it to anyone for their own marketing."
+    },
+    {
+      "type": "h2",
+      "text": "Information sent overseas",
+      "num": "8"
+    },
+    {
+      "type": "p",
+      "text": "Some of the platforms we use store information on servers outside Australia, including in the United States. Mindbody, Square and Shopify all operate internationally."
+    },
+    {
+      "type": "p",
+      "text": "This means your personal information — including, where relevant, health information you enter into our booking system — may be stored or processed overseas. Before we disclose your information to an overseas recipient we take reasonable steps to satisfy ourselves that it will be handled consistently with the Australian Privacy Principles, but we cannot control everything an overseas provider does."
+    },
+    {
+      "type": "p",
+      "text": "If you would prefer your health information not to be stored in our booking system, tell us and we will hold it on paper at the studio instead."
+    },
+    {
+      "type": "h2",
+      "text": "Direct marketing",
+      "num": "9"
+    },
+    {
+      "type": "p",
+      "text": "We only send you marketing if you have opted in. Every marketing email and SMS we send includes a way to unsubscribe, and we act on unsubscribe requests promptly."
+    },
+    {
+      "type": "p",
+      "text": "You can opt out at any time by using the unsubscribe link, or by emailing us. Opting out of marketing does not stop us sending you messages about your account, your bookings or class changes — those are not marketing."
+    },
+    {
+      "type": "p",
+      "text": "We never use health information to decide what marketing to send you."
+    },
+    {
+      "type": "h2",
+      "text": "CCTV",
+      "num": "10"
+    },
+    {
+      "type": "p",
+      "text": "CCTV cameras operate at the front and rear entrances and in the training areas. They are there for the safety and security of members and staff, and to help us resolve incidents, injuries and property damage."
+    },
+    {
+      "type": "callout",
+      "text": "There are no cameras in the change rooms or toilets, and there never will be.",
+      "strong": true
+    },
+    {
+      "type": "p",
+      "text": "Signs are displayed at the entrances so you know cameras are operating."
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Footage is kept for 30 days and then automatically overwritten, unless it is needed for a specific incident.",
+        "Only people we have specifically authorised can view footage.",
+        "We keep a record of who viewed footage, when, and why.",
+        "We only give footage to someone else where the law requires it, or where it is necessary for an insurance claim or a police investigation."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Photographs and video",
+      "num": "11"
+    },
+    {
+      "type": "p",
+      "text": "We only photograph or film you for marketing if you have given consent. Consent is separate from your membership — you can join whether or not you agree, and it is never a condition of joining."
+    },
+    {
+      "type": "p",
+      "text": "You can withdraw consent at any time by telling us in writing. Withdrawal applies to future use, and we will remove past use where it is reasonably practicable to do so."
+    },
+    {
+      "type": "p",
+      "text": "If you have not consented, we take reasonable steps to keep you out of promotional content. You may still appear incidentally in the background of images taken in shared areas, and we will remove any such image on request."
+    },
+    {
+      "type": "p",
+      "text": "Members may film themselves in the studio only if no other member is in frame. Filming is never permitted in change rooms or toilets."
+    },
+    {
+      "type": "h2",
+      "text": "Keeping your information secure",
+      "num": "12"
+    },
+    {
+      "type": "p",
+      "text": "We take reasonable steps to protect your information from misuse, interference, loss, and unauthorised access, modification or disclosure. Those steps include:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Storing paper forms in a locked cabinet, and scanning and securely destroying paper where we can",
+        "Using access controls in our booking system so staff only see what their role requires",
+        "Using reputable payment providers, so we never store your full card or bank details ourselves",
+        "Training our staff on how to handle member information, particularly health information",
+        "Destroying or de-identifying information when we no longer need it"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "How long we keep your information",
+      "num": "13"
+    },
+    {
+      "type": "p",
+      "text": "We keep member records for 7 years after your membership ends, and then destroy them. That period reflects our tax and record-keeping obligations and the time limits that apply to legal claims."
+    },
+    {
+      "type": "p",
+      "text": "Where a member was under 18, we keep their records for longer, until they turn 25, because the time limits for claims run differently for minors."
+    },
+    {
+      "type": "p",
+      "text": "CCTV footage is kept for 30 days, unless it relates to a specific incident."
+    },
+    {
+      "type": "h2",
+      "text": "Accessing and correcting your information",
+      "num": "14"
+    },
+    {
+      "type": "p",
+      "text": "You can ask us for a copy of the personal information we hold about you, and you can ask us to correct it if it is wrong, out of date or incomplete. Email us and we will respond within 30 days."
+    },
+    {
+      "type": "p",
+      "text": "There is no charge for asking. If a request takes substantial work we may charge a reasonable cost, and we will tell you what it is before we do anything."
+    },
+    {
+      "type": "p",
+      "text": "We can only refuse access in limited circumstances set out in the Privacy Act. If we refuse, we will tell you why in writing and how you can complain."
+    },
+    {
+      "type": "h2",
+      "text": "Data breaches",
+      "num": "15"
+    },
+    {
+      "type": "p",
+      "text": "If personal information we hold is lost, or accessed or disclosed without authorisation, and it is likely to result in serious harm, we will notify you and the Office of the Australian Information Commissioner as required by the Notifiable Data Breaches scheme. We will tell you what happened, what information was involved, and what you should do."
+    },
+    {
+      "type": "h2",
+      "text": "Complaints",
+      "num": "16"
+    },
+    {
+      "type": "p",
+      "text": "If you think we have mishandled your personal information, tell us. Email fitx.coachloz@gmail.com with “Privacy complaint” in the subject line, or speak to Lauren at the studio."
+    },
+    {
+      "type": "p",
+      "text": "We will acknowledge your complaint within 2 business days and give you a written response within 30 days."
+    },
+    {
+      "type": "p",
+      "text": "If you are not satisfied with our response, you can complain to the Office of the Australian Information Commissioner:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Online at oaic.gov.au",
+        "By phone on 1300 363 992",
+        "By post to GPO Box 5288, Sydney NSW 2001"
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Changes to this policy",
+      "num": "17"
+    },
+    {
+      "type": "p",
+      "text": "We may update this policy. The current version is always available at the studio and on our website, and we will tell members about any significant change."
+    },
+    {
+      "type": "h2",
+      "text": "Contact us",
+      "num": "18"
+    },
+    {
+      "type": "table",
+      "rows": [
+        [
+          "Privacy contact",
+          "Lauren Dent, Owner"
+        ],
+        [
+          "Email",
+          "fitx.coachloz@gmail.com"
+        ],
+        [
+          "Phone",
+          "0432 018 580"
+        ],
+        [
+          "Address",
+          "6/261–273 McCormack Street, Manunda QLD 4870"
+        ]
+      ]
+    }
+  ]
+}

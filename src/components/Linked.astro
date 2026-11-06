@@ -1,0 +1,13 @@
+---
+// Text with email addresses, Australian phone numbers and oaic.gov.au made
+// clickable, without changing any of the words.
+interface Props { text?: string }
+const LINK = /([\w.+-]+@[\w-]+\.[\w.]+|oaic\.gov\.au|\b0\d{3} \d{3} \d{3}\b)/g;
+const parts = (Astro.props.text ?? '').split(LINK).map((s, i) => {
+  if (i % 2 === 0) return { s, href: '' };
+  if (s.includes('@')) return { s, href: `mailto:${s}` };
+  if (s === 'oaic.gov.au') return { s, href: 'https://www.oaic.gov.au' };
+  return { s, href: `tel:${s.replace(/\s/g, '')}` };
+});
+---
+{parts.map((x) => (x.href ? <a href={x.href}>{x.s}</a> : x.s))}

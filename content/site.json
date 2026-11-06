@@ -23,10 +23,11 @@
     "studioJoin": "https://www.mindbodyonline.com/explore/deals/fit-x-studio/intro-offer-100046",
     "timetable": "/timetable",
     "apparel": "https://fitxapparelaustralia.myshopify.com",
-    "online": "/online",
+    "online": "https://www.instagram.com/laurenndent/",
     "memberships": "https://clients.mindbodyonline.com/classic/ws?studioid=5756603&stype=40",
     "mindbodySchedule": "https://go.mindbodyonline.com/book/widgets/schedules/view/a667931e82a/schedule",
-    "mindbodyPricing": "https://go.mindbodyonline.com/book/widgets/pricing/view/a64678e82a/pricing?category=passesAndPacks"
+    "mindbodyPricing": "https://go.mindbodyonline.com/book/widgets/pricing/view/a64678e82a/pricing?category=passesAndPacks",
+    "_onlineNote": "Online coaching link: Lauren's Instagram until an online coaching page exists."
   },
   "mindbodyWidgetId": "a667931e82a",
   "dm": {

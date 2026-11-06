@@ -12,7 +12,8 @@ FILES = [
     ('videos', 'Videos', 'content/videos.json'),
     ('testimonials', 'Reviews and testimonials', 'content/testimonials.json'),
     ('site', 'Contact details and links', 'content/site.json'),
-    ('legal', 'Privacy policy and terms', 'content/legal.json'),
+    ('legal', 'Website terms', 'content/legal.json'),
+    ('privacy', 'Privacy policy', 'content/privacy.json'),
 ]
 
 

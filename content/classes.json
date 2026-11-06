@@ -2,8 +2,8 @@
   "_note": "Class pages at /classes/<slug>. Simple pages for Google and booking: the live Mindbody timetable is on every page. widgetId: optional Mindbody Schedules widget filtered to just this class (Mindbody > Branded Web Tools). Blank = the full timetable. inclusion: the key in prices.json \"inclusions\" used to list the memberships that include this class. casual: the id of the casual pass in prices.json, or blank.",
   "index": {
     "seo": {
-      "title": "Classes for Women in Cairns | Strength, Pilates, Mums & Bubs | FIT X Studio",
-      "description": "Women-only classes in Manunda, Cairns: coached strength, mat Pilates, mums and bubs and open gym. See this week’s timetable and book online, or try 2 weeks unlimited for $89."
+      "title": "Strength, Pilates & Mums Classes Cairns | FIT X Studio",
+      "description": "Women-only classes in Manunda, Cairns: coached strength, mat Pilates, mums and bubs and open gym. Book online or try 2 weeks unlimited for $89."
     },
     "eyebrow": "Manunda, Cairns · Women only",
     "headline": "Our classes.",
@@ -47,7 +47,7 @@
       "widgetId": "",
       "seo": {
         "title": "Strength Training Classes for Women in Cairns | FIT X Studio",
-        "description": "Coached strength classes for women in Manunda, Cairns. Small groups, five-week training blocks and a coach on every lift. Book online or try 2 weeks unlimited for $89."
+        "description": "Coached strength classes for women in Manunda, Cairns, in five-week training blocks. Book online or try 2 weeks unlimited for $89."
       },
       "headline": "Strength classes for women in Cairns",
       "intro": "Our main class. Structured weight training in a small group, coached from start to finish and programmed in five-week blocks, so you practise the main lifts, add weight and track your progress.",
@@ -103,7 +103,7 @@
       "photoAlt": "The bright mat Pilates room at FIT X Studio with a blue FIT X mat",
       "widgetId": "",
       "seo": {
-        "title": "Mat Pilates Classes in Cairns | Women Only, Manunda | FIT X Studio",
+        "title": "Mat Pilates Classes Cairns | Women Only | FIT X Studio",
         "description": "Mat Pilates classes for women in Manunda, Cairns. Core, sculpt and control on the mat, no reformer needed. Book online or try 2 weeks unlimited for $89."
       },
       "headline": "Mat Pilates classes in Cairns",
@@ -159,7 +159,7 @@
       "photoAlt": "Dumbbell racks on the strength floor at FIT X Studio",
       "widgetId": "",
       "seo": {
-        "title": "Mums and Bubs Fitness Classes Cairns | Bub Comes Too | FIT X Studio",
+        "title": "Mums and Bubs Fitness Cairns | Bub Comes Too | FIT X Studio",
         "description": "Coached mums and bubs strength classes in Manunda, Cairns. Bub plays in the pen within view while you train. Book online or try 2 weeks unlimited for $89."
       },
       "headline": "Mums and bubs classes in Cairns",

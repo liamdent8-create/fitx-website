@@ -1,4 +1,71 @@
 ---
-import LegalPage from '../components/LegalPage.astro';
+// Privacy policy, word for word from Lauren's policy document (content/privacy.json).
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import site from '../../content/site.json';
+import prices from '../../content/prices.json';
+import Linked from '../components/Linked.astro';
+import d from '../../content/privacy.json';
+
+type Block = { type: string; text?: string; num?: string; items?: string[]; rows?: string[][]; strong?: boolean };
+const blocks = d.blocks as Block[];
+const slug = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const sections = blocks.filter((b) => b.type === 'h2');
+
 ---
-<LegalPage doc="privacy" />
+<Base title={d.seo.title} description={d.seo.description} path="/privacy">
+  <Nav ctaHref={site.links.studioJoin} ctaLabel={`$${prices.studio.startOffer.price} trial`} />
+  <main id="main" class="section">
+    <article class="narrow policy">
+      <h1 class="display policy__h">{d.title}</h1>
+      <p class="small">{d.version}</p>
+
+      <nav class="policy__toc" aria-label="Sections">
+        <ol>{sections.map((s) => <li><a href={`#${slug(s.text!)}`}>{s.text}</a></li>)}</ol>
+      </nav>
+
+      {blocks.map((b) => {
+        if (b.type === 'h2') return <h2 class="h3" id={slug(b.text!)}><span>{b.num}.</span> {b.text}</h2>;
+        if (b.type === 'h3') return <h3>{b.text}</h3>;
+        if (b.type === 'ul') return <ul>{b.items!.map((i) => <li><Linked text={i} /></li>)}</ul>;
+        if (b.type === 'callout') return <p class:list={['policy__callout', { 'is-strong': b.strong }]}><Linked text={b.text} /></p>;
+        if (b.type === 'table') return (
+          <div class="policy__table">
+            <table>
+              {b.rows![0][0] === 'Who'
+                ? <><thead><tr>{b.rows![0].map((c) => <th scope="col">{c}</th>)}</tr></thead>
+                    <tbody>{b.rows!.slice(1).map((r) => <tr>{r.map((c, i) => (i === 0 ? <th scope="row">{c}</th> : <td><Linked text={c} /></td>))}</tr>)}</tbody></>
+                : <tbody>{b.rows!.map((r) => <tr>{r.map((c, i) => (i === 0 ? <th scope="row">{c}</th> : <td><Linked text={c} /></td>))}</tr>)}</tbody>}
+            </table>
+          </div>
+        );
+        return <p><Linked text={b.text} /></p>;
+      })}
+    </article>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .policy__h { font-size: clamp(2.4rem, 1.8rem + 3vw, 3.5rem); margin-bottom: 0.5rem; }
+  .policy h2 { margin: 2.5rem 0 0.75rem; scroll-margin-top: calc(var(--nav-h) + 1rem); }
+  .policy h2 span { color: var(--ink-soft); }
+  .policy h3 { font-size: 1.02rem; margin: 1.25rem 0 0.4rem; }
+  .policy p, .policy li { color: var(--ink-soft); }
+  .policy ul { padding-left: 1.2rem; display: grid; gap: 0.35rem; margin: 0 0 1rem; }
+  .policy a { color: #2a62d6; }
+  .policy__toc { margin: 1.5rem 0 1rem; padding: 1.25rem 1.5rem; border-radius: var(--radius-sm); background: var(--mist); }
+  .policy__toc ol { margin: 0; padding-left: 1.3rem; columns: 2 14rem; column-gap: 2rem; font-size: 0.92rem; }
+  .policy__toc li { break-inside: avoid; margin-bottom: 0.3rem; }
+  .policy__toc a { color: var(--ink); text-decoration: none; }
+  .policy__toc a:hover { text-decoration: underline; }
+  .policy__callout { margin: 1.25rem 0; padding: 1rem 1.25rem; border-left: 4px solid var(--navy); border-radius: 0 0.75rem 0.75rem 0; background: var(--mist); color: var(--ink) !important; }
+  .policy__callout.is-strong { font-weight: 700; }
+  .policy__table { overflow-x: auto; margin: 1rem 0 1.25rem; }
+  .policy table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+  .policy th, .policy td { text-align: left; vertical-align: top; padding: 0.65rem 0.75rem 0.65rem 0; border-bottom: 1px solid var(--line); }
+  .policy thead th { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-soft); border-bottom: 2px solid var(--navy); }
+  .policy tbody th { font-weight: 650; color: var(--ink); min-width: 8rem; }
+  .policy td { color: var(--ink-soft); }
+</style>

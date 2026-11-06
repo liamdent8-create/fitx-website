@@ -1,5 +1,5 @@
 ---
-// Shared layout for the privacy policy and terms pages (text in content/legal.json).
+// Layout for the website terms page (text in content/legal.json).
 import Base from '../layouts/Base.astro';
 import Nav from './Nav.astro';
 import Footer from './Footer.astro';
@@ -7,7 +7,7 @@ import site from '../../content/site.json';
 import prices from '../../content/prices.json';
 import legal from '../../content/legal.json';
 
-interface Props { doc: 'privacy' | 'terms' }
+interface Props { doc: 'terms' }
 const d = legal[Astro.props.doc];
 const fill = (t: string) => t
   .replaceAll('{business}', site.business)
