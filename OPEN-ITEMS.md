@@ -52,7 +52,7 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 62 | Before launch, re-run `research/SITE-CHECKLIST.md` (the 30-point "looks vibecoded" list) | Launch | Claude | Open |
 | 63 | **Privacy contact email:** the policy says fitx.coachloz@gmail.com, but the rest of the site uses lauren@fitxstudio.com.au. Keep both, or switch the policy to one address? | Privacy | Lauren | Open |
 | 64 | When Meta Pixel or Google Analytics are added (item 25), the privacy policy needs a line about website analytics and cookies, and the Instagram DM automation (ManyChat) could be named under "Who we share your information with" | Privacy | Lauren | Later |
-| 66 | **Before the full VSL goes on the site:** it shows "Strength classes capped at 14 people" (about 1:08) and "Come to our open day! Saturday 11th October" (about 1:55, now past). Re-export without those, or I can cut the open day part out. Then upload to YouTube as Unlisted with captions on and send the link (item 4) | VSL | Lauren | Open |
+| 66 | **Before the full VSL goes on the site:** it shows "Strength classes capped at 14 people" (about 1:08) and "Come to our open day! Saturday 11th October" (about 1:55, now past). Open day part cut out (file "FIT X VSL - no open day.mp4", 1:59, sent in chat 6 Nov). Upload to YouTube as Unlisted with captions on and send the link (item 4) | VSL | Lauren | Open |
 | 67 | Set "fit x vsl for claude.MP4" in Google Drive back to Restricted sharing (it was opened by link so it could be downloaded) | Drive | Lauren | Open |
 
 ## Closed

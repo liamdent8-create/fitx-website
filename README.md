@@ -31,6 +31,10 @@ Going live on the domain: see `GO-LIVE.md`.
 
 `npm run check` checks every page as the public will see it. See also `research/SITE-CHECKLIST.md` and `BRAND.md`.
 
+## Shareable preview
+
+Private preview page (claude.ai): https://claude.ai/artifact/BfVsFzfeTeMLXWZDEwbUau. To refresh it, build the public version (`HIDE_TODOS=1 npm run build`), run `node scripts/make-static-preview.mjs <folder>` and republish. The Mindbody widgets can't load inside that preview; they work on the real site.
+
 ## Running locally
 
 ```
