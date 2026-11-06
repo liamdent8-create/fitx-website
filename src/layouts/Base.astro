@@ -38,16 +38,14 @@ const canonical = new URL(path.endsWith('/') ? path : `${path}/`, Astro.site).to
     <a class="skip" href="#main">Skip to content</a>
     <slot />
     <script>
-      // Reveal on scroll. Once in, stays in (no re-hiding on scroll back).
+      // Entrance only for what's on screen when the page opens. Everything
+      // further down is simply there: no fade-in on scroll.
       const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
-      if ('IntersectionObserver' in window) {
-        const io = new IntersectionObserver((entries) => {
-          for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
-        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
-        els.forEach((el) => io.observe(el));
-      } else {
-        els.forEach((el) => el.classList.add('is-in'));
-      }
+      const fold = innerHeight;
+      els.forEach((el) => {
+        if (el.getBoundingClientRect().top < fold) requestAnimationFrame(() => el.classList.add('is-in'));
+        else { el.style.transition = 'none'; el.classList.add('is-in'); }
+      });
     </script>
     <style>
       .skip {

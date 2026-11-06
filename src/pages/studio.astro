@@ -17,6 +17,7 @@ import site from '../../content/site.json';
 import prices from '../../content/prices.json';
 import videos from '../../content/videos.json';
 import faq from '../../content/studio-faq.json';
+import { hideTodos, confirmed } from '../lib/todo';
 import testimonials from '../../content/testimonials.json';
 import c from '../../content/studio.json';
 
@@ -131,6 +132,7 @@ const jsonLd = {
     <Ticker items={c.ticker} />
 
     <!-- 4. TRUST: the VSL, CTA right under it -->
+    {(videos.studio.id || !hideTodos) && (
     <section class="section vsl-section">
       <div class="wrap">
         <div class="center">
@@ -143,6 +145,7 @@ const jsonLd = {
         </div>
       </div>
     </section>
+    )}
 
     <!-- 5. PROOF: straight after the video. Member results when we have them, and real reviews -->
     <section class="section section--mist proof" id="reviews">
@@ -190,7 +193,6 @@ const jsonLd = {
     <!-- 6. URGENCY: a true reason to act now. The trial runs from the first visit, so claiming today costs nothing -->
     <section class="section urgency">
       <div class="narrow center">
-        <p class="pill" data-reveal><span>{c.urgency.pill}</span> <i aria-hidden="true"></i> {c.urgency.pillNote}</p>
         <p class="eyebrow urgency__label" data-reveal style="--i:1">{c.urgency.label}</p>
         <p class="promo urgency__date" data-reveal style="--i:1">{c.urgency.date}</p>
         <p class="lede urgency__body" data-reveal style="--i:2">{c.urgency.body}</p>
@@ -235,7 +237,7 @@ const jsonLd = {
           <ul class="ticks" data-reveal style="--i:2">{c.bonus.items.map((i) => <li>{i}</li>)}</ul>
           <p class="small" data-reveal style="--i:3"><T text={c.bonus.extra} /></p>
         </div>
-        <div class="bonus__card glass" data-reveal style="--i:2">
+        <div class="bonus__card panel" data-reveal style="--i:2">
           <p class="promo bonus__price">{c.bonus.price}</p>
           <p class="bonus__note">{c.bonus.priceNote}</p>
           <p class="bonus__anchor">{anchor}</p>
@@ -253,16 +255,6 @@ const jsonLd = {
           <h2 data-reveal style="--i:1">{c.app.headline}</h2>
           <p class="lede" data-reveal style="--i:2">{c.app.body}</p>
           <p class="small" data-reveal style="--i:3"><T text={c.app.note} /></p>
-        </div>
-        <div class="phone" data-reveal style="--i:2" aria-hidden="true">
-          <div class="phone__screen">
-            <div class="phone__island"></div>
-            <p class="phone__h">This week</p>
-            <div class="phone__card"><b>Workout A</b><span>Lower body · 45 min</span></div>
-            <div class="phone__card"><b>Workout B</b><span>Upper body · 40 min</span></div>
-            <div class="phone__card phone__card--muted"><b>Strength class</b><span>Booked · Thu 6am</span></div>
-            <p class="phone__soon">App screenshot coming</p>
-          </div>
         </div>
       </div>
     </section>
@@ -346,7 +338,7 @@ const jsonLd = {
           <h2 data-reveal style="--i:1">{c.faq.headline}</h2>
         </div>
         <div class="faq" data-reveal style="--i:2">
-          {faq.items.map((f: any) => (
+          {confirmed(faq.items).map((f: any) => (
             <details>
               <summary>{f.q}</summary>
               <div class="faq__a"><p><T text={f.a} /></p></div>
@@ -366,7 +358,7 @@ const jsonLd = {
           <h2 class="contact__h" data-reveal>{c.contact.headline}</h2>
           <p class="lede" data-reveal style="--i:1">{c.contact.sub}</p>
         </div>
-        <div class="contact__card glass" data-reveal style="--i:1">
+        <div class="contact__card panel" data-reveal style="--i:1">
           <a class="btn btn--light btn--block btn--big" href={`https://ig.me/m/${site.dm.account}`} data-cta="contact-dm">{c.contact.dm}</a>
           <p class="small contact__dmnote">{c.contact.dmNote}</p>
           <div class="contact__rows">
@@ -405,7 +397,7 @@ const jsonLd = {
   <!-- Mobile dock: floating glass bar once the hero CTA scrolls away -->
   <div class="dock glass" aria-hidden="true" data-dock>
     <div class="dock__text"><strong>${offer.price}</strong> <span>2 weeks unlimited</span></div>
-    <a class="btn btn--go" href={join} data-cta="dock" tabindex="-1">Claim</a>
+    <a class="btn btn--go" href={join} data-cta="dock" tabindex="-1">Claim 2 weeks</a>
   </div>
 
   <script>
@@ -427,6 +419,7 @@ const jsonLd = {
 </Base>
 
 <style>
+  .panel { background: var(--navy-2); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.5); }
   /* 2. Hero */
   .hero {
     position: relative; isolation: isolate; color: var(--on-navy); background: var(--navy); overflow: hidden;
@@ -483,10 +476,6 @@ const jsonLd = {
   .results__cta { margin-top: 1.5rem; }
 
   /* 6. Urgency */
-  .pill { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0.85rem 0.3rem 0.3rem; border-radius: 99px; border: 1px solid var(--line); font-size: 0.9rem; margin: 0 0 1.5rem; background: var(--paper); }
-  .pill span { background: var(--mist); border-radius: 99px; padding: 0.2rem 0.7rem; font-weight: 600; }
-  .pill i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #34c759; box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.6); animation: pulse 2s var(--ease-out) infinite; }
-  @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(52, 199, 89, 0); } 100% { box-shadow: 0 0 0 0 rgba(52, 199, 89, 0); } }
   .urgency__label { text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.8rem; margin: 0; }
   .urgency__date { font-size: clamp(2.6rem, 1.6rem + 5vw, 4.5rem); color: var(--navy); margin: 0.25rem 0 1.5rem; }
   .urgency .small { margin-top: 1rem; }
@@ -510,21 +499,7 @@ const jsonLd = {
   .bonus__card .small { margin-bottom: 1.5rem; }
 
   /* 10. App */
-  .app__grid { display: grid; gap: 2.5rem; align-items: center; }
-  @media (min-width: 48rem) { .app__grid { grid-template-columns: 1fr 0.8fr; } }
-  .phone {
-    justify-self: center; width: min(18rem, 78vw); aspect-ratio: 9 / 19; border-radius: 3rem; padding: 0.7rem;
-    background: linear-gradient(145deg, #2b2f38, #0b0d12); box-shadow: 0 50px 80px -40px rgba(13, 27, 54, 0.6), inset 0 0 0 2px #3a3f4a;
-  }
-  .phone__screen { height: 100%; border-radius: 2.4rem; background: linear-gradient(180deg, #f8f9fb, #eef1f6); padding: 3.2rem 1rem 1rem; position: relative; overflow: hidden; }
-  .phone__island { position: absolute; top: 0.8rem; left: 50%; translate: -50% 0; width: 5.5rem; height: 1.6rem; border-radius: 99px; background: #0b0d12; }
-  .phone__h { font-weight: 700; font-size: 1.35rem; letter-spacing: -0.02em; margin: 0 0 0.75rem; }
-  .phone__card { display: grid; gap: 0.1rem; background: #fff; border-radius: 1rem; padding: 0.85rem 1rem; margin-bottom: 0.6rem; box-shadow: 0 6px 18px -12px rgba(13, 27, 54, 0.4); }
-  .phone__card b { font-size: 0.95rem; }
-  .phone__card span { font-size: 0.8rem; color: var(--ink-soft); }
-  .phone__card--muted { background: var(--navy); color: #fff; }
-  .phone__card--muted span { color: var(--on-navy-soft); }
-  .phone__soon { position: absolute; bottom: 1rem; left: 0; right: 0; text-align: center; font-size: 0.72rem; color: var(--ink-soft); }
+  .app__grid { max-width: 44rem; }
 
   /* 11. Checklist */
   .checklist { list-style: none; padding: 0; margin-top: 2rem; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
@@ -647,7 +622,7 @@ const jsonLd = {
   @media (min-width: 64rem) { .contact__grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
   .contact__h { font-size: clamp(2.6rem, 1.6rem + 4vw, 4.2rem); }
   .contact .lede { color: rgba(255, 255, 255, 0.85); }
-  .contact__card { padding: 1.5rem; border-radius: calc(var(--radius) + 0.25rem); background: rgba(255, 255, 255, 0.14); }
+  .contact__card { padding: 1.5rem; border-radius: calc(var(--radius) + 0.25rem); }
   .contact__dmnote { margin: 0.75rem 0 0; text-align: center; color: var(--on-navy-soft); }
   .contact__rows { display: grid; margin-top: 1rem; }
   .contact__rows > * { display: grid; gap: 0.1rem; padding: 0.85rem 0.25rem; border-bottom: 1px solid rgba(255, 255, 255, 0.16); text-decoration: none; margin: 0; }

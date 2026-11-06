@@ -1,0 +1,115 @@
+{
+  "_note": "Privacy policy (/privacy) and website terms (/terms). Drafted from facts on the site; have them reviewed before launch. {business}, {legalName}, {abn}, {email}, {phone} and {address} are filled in from site.json.",
+  "updated": "6 November 2026",
+  "privacy": {
+    "seo": {
+      "title": "Privacy Policy | FIT X Studio",
+      "description": "How FIT X Studio in Manunda, Cairns collects, uses and protects your personal information."
+    },
+    "headline": "Privacy policy",
+    "sections": [
+      {
+        "h": "Who we are",
+        "p": [
+          "{legalName} (ABN {abn}), \"FIT X Studio\", \"we\" or \"us\", at {address}. This policy explains how we handle your personal information under the Australian Privacy Principles."
+        ]
+      },
+      {
+        "h": "What we collect",
+        "p": [
+          "When you book, buy a pass or join: your name, contact details, date of birth, emergency contact and payment details. Bookings and payments are handled by Mindbody, our booking system.",
+          "Before your first session: your answers to our pre-exercise screening, which can include health information. We ask for this to keep you safe and only use it for that.",
+          "When you message us (Instagram, email or phone): what you tell us, such as your goals and training experience. Our Instagram replies may be automated with ManyChat.",
+          "When you use this website: the booking and pricing tools on this site are provided by Mindbody, which uses cookies and analytics on its own widgets. Videos only load from YouTube when you press play."
+        ]
+      },
+      {
+        "h": "How we use it",
+        "p": [
+          "To run your bookings and membership, coach you safely, answer your questions, and send you information about the studio. We only send marketing if you have agreed to it, and you can opt out at any time."
+        ]
+      },
+      {
+        "h": "Who we share it with",
+        "p": [
+          "Only the services we use to run the studio: Mindbody (bookings and payments), Meta and ManyChat (Instagram messages) and Google (email). Some of these store information outside Australia, including in the United States. We do not sell your personal information."
+        ]
+      },
+      {
+        "h": "Keeping it safe",
+        "p": [
+          "We keep your information in these systems with access limited to the people who need it, and we delete or de-identify it when we no longer need it."
+        ]
+      },
+      {
+        "h": "Access, correction and complaints",
+        "p": [
+          "You can ask to see or correct the information we hold about you, or make a privacy complaint, by emailing {email} or calling {phone}. We will reply within 30 days. If you are not happy with our response, you can contact the Office of the Australian Information Commissioner at oaic.gov.au."
+        ]
+      }
+    ]
+  },
+  "terms": {
+    "seo": {
+      "title": "Terms | FIT X Studio",
+      "description": "Website terms for FIT X Studio, Manunda, Cairns: prices, the 2-week trial, bookings and memberships."
+    },
+    "headline": "Terms",
+    "sections": [
+      {
+        "h": "About these terms",
+        "p": [
+          "These terms cover this website and buying a pass from it. They are provided by {legalName} (ABN {abn}). Memberships are covered by the membership agreement and fee schedule you sign when you join, and those documents take priority over this website."
+        ]
+      },
+      {
+        "h": "Prices",
+        "p": [
+          "Prices on this site are in Australian dollars and include GST. They may change; the price shown in Mindbody when you pay is the price you are charged, and the fee schedule you are given when you join applies to your membership."
+        ]
+      },
+      {
+        "h": "The 2-week trial",
+        "p": [
+          "2 weeks of unlimited classes for a one-off payment, bought through Mindbody. It runs for 14 days from your first visit. If you stay on as a Premium member, your trial weeks count towards your minimum term."
+        ]
+      },
+      {
+        "h": "Bookings and cancellations",
+        "p": [
+          "Book classes through Mindbody. You can cancel free of charge up to 12 hours before a class. If you miss three booked classes in 30 days without cancelling in time, a $10 fee applies from the third."
+        ]
+      },
+      {
+        "h": "Your health",
+        "p": [
+          "Everyone completes a pre-exercise screening before their first session. If your answers need it, we may ask for clearance from your doctor before you train. Tell your coach about any injury or health change."
+        ]
+      },
+      {
+        "h": "Who can train",
+        "p": [
+          "FIT X Studio is for women only. You need to be 16 or over; if you are 16 or 17, a parent or guardian signs with you."
+        ]
+      },
+      {
+        "h": "Reviews on this site",
+        "p": [
+          "Reviews are quoted word for word from public Google and Mindbody reviews, with the reviewer's first name and last initial."
+        ]
+      },
+      {
+        "h": "Your rights",
+        "p": [
+          "Nothing in these terms limits your rights under the Australian Consumer Law."
+        ]
+      },
+      {
+        "h": "Contact",
+        "p": [
+          "Questions about these terms: {email} or {phone}."
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+---
+// Shared layout for the privacy policy and terms pages (text in content/legal.json).
+import Base from '../layouts/Base.astro';
+import Nav from './Nav.astro';
+import Footer from './Footer.astro';
+import site from '../../content/site.json';
+import prices from '../../content/prices.json';
+import legal from '../../content/legal.json';
+
+interface Props { doc: 'privacy' | 'terms' }
+const d = legal[Astro.props.doc];
+const fill = (t: string) => t
+  .replaceAll('{business}', site.business)
+  .replaceAll('{legalName}', site.legalName)
+  .replaceAll('{abn}', site.abn)
+  .replaceAll('{email}', site.email)
+  .replaceAll('{phone}', site.phone)
+  .replaceAll('{address}', `${site.address.street}, ${site.address.suburb} ${site.address.state} ${site.address.postcode}`);
+---
+<Base title={d.seo.title} description={d.seo.description} path={`/${Astro.props.doc}`}>
+  <Nav ctaHref={site.links.studioJoin} ctaLabel={`$${prices.studio.startOffer.price} trial`} />
+  <main id="main" class="section">
+    <article class="narrow legal">
+      <h1 class="display legal__h">{d.headline}</h1>
+      <p class="small">Last updated {legal.updated}</p>
+      {d.sections.map((s) => (
+        <section>
+          <h2 class="h3">{s.h}</h2>
+          {s.p.map((p) => <p>{fill(p)}</p>)}
+        </section>
+      ))}
+    </article>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .legal__h { font-size: clamp(2.4rem, 1.8rem + 3vw, 3.5rem); margin-bottom: 0.5rem; }
+  .legal section { margin-top: 2rem; }
+  .legal h2 { margin-bottom: 0.5rem; }
+  .legal p { color: var(--ink-soft); }
+</style>

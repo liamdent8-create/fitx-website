@@ -11,6 +11,7 @@ import site from '../../content/site.json';
 import prices from '../../content/prices.json';
 import faq from '../../content/studio-faq.json';
 import classes from '../../content/classes.json';
+import { confirmed } from '../lib/todo';
 
 const page = faq.page;
 const { studio } = prices;
@@ -27,13 +28,13 @@ const groups: { title: string; id: string; link?: string; items: Q[] }[] = page.
   id: g.toLowerCase().replace(/[^a-z]+/g, '-'),
   items: [
     ...(g === 'Memberships and contracts' ? [{ q: page.priceQ, a: priceA }] : []),
-    ...faq.items.filter((i) => i.group === g),
+    ...confirmed(faq.items.filter((i) => i.group === g)),
   ],
 }));
 // One group per class; skip questions already answered above.
 const asked = new Set(groups.flatMap((g) => g.items.map((i) => i.q)));
 for (const k of classes.classes) {
-  const items = k.faq.filter((f) => !asked.has(f.q) && !/^(What should I bring|How do I book)/.test(f.q));
+  const items = confirmed(k.faq).filter((f) => !asked.has(f.q) && !/^(What should I bring|How do I book)/.test(f.q));
   if (items.length) groups.push({ title: k.name, id: k.slug, link: `/classes/${k.slug}`, items });
 }
 

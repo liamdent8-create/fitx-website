@@ -15,7 +15,7 @@ const { items, label = "What's included" } = Astro.props;
     animation: ticker 38s linear infinite; white-space: nowrap;
     font-family: var(--font-promo); font-style: italic; text-transform: uppercase; font-size: 1.05rem; letter-spacing: 0.03em;
   }
-  .ticker__row li::before { content: '✦'; margin-right: 2.25rem; color: var(--ice); font-style: normal; }
+  .ticker__row li::before { content: 'X'; font-family: var(--font-promo); font-style: italic; color: var(--accent); margin-right: 2.25rem; }
   .ticker:hover .ticker__row { animation-play-state: paused; }
   @media (prefers-reduced-motion: reduce) { .ticker { overflow-x: auto; } .ticker__row { animation: none; } .ticker__row[aria-hidden] { display: none; } }
 </style>

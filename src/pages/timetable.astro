@@ -75,14 +75,11 @@ const p = c.passes;
     <section class="section">
       <div class="wrap">
         <h2 data-reveal>{c.info.headline}</h2>
-        <div class="grid grid--3 info">
-          {c.info.items.map((i, n) => (
-            <article class="card" data-reveal style={`--i:${n}`}>
-              <h3>{i.title}</h3>
-              <p class="small">{i.body}</p>
-            </article>
+        <dl class="info">
+          {c.info.items.map((i) => (
+            <div class="info__row"><dt>{i.title}</dt><dd>{i.body}</dd></div>
           ))}
-        </div>
+        </dl>
       </div>
     </section>
   </main>
@@ -139,6 +136,9 @@ const p = c.passes;
   .passes__trial { margin: 1rem 0 0; }
   .passes__legal { margin: 1.25rem 0 0; }
 
-  .info { margin-top: 1.5rem; }
-  .info .card { border: 0; }
+  .info { margin: 1.5rem 0 0; border-top: 1px solid var(--line); }
+  .info__row { display: grid; gap: 0.25rem 2rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+  @media (min-width: 48rem) { .info__row { grid-template-columns: 14rem 1fr; } }
+  .info dt { font-weight: 700; }
+  .info dd { margin: 0; color: var(--ink-soft); }
 </style>

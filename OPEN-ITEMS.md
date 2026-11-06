@@ -11,7 +11,7 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 5 | Photos with people: see `SHOT-LIST.md`. Current photos are space and equipment only | Story, classes | Lauren / crew | Open |
 | 6 | Studio testimonials with written consent | Proof wall | Lauren | Open |
 | 9 | Current website still lists a $55 "Pilates & Strength" tier (6-month) that isn't in the agreement. Remove it from Square or add it to the agreement | Old site | Lauren | Open |
-| 12 | Privacy and Terms pages: the agreement says the privacy policy is on the website | Footer | Lauren | Open |
+| 12 | **Privacy policy and terms are drafted** at /privacy and /terms (text in `content/legal.json`, editable in Pages CMS). Have them checked by a professional before launch | Footer | Lauren | Open |
 | 13 | Hosting: Netlify setup and domain. Step-by-step in `GO-LIVE.md` (keep the Google Workspace MX records) | Launch | Liam | Open |
 | 14 | GitHub repo is **public**. Fine for website code, but no keys or member data ever go in it. Consider making it private | GitHub | Liam | Open |
 | 15 | Online higher tier: $59 (brief) vs $69 (FIT X Ops "new pricing") | Online page | Lauren | Open |
@@ -48,6 +48,8 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 59 | Optional: one Mindbody Schedules widget per class (Branded Web Tools, filtered to that class type), so each class page shows only its own times. Paste each ID into `content/classes.json` → `widgetId`. Until then, class pages show the full timetable with a "tap Class Type" tip | Class pages | Lauren | Optional |
 | 60 | Saturday HIIT isn't a Mindbody class type yet either. Add it when it's on the timetable, and I can add a Saturday HIIT class page | Mindbody | Lauren | Open |
 | 61 | Mindbody also lists a "MAT CLASS" type next to "Mat pilates". If they're the same class, merge them so the filter is clear | Mindbody | Lauren | Optional |
+
+| 62 | Before launch, re-run `research/SITE-CHECKLIST.md` (the 30-point "looks vibecoded" list) | Launch | Claude | Open |
 
 ## Closed
 | Item | Resolution | Date |

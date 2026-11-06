@@ -8,6 +8,7 @@ import Footer from '../../components/Footer.astro';
 import Photo from '../../components/Photo.astro';
 import T from '../../components/T.astro';
 import MindbodySchedule from '../../components/MindbodySchedule.astro';
+import { confirmed } from '../../lib/todo';
 import site from '../../../content/site.json';
 import prices from '../../../content/prices.json';
 import testimonials from '../../../content/testimonials.json';
@@ -22,7 +23,8 @@ export function getStaticPaths() {
   return content.classes.map((k) => ({ params: { slug: k.slug }, props: { k } }));
 }
 
-const { k } = Astro.props;
+const { k: raw } = Astro.props;
+const k = { ...raw, faq: confirmed(raw.faq) };
 const s = content.shared;
 const photos: Record<string, ImageMetadata> = { 'squat-rack': rack, 'dumbbell-rack': dumbbells, 'pilates-room-mat': pilatesRoom, 'gym-floor-landscape': floorLand };
 const { studio } = prices;

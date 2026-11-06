@@ -23,7 +23,7 @@ const { items, label, id } = Astro.props;
         {t.photo ? (
           <Photo src={t.photo} alt="" ratio="auto" sizes="(min-width: 64rem) 33vw, 82vw" class="tile__img" />
         ) : (
-          <div class="tile__shot" aria-hidden="true">Shot needed: {t.label.toLowerCase()}</div>
+          <p class="tile__word" aria-hidden="true">{t.label}</p>
         )}
         <button type="button" class="tile__plus" data-open={i} aria-haspopup="dialog" aria-label={`More about ${t.label}`}>
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
@@ -158,6 +158,12 @@ const { items, label, id } = Astro.props;
 </script>
 
 <style>
+  /* Tiles without a photo: a big word instead of an empty placeholder box */
+  .tile__word {
+    position: absolute; left: 1.4rem; right: 1.4rem; bottom: 1.4rem; margin: 0;
+    font-family: var(--font-promo); font-style: italic; text-transform: uppercase; font-size: clamp(2.6rem, 2rem + 2vw, 3.4rem);
+    line-height: 0.92; color: transparent; -webkit-text-stroke: 1.5px currentColor; opacity: 0.35;
+  }
   .tile {
     position: relative; overflow: hidden; border-radius: var(--radius);
     aspect-ratio: 3 / 4; min-height: 26rem; display: flex; flex-direction: column;
