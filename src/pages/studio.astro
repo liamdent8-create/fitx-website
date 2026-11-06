@@ -445,8 +445,8 @@ const jsonLd = {
   }
   .hero__media { position: absolute; inset: 0; z-index: -1; }
   .hero__media :global(.hero__img) { width: 100%; height: 100%; object-fit: cover; object-position: 60% 25%; border-radius: 0; }
-  .hero__video { position: absolute; inset: 0; opacity: 0; transition: opacity 600ms var(--ease-out); }
-  .hero__video.is-playing { opacity: 1; }
+  .hero__media :global(.hero__video) { position: absolute; inset: 0; object-position: 45% 40%; opacity: 0; transition: opacity 600ms var(--ease-out); }
+  .hero__media :global(.hero__video.is-playing) { opacity: 1; }
   .hero__media::after {
     content: ''; position: absolute; inset: 0;
     background: linear-gradient(180deg, rgba(13, 27, 54, 0.15) 0%, rgba(13, 27, 54, 0.55) 40%, rgba(13, 27, 54, 0.97) 82%);

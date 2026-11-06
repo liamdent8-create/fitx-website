@@ -21,7 +21,8 @@
   },
   "heroLoop": {
     "_note": "Silent 6 to 10 second loop at the top of the studio page. Make it with scripts/make-hero-loop.sh, then set both paths (e.g. /video/hero-loop.mp4). Leave blank to show the photo.",
-    "mp4": "",
-    "webm": ""
+    "mp4": "/video/hero-loop.mp4",
+    "webm": "/video/hero-loop.webm",
+    "source": "Cut from \"fit x vsl for claude.MP4\" (Google Drive, 6 Nov 2026): 0:04.1-0:05.6 squat spot, 0:27.9-0:29.9 dumbbell press, 1:29.4-1:31.4 squat coaching, 0:23.7-0:24.55 pull-up assist, 0:02.8-0:04.0 lat pulldown. No sound, no on-screen text."
   }
 }

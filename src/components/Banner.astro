@@ -17,5 +17,6 @@ const { href, tag, text, link } = Astro.props;
   }
   .banner__tag { border: 1.5px solid currentColor; border-radius: 0.35rem; padding: 0.05rem 0.4rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 800; white-space: nowrap; flex-shrink: 0; }
   .banner__text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  @media (max-width: 26rem) { .banner__tag { display: none; } }
   .banner__link { text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
 </style>
