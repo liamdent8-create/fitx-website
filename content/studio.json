@@ -68,28 +68,28 @@
       {
         "label": "Coached strength",
         "title": "Lift with a coach watching.",
-        "photo": "squat-rack",
+        "photo": "strength-class",
         "tone": "dark",
         "detail": "Our main class. Structured weight training in a small group, programmed in five-week blocks so you practise the main lifts, add weight and track your progress."
       },
       {
         "label": "Mat Pilates",
         "title": "Core, control and calm.",
-        "photo": "pilates-room-mat",
-        "tone": "light",
+        "photo": "mat-pilates-class",
+        "tone": "dark",
         "detail": "Core, sculpt and control on the mat, no reformers. A good match for your lifting. Grip socks required (bring your own or buy from us)."
       },
       {
         "label": "Mums and bubs",
         "title": "Bub comes too.",
-        "photo": "",
-        "tone": "light",
+        "photo": "mums-and-bubs-class",
+        "tone": "dark",
         "detail": "The same structure as our strength classes, with your little one in the play pen within view. Prams stay in the waiting area. More on our mums and bubs class page."
       },
       {
         "label": "Saturday HIIT",
         "title": "Finish the week strong.",
-        "photo": "",
+        "photo": "hiit-med-ball",
         "tone": "dark",
         "detail": "A high-energy session to end your training week. Like everything at FIT X Studio, it is for women only."
       },
@@ -110,8 +110,8 @@
       {
         "label": "Mini bar",
         "title": "Coffee's on us.",
-        "photo": "pilates-weights",
-        "tone": "light",
+        "photo": "mini-bar",
+        "tone": "dark",
         "detail": "Every membership includes the mini bar: coffee, protein shakes and pre-workouts."
       }
     ]

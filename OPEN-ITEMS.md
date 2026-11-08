@@ -54,6 +54,7 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | 64 | When Meta Pixel or Google Analytics are added (item 25), the privacy policy needs a line about website analytics and cookies, and the Instagram DM automation (ManyChat) could be named under "Who we share your information with" | Privacy | Lauren | Later |
 | 66 | **Before the full VSL goes on the site:** it shows "Strength classes capped at 14 people" (about 1:08) and "Come to our open day! Saturday 11th October" (about 1:55, now past). Open day part cut out (file "FIT X VSL - no open day.mp4", 1:59, sent in chat 6 Nov). Upload to YouTube as Unlisted with captions on and send the link (item 4) | VSL | Lauren | Open |
 | 67 | Set "fit x vsl for claude.MP4" in Google Drive back to Restricted sharing (it was opened by link so it could be downloaded) | Drive | Lauren | Open |
+| 68 | **Photo consent:** the new class photos show members' faces (and bubs in the mums and bubs photo). Your privacy policy (section 11) says photos are only used for marketing with consent. Please confirm everyone pictured, and the parents of the bubs, said yes | Photos | Lauren | Open |
 
 ## Closed
 | Item | Resolution | Date |
@@ -91,3 +92,4 @@ Every `[[NEEDS LAUREN: …]]` on the site is listed here. Nothing goes live unti
 | Accent colour | Volt approved | 2026-11-06 |
 | Mums and bubs funnel page | Replaced by a simple class page at /classes/mums-and-bubs (old URL redirects) | 2026-11-06 |
 | Hero video loop | 7.6-second silent loop of coaching moments cut from the VSL, on the studio page | 2026-11-06 |
+| Class photos | Strength, mat Pilates, mums and bubs, HIIT and mini bar photos added (location data stripped) to the studio tiles and gallery, class pages and classes hub | 2026-11-08 |

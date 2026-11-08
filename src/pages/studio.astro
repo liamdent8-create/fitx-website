@@ -31,8 +31,18 @@ import pilatesRoom from '../assets/studio/pilates-room-mat.jpg';
 import pilatesMat from '../assets/studio/pilates-mat-closeup.jpg';
 import pilatesWeights from '../assets/studio/pilates-weights.jpg';
 import pilatesShelf from '../assets/studio/pilates-shelf.jpg';
+import strengthClass from '../assets/classes/strength-class.jpg';
+import pilatesClass from '../assets/classes/mat-pilates-class.jpg';
+import mumsClass from '../assets/classes/mums-and-bubs-class.jpg';
+import hiitClass from '../assets/classes/hiit-med-ball.jpg';
+import miniBar from '../assets/classes/mini-bar.jpg';
 
 const photos: Record<string, ImageMetadata> = {
+  'strength-class': strengthClass,
+  'mat-pilates-class': pilatesClass,
+  'mums-and-bubs-class': mumsClass,
+  'hiit-med-ball': hiitClass,
+  'mini-bar': miniBar,
   'squat-rack': rack,
   'pilates-room-mat': pilatesRoom,
   'gym-floor-wide': floorWide,
@@ -42,6 +52,10 @@ const photos: Record<string, ImageMetadata> = {
 const included = c.included.items.map((t) => ({ ...t, photo: photos[t.photo] }));
 
 const gallery = [
+  { src: strengthClass, alt: 'Women doing barbell hip thrusts in a strength class at FIT X Studio' },
+  { src: pilatesClass, alt: 'A mat Pilates class at FIT X Studio' },
+  { src: mumsClass, alt: 'A mums and bubs class at FIT X Studio, with prams and bubs on a play mat beside the training floor' },
+  { src: hiitClass, alt: 'A member throwing a medicine ball against the wall' },
   { src: floorLand, alt: 'The FIT X Studio gym floor with dumbbell racks, benches and the neon FIT X sign on a mirrored wall' },
   { src: pilatesRoom, alt: 'The bright mat Pilates room with mirrors and a blue FIT X Studio mat' },
   { src: rack, alt: 'Squat rack with a loaded barbell in the strength area' },

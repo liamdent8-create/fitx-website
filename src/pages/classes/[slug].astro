@@ -18,6 +18,11 @@ import rack from '../../assets/studio/squat-rack.jpg';
 import dumbbells from '../../assets/studio/dumbbell-rack.jpg';
 import pilatesRoom from '../../assets/studio/pilates-room-mat.jpg';
 import floorLand from '../../assets/studio/gym-floor-landscape.jpg';
+import strengthClass from '../../assets/classes/strength-class.jpg';
+import pilatesClass from '../../assets/classes/mat-pilates-class.jpg';
+import mumsClass from '../../assets/classes/mums-and-bubs-class.jpg';
+import hiitClass from '../../assets/classes/hiit-med-ball.jpg';
+import miniBar from '../../assets/classes/mini-bar.jpg';
 
 export function getStaticPaths() {
   return content.classes.map((k) => ({ params: { slug: k.slug }, props: { k } }));
@@ -26,7 +31,7 @@ export function getStaticPaths() {
 const { k: raw } = Astro.props;
 const k = { ...raw, faq: confirmed(raw.faq) };
 const s = content.shared;
-const photos: Record<string, ImageMetadata> = { 'squat-rack': rack, 'dumbbell-rack': dumbbells, 'pilates-room-mat': pilatesRoom, 'gym-floor-landscape': floorLand };
+const photos: Record<string, ImageMetadata> = { 'strength-class': strengthClass, 'mat-pilates-class': pilatesClass, 'mums-and-bubs-class': mumsClass, 'hiit-med-ball': hiitClass, 'mini-bar': miniBar, 'squat-rack': rack, 'dumbbell-rack': dumbbells, 'pilates-room-mat': pilatesRoom, 'gym-floor-landscape': floorLand };
 const { studio } = prices;
 const offer = studio.startOffer;
 const join = site.links.studioJoin;
@@ -95,7 +100,7 @@ const jsonLd = [
         </div>
         {photos[k.photo] && (
           <div class="khero__media" data-reveal style="--i:1">
-            <Photo src={photos[k.photo]} alt={k.photoAlt} ratio="4 / 3" sizes="(min-width: 64rem) 45vw, 100vw" eager />
+            <Photo src={photos[k.photo]} alt={k.photoAlt} ratio="4 / 5" sizes="(min-width: 64rem) 40vw, 100vw" eager />
           </div>
         )}
       </div>
