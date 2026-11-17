@@ -193,7 +193,7 @@
   "contact": {
     "headline": "Got a question?",
     "sub": "Send us a DM, or call or email the studio. We'd love to hear from you.",
-    "dm": "DM us \"LIFT\" on Instagram",
+    "dm": "DM us \"TRIAL\" on Instagram",
     "form": "[[NEEDS LAUREN: approve a Jotform contact form (name, mobile, email, question) that saves to Google Sheets.]]",
     "dmNote": "We'll ask about your goal and experience, then point you to the right start."
   },
@@ -210,6 +210,6 @@
     "crossOnlineLink": "Train with Coach Loz online",
     "crossApparel": "Need something to train in?",
     "crossApparelLink": "Shop FIT X Apparel",
-    "ps": "P.S. Your 2 weeks don't start until your first class, so you won't lose a day by claiming today. Not sure which class to start with? DM us \"LIFT\" on Instagram and we'll point you to the right one."
+    "ps": "P.S. Your 2 weeks don't start until your first class, so you won't lose a day by claiming today. Not sure which class to start with? DM us \"TRIAL\" on Instagram and we'll point you to the right one."
   }
 }
